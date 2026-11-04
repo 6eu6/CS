@@ -1,0 +1,47 @@
+<article class="lesson" data-id="tb-zip" data-week="2" data-title="zip()">
+  <div class="eyebrow">Week 2 · Power tool 6 of 9</div>
+  <h1>zip(): walking several lists in step</h1>
+  <div class="meta"><span>30 min</span><span>4 scenarios · 6 predictions · 4 exercises</span></div>
+  <div class="note pro"><b>The question it answers</b><p>"I have related data in separate lists. How do I go through them together, item by item?"</p></div>
+  <h2>The name</h2>
+  <p>Like a zip on a jacket: two separate sides joined tooth by tooth.</p>
+  <h2>Anatomy</h2>
+  <div class="widget" data-anat="a_zip"></div>
+<pre><code class="py">names = ["Sara", "Omar", "Lina"]
+scores = [88, 72, 95]
+list(zip(names, scores))       # [('Sara', 88), ('Omar', 72), ('Lina', 95)]
+dict(zip(names, scores))       # {'Sara': 88, 'Omar': 72, 'Lina': 95}</code></pre>
+  <div class="note warn"><b>zip stops at the shortest list</b><p><code>zip([1, 2, 3], ["a", "b"])</code> gives only 2 pairs. The 3 is silently dropped. When lists <i>should</i> be the same length, check <code>len(a) == len(b)</code> first, or you can lose data without any error.</p></div>
+
+  <h2>Real-work scenarios</h2>
+  <h3>Scenario 1: Columns from a spreadsheet</h3>
+<pre><code class="py">header = "name,dept,salary".split(",")
+row = "Sara,IT,42000".split(",")
+record = dict(zip(header, row))
+print(record["dept"])      # IT</code></pre>
+  <p>Turning a header row and a data row into a dict is <b>exactly</b> what <code>csv.DictReader</code> does inside (Week 6). Now you know how it works.</p>
+  <h3>Scenario 2: Before vs after</h3>
+<pre><code class="py">last_week = [120, 98, 143]
+this_week = [135, 90, 143]
+for old, new in zip(last_week, this_week):
+    change = new - old
+    print(f"{old} → {new}  ({change:+})")     # :+ shows the sign: +15, -8, +0</code></pre>
+  <h3>Scenario 3: Neighbours in one list</h3>
+<pre><code class="py">readings = [10, 14, 13, 20]
+for a, b in zip(readings, readings[1:]):
+    print(b - a)            # 4, -1, 7   change between consecutive readings</code></pre>
+  <p>Zipping a list with itself shifted by one gives every pair of neighbours. It's a classic trick for "change since last time", spotting jumps in sensor data or prices.</p>
+  <h3>Scenario 4: Combine with enumerate</h3>
+<pre><code class="py">for rank, (name, score) in enumerate(zip(names, scores), 1):
+    print(rank, name, score)</code></pre>
+  <p>Note the brackets <code>(name, score)</code>: enumerate gives <code>(rank, pair)</code>, and the inner brackets unpack the pair.</p>
+
+  <h2>Predict the output</h2>
+  <div class="widget predict" data-predict="p_zip"></div>
+  <h2>Exercises</h2>
+  <div class="widget runner" data-runner="tb_zip_dict"></div>
+  <div class="widget runner" data-runner="tb_zip_changes"></div>
+  <div class="widget runner" data-runner="tb_zip_mark"></div>
+  <div class="widget runner" data-runner="tb_zip_boss"></div>
+  <div class="widget quiz" data-quiz="tbzip"></div>
+</article>

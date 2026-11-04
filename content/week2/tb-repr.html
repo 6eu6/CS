@@ -1,0 +1,114 @@
+<article class="lesson" data-id="tb-repr" data-week="2" data-title="repr() vs str()">
+  <div class="eyebrow">Week 2 · Power tool 2 of 9</div>
+  <h1>repr(): seeing exactly what's inside a value</h1>
+  <div class="meta"><span>45 min</span><span>5 scenarios · 8 predictions · 6 exercises</span></div>
+  <p class="lede"><code>print()</code> shows you a value the way a <b>user</b> should see it. <code>repr()</code> shows it the way a <b>programmer</b> needs to see it: with quotes, hidden spaces, tabs and line breaks made visible. Half of all "it looks right but doesn't work" bugs are found in seconds with repr.</p>
+
+  <div class="note pro"><b>The question it answers</b><p>"What <i>exactly</i> is inside this variable?" Not what it looks like when printed. What it really is.</p></div>
+
+  <h2>The name</h2>
+  <p><code>repr</code> is short for <b>representation</b>. It returns a string that <b>represents</b> the value as Python source code would write it. For most simple values, if you typed repr's output into Python, you'd get the same value back.</p>
+
+  <h2>The problem it solves, in one example</h2>
+  <p>A user typed their name into a form. You compare it and it fails. You print it to check:</p>
+<pre><code class="py">name = "Sara "             # imagine this came from input(), with a stray space
+print(name)                # Sara       ← looks perfect
+print(name == "Sara")      # False      ← but why?!
+print(repr(name))          # 'Sara '    ← there it is: a space before the closing quote</code></pre>
+  <p><code>print</code> can't show you a trailing space: it's invisible. <code>repr</code> wraps the value in quotes, so you can see exactly where the text starts and ends.</p>
+
+  <h2>Anatomy</h2>
+  <div class="widget" data-anat="a_repr"></div>
+
+  <h2>str() vs repr(), side by side</h2>
+  <div class="tbl"><table>
+    <tr><th>Value</th><th><code>str(x)</code> / <code>print(x)</code></th><th><code>repr(x)</code></th><th>What repr reveals</th></tr>
+    <tr><td><code>"hello"</code></td><td>hello</td><td>'hello'</td><td>It's a string, not a name or a number</td></tr>
+    <tr><td><code>"42"</code></td><td>42</td><td>'42'</td><td>Text that looks like a number. The #1 cause of "why is 2 + 3 = 23"</td></tr>
+    <tr><td><code>42</code></td><td>42</td><td>42</td><td>A real int: no quotes</td></tr>
+    <tr><td><code>"a\tb"</code></td><td>a&nbsp;&nbsp;&nbsp;&nbsp;b</td><td>'a\tb'</td><td>A tab, not spaces</td></tr>
+    <tr><td><code>"line\n"</code></td><td>line (then an empty line)</td><td>'line\n'</td><td>A hidden line break, e.g. from a file</td></tr>
+    <tr><td><code>""</code></td><td>(nothing at all)</td><td>''</td><td>An empty string, not a missing value</td></tr>
+    <tr><td><code>None</code></td><td>None</td><td>None</td><td>Not the string "None"</td></tr>
+    <tr><td><code>"None"</code></td><td>None</td><td>'None'</td><td>It's text! Common in data imported from files</td></tr>
+    <tr><td><code>["a", "b"]</code></td><td>['a', 'b']</td><td>['a', 'b']</td><td>Containers always show their items with repr</td></tr>
+  </table></div>
+  <div class="note why"><b>Why containers already use repr</b><p>When you print a list, Python shows each item with <b>repr</b>, not str. That's why <code>print(["Sara "])</code> shows <code>['Sara ']</code> with the space visible. Python's designers chose this because a list of strings printed with str would be ambiguous: <code>[a, b]</code> could be two names or two strings.</p></div>
+
+  <h2>Try it</h2>
+  <div class="widget runner" data-runner="tb_repr_try"></div>
+
+  <h2>Three ways to get a repr</h2>
+<pre><code class="py">name = "Sara "
+print(repr(name))         # 'Sara '   1. the function
+print(f"{name!r}")        # 'Sara '   2. !r inside an f-string: "use repr for this one"
+print(f"[{name}]")        # [Sara ]   3. the poor man's version: brackets around it</code></pre>
+  <p>In real Python 3.8 or newer there's a fourth, beloved by professionals: <code>print(f"{name=}")</code> prints <code>name='Sara '</code>, the variable's name <i>and</i> its repr. It's the fastest debug print there is. (The in-browser engine on this site doesn't support <code>=</code> in f-strings, so try that one in your Codespace.)</p>
+
+  <h2>Real-work scenarios</h2>
+  <h3>Scenario 1: "The login says the email doesn't exist, but it does"</h3>
+  <p>You work on a booking system. A customer swears they registered. Your lookup fails.</p>
+<pre><code class="py">registered = ["sara@nhs.net", "omar@ucl.ac.uk"]
+typed = "Sara@nhs.net\n"          # pasted from an email, with a line break
+
+print(typed in registered)        # False
+print(repr(typed))                # 'Sara@nhs.net\n'   ← capital S and a \n
+clean = typed.strip().lower()
+print(clean in registered)        # True</code></pre>
+  <p><b>Why repr is the right tool:</b> printing <code>typed</code> shows a perfectly normal email. Only repr reveals the capital letter <i>and</i> the invisible <code>\n</code>. In real jobs, the first thing a senior developer asks when a comparison "mysteriously" fails is: "what's the repr?"</p>
+
+  <h3>Scenario 2: Writing log messages that can be trusted</h3>
+  <p>Production systems write <b>logs</b>: lines describing what happened, read later when something breaks. Compare:</p>
+<pre><code class="py">user = ""
+print(f"Login attempt by {user}")       # Login attempt by          ← was it empty? spaces? nothing?
+print(f"Login attempt by {user!r}")     # Login attempt by ''       ← clearly an empty string</code></pre>
+  <p><b>Professional habit:</b> in log and error messages, put user-supplied values in <code>!r</code>. Python itself does this: <code>KeyError: 'juice'</code> and <code>invalid literal for int() with base 10: 'abc'</code> both use repr, so you can see exactly what the bad value was.</p>
+
+  <h3>Scenario 3: Cleaning data imported from a spreadsheet</h3>
+<pre><code class="py">row = "Sara,  42 ,London\t"
+for field in row.split(","):
+    print(repr(field))
+# 'Sara'
+# '  42 '      ← spaces around the number
+# 'London\t'   ← a tab glued to the city</code></pre>
+  <p>Before you clean data, you need to <b>see</b> its mess. Looping over fields with repr is the first step of almost every data-cleaning job. After seeing it, you know you need <code>.strip()</code> on every field.</p>
+
+  <h3>Scenario 4: "The number won't add up"</h3>
+<pre><code class="py">price = input("Price: ")    # user types 4.50
+qty = 2
+print(price * qty)          # 4.504.50    ← string repetition, not maths
+print(repr(price))          # '4.50'      ← quotes: it's text
+print(type(price))          # &lt;class 'str'&gt;</code></pre>
+  <p>repr and <code>type()</code> together answer "what is this really?" in two lines.</p>
+
+  <h3>Scenario 5: Your own objects (preview of Week 8)</h3>
+<pre><code class="py">class Book:
+    def __init__(self, title):
+        self.title = title
+    def __repr__(self):
+        return f"Book({self.title!r})"
+
+print([Book("Dune"), Book("Emma")])     # [Book('Dune'), Book('Emma')]</code></pre>
+  <p>When you write classes, you define <code>__repr__</code> so your objects print usefully in lists, logs and error messages. Without it you'd see something like <code>&lt;__main__.Book object at 0x10f3&gt;</code>. Week 8 covers this properly; for now, know that repr is a <b>protocol</b>: every type can decide how it represents itself.</p>
+
+  <h2>Use it well</h2>
+  <ul>
+    <li><b>Debugging:</b> when a comparison or lookup fails, print the repr of <i>both</i> sides.</li>
+    <li><b>Logs and error messages:</b> use <code>!r</code> for values that came from users or files.</li>
+    <li><b>Never show repr to end users.</b> Customers should see <code>Hello, Sara</code>, not <code>Hello, 'Sara'</code>. str is for users, repr is for developers.</li>
+    <li><b>Don't parse repr output.</b> It's for reading, not for storing data. To save data, use CSV (Week 6) or JSON.</li>
+    <li><b>Floats:</b> in real Python, <code>repr(0.1 + 0.2)</code> is <code>0.30000000000000004</code>, the exact stored value, while formatting hides it. (This site's engine rounds float repr, so try that one in your Codespace.)</li>
+  </ul>
+
+  <h2>Predict the output</h2>
+  <div class="widget predict" data-predict="p_repr"></div>
+
+  <h2>Exercises</h2>
+  <div class="widget bug" data-bug="bug_repr"></div>
+  <div class="widget runner" data-runner="tb_repr_fields"></div>
+  <div class="widget runner" data-runner="tb_repr_types"></div>
+  <div class="widget runner" data-runner="tb_repr_log"></div>
+  <div class="widget runner" data-runner="tb_repr_whitespace"></div>
+  <div class="widget runner" data-runner="tb_repr_boss"></div>
+  <div class="widget quiz" data-quiz="tbrepr"></div>
+</article>

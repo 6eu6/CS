@@ -1,0 +1,40 @@
+<article class="lesson" data-id="tb-anyall" data-week="2" data-title="any() and all()">
+  <div class="eyebrow">Week 2 · Power tool 7 of 9</div>
+  <h1>any() and all(): rules over a whole collection</h1>
+  <div class="meta"><span>30 min</span><span>3 scenarios · 4 exercises</span></div>
+  <div class="note pro"><b>The question it answers</b><p><code>any</code>: "does <b>at least one</b> item pass?" <code>all</code>: "does <b>every</b> item pass?"</p></div>
+<pre><code class="py">any([False, True, False])        # True
+all([True, True, False])         # False
+any(ch.isdigit() for ch in "abc3")     # True   ← a generator: checks each character
+all(score &gt;= 50 for score in [70, 55, 90])   # True</code></pre>
+  <p>The part inside the brackets, <code>ch.isdigit() for ch in "abc3"</code>, is a <b>generator expression</b>: like a list comprehension without the square brackets. It makes one True/False per item, lazily.</p>
+  <div class="note why"><b>They stop early</b><p>any stops at the first True; all stops at the first False. On a million items where the first one fails, all() checks one item. This is called <b>short-circuiting</b>, the same as <code>and</code>/<code>or</code>.</p></div>
+  <div class="note warn"><b>The empty-list surprise</b><p><code>all([])</code> is <b>True</b> ("no item failed") and <code>any([])</code> is False. If "no data" should count as failure, check the length too: <code>len(x) &gt; 0 and all(...)</code>.</p></div>
+  <h2>Real-work scenarios</h2>
+  <h3>Scenario 1: Password rules</h3>
+<pre><code class="py">pw = "Tea4two!"
+rules = [
+    len(pw) &gt;= 8,
+    any(c.isupper() for c in pw),
+    any(c.isdigit() for c in pw),
+    any(not c.isalnum() for c in pw),
+]
+print("Strong" if all(rules) else "Weak")</code></pre>
+  <p>Compare this with the Week 2 password exercise, which needed three counters. Each rule reads like a sentence. Adding a rule means adding one line.</p>
+  <h3>Scenario 2: Is the form complete?</h3>
+<pre><code class="py">form = {"name": "Sara", "email": "", "phone": "07700 900123"}
+if not all(value.strip() for value in form.values()):
+    missing = [k for k, v in form.items() if not v.strip()]
+    print("Please fill in:", ", ".join(missing))</code></pre>
+  <h3>Scenario 3: Alerting</h3>
+<pre><code class="py">if any(t &gt; 90 for t in server_temps):
+    print("ALERT: a server is overheating")</code></pre>
+  <h2>Predict the output</h2>
+  <div class="widget predict" data-predict="p_anyall"></div>
+  <h2>Exercises</h2>
+  <div class="widget runner" data-runner="tb_aa_password"></div>
+  <div class="widget runner" data-runner="tb_aa_form"></div>
+  <div class="widget runner" data-runner="tb_aa_sorted"></div>
+  <div class="widget runner" data-runner="tb_aa_boss"></div>
+  <div class="widget quiz" data-quiz="tbanyall"></div>
+</article>

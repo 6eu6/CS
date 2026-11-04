@@ -1,0 +1,37 @@
+<article class="lesson" data-id="tb-minmax" data-week="2" data-title="min(), max(), sum()">
+  <div class="eyebrow">Week 2 · Power tool 5 of 9</div>
+  <h1>min(), max() and sum(): best, worst and total</h1>
+  <div class="meta"><span>30 min</span><span>4 scenarios · 4 exercises</span></div>
+  <div class="note pro"><b>The question it answers</b><p>"Which one is the biggest/smallest by my rule, and what do they add up to?"</p></div>
+<pre><code class="py">max([4, 9, 2])                    # 9
+max("banana", "fig", key=len)     # 'banana'      several arguments work too
+max(["banana", "fig"], key=len)   # 'banana'      or one list
+min([], default=0)                # 0             avoids ValueError on empty data
+sum([1.5, 2.5])                   # 4.0</code></pre>
+  <h2>The killer combo: max(d, key=d.get)</h2>
+<pre><code class="py">sales = {"tea": 140, "cake": 95, "coffee": 210}
+best = max(sales, key=sales.get)    # 'coffee'</code></pre>
+  <p>Looping over a dict gives its keys. <code>key=sales.get</code> means "judge each key by its value". The result is the <b>key</b> with the biggest value: the answer to "which product sold most?" in one line. Note <code>sales.get</code> without brackets: we pass the method itself for max to call.</p>
+  <h2>key= gives you the whole record</h2>
+<pre><code class="py">staff = [{"name": "Sara", "sales": 31}, {"name": "Omar", "sales": 44}]
+top = max(staff, key=lambda s: s["sales"])
+print(top["name"], top["sales"])    # Omar 44   — the whole dict, not just 44</code></pre>
+  <p>This replaces the whole "max pattern" loop from Week 2 when you only need the winner. Keep the loop when you need several things in one pass (max and min and count…).</p>
+  <h2>Real-work scenarios</h2>
+  <ul>
+    <li><b>Dashboard KPIs:</b> <code>sum(order_totals)</code>, <code>max(order_totals)</code>, <code>sum(x) / len(x)</code> for the average.</li>
+    <li><b>Outliers:</b> <code>max(readings) - min(readings)</code> is the range; a sudden big range means a faulty sensor.</li>
+    <li><b>Biggest change either way:</b> <code>abs(x)</code> is the distance from zero (<code>abs(-16)</code> → 16), so <code>max(changes, key=abs)</code> finds the largest rise <i>or</i> fall.</li>
+    <li><b>Longest line in a file</b> (to size a table column): <code>max(len(l) for l in lines)</code>.</li>
+    <li><b>Counting with sum:</b> <code>sum(1 for t in temps if t &gt; 25)</code> counts hot days; True counts as 1, so <code>sum(t &gt; 25 for t in temps)</code> works too.</li>
+  </ul>
+  <div class="note warn"><b>Traps</b><p><code>max([])</code> crashes with ValueError: use <code>default=</code>. <code>max(["10", "9"])</code> is <code>"9"</code> because strings compare letter by letter: convert to numbers first. Don't name a variable <code>max</code> or <code>sum</code>: it hides the built-in for the rest of the program.</p></div>
+  <h2>Predict the output</h2>
+  <div class="widget predict" data-predict="p_minmax"></div>
+  <h2>Exercises</h2>
+  <div class="widget runner" data-runner="tb_mm_best"></div>
+  <div class="widget runner" data-runner="tb_mm_record"></div>
+  <div class="widget runner" data-runner="tb_mm_range"></div>
+  <div class="widget runner" data-runner="tb_mm_boss"></div>
+  <div class="widget quiz" data-quiz="tbminmax"></div>
+</article>

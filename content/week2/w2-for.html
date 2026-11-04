@@ -1,0 +1,85 @@
+<!-- ================================================================== W2 FOR -->
+<article class="lesson" data-id="w2-for" data-week="2" data-title="for loops & range">
+  <div class="eyebrow">Week 2 · Lesson 2</div>
+  <h1>for and range(): walking through a sequence</h1>
+  <div class="meta"><span>40 min</span><span>Range explorer · trace · 8 predictions · 6 exercises</span></div>
+  <p class="lede">A <code>for</code> loop says "do this <b>for each</b> item". You don't manage a counter or a condition; Python hands you the items one at a time and stops when they run out.</p>
+
+  <h2>Anatomy</h2>
+  <div class="widget" data-anat="a_for"></div>
+
+  <h2>What range() really produces</h2>
+  <p><code>range</code> creates a sequence of whole numbers. It has three forms:</p>
+  <div class="tbl"><table>
+    <tr><th>Call</th><th>Numbers</th><th>Read it as</th></tr>
+    <tr><td><code>range(5)</code></td><td>0, 1, 2, 3, 4</td><td>5 numbers starting at 0</td></tr>
+    <tr><td><code>range(1, 6)</code></td><td>1, 2, 3, 4, 5</td><td>from 1 up to, <b>not including</b>, 6</td></tr>
+    <tr><td><code>range(0, 10, 2)</code></td><td>0, 2, 4, 6, 8</td><td>start 0, stop before 10, step 2</td></tr>
+    <tr><td><code>range(5, 0, -1)</code></td><td>5, 4, 3, 2, 1</td><td>counting down: negative step</td></tr>
+    <tr><td><code>range(3, 3)</code></td><td>(nothing)</td><td>start equals stop: zero iterations</td></tr>
+  </table></div>
+  <div class="note why"><b>Why does the stop number get left out?</b><p>So that <code>range(n)</code> gives exactly <b>n</b> numbers, and so that <code>range(len(items))</code> gives exactly the valid positions of a list (which also start at 0). It feels odd for a week, then it becomes natural. Same rule as slicing: <code>word[0:3]</code> excludes position 3.</p></div>
+
+  <div class="widget" id="rangeLab">
+    <div class="widget-h"><b>range explorer</b><span class="badge">Interactive</span></div>
+    <div class="row">
+      <label class="lbl" for="rgA">start</label><input type="number" id="rgA" value="1" style="width:90px">
+      <label class="lbl" for="rgB">stop</label><input type="number" id="rgB" value="10" style="width:90px">
+      <label class="lbl" for="rgC">step</label><input type="number" id="rgC" value="3" style="width:90px">
+    </div>
+    <pre id="rgCode"></pre>
+    <div class="chips" id="rgOut"></div>
+    <p class="engine" id="rgNote"></p>
+  </div>
+
+  <h2>Watch it run: adding up with a for loop</h2>
+  <div class="widget stepper" data-stepper="t_for"></div>
+  <p>The pattern in that trace, <b>start a total at 0, add to it inside the loop, use it after the loop</b>, is called an <b>accumulator</b>. You'll use it constantly.</p>
+
+  <h2>for over anything you can walk through</h2>
+<pre><code class="py">for letter in "cat":        # a string: one character at a time
+    print(letter)           # c, a, t
+
+for name in ["Sara", "Omar", "Lina"]:   # a list: one item at a time
+    print("hello,", name)</code></pre>
+  <p>Anything you can loop over is called an <b>iterable</b>: strings, lists, ranges, dictionaries, files. The loop variable (<code>letter</code>, <code>name</code>) is a name you choose; pick the singular of what you're looping through.</p>
+
+  <h2>The underscore: "I don't need the number"</h2>
+<pre><code class="py">for _ in range(3):
+    print("meow")</code></pre>
+  <p><code>_</code> is a perfectly valid variable name. By convention it means "there's a value here, but I won't use it". It tells the reader: this loop is only about repeating, not about the numbers.</p>
+
+  <h2>The loop variable after the loop</h2>
+<pre><code class="py">for i in range(3):
+    pass          # pass = "do nothing", a placeholder body
+print(i)          # 2   the last value it was given</code></pre>
+
+  <h2>for vs while side by side</h2>
+  <div class="split2">
+<pre><code class="py">i = 0
+while i &lt; 3:
+    print(i)
+    i += 1</code></pre>
+<pre><code class="py">for i in range(3):
+    print(i)</code></pre>
+  </div>
+  <p>Identical output. The for version can't forget the increment and can't loop forever, which is why it's preferred whenever you know the sequence in advance.</p>
+
+  <h2>Printing on one line inside a loop</h2>
+<pre><code class="py">for i in range(5):
+    print(i, end=" ")      # 0 1 2 3 4   all on one line
+print()                    # finish the line (prints just "\n")</code></pre>
+  <p>Remember <code>end</code> from Week 0? Inside loops it's essential for building a line piece by piece. The empty <code>print()</code> afterwards moves to a new line.</p>
+
+  <h2>Predict the output</h2>
+  <div class="widget predict" data-predict="p_for"></div>
+
+  <h2>Exercises</h2>
+  <div class="widget runner" data-runner="w2f_table"></div>
+  <div class="widget runner" data-runner="w2f_countdown"></div>
+  <div class="widget runner" data-runner="w2f_stars"></div>
+  <div class="widget runner" data-runner="w2f_vowels"></div>
+  <div class="widget runner" data-runner="w2f_sumodd"></div>
+  <div class="widget runner" data-runner="w2f_bug"></div>
+  <div class="widget quiz" data-quiz="w2for"></div>
+</article>

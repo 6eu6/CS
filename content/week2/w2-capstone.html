@@ -1,0 +1,21 @@
+<!-- ================================================================== W2 CAPSTONE -->
+<article class="lesson" data-id="w2-capstone" data-week="2" data-title="Capstone: word counter">
+  <div class="eyebrow">Week 2 · Lesson 9</div>
+  <h1>Capstone: the word counter, explained with loop eyes</h1>
+  <div class="meta"><span>40 min</span><span>Every token explained · 4 extensions</span></div>
+  <p class="lede">The program you asked about at the start uses almost everything from this week: a function, a list, a list comprehension, a <code>for</code> loop, a dict tally, sorting, and writing a CSV file. Tap through every piece of it.</p>
+  <div class="widget" data-anat="a_cap"></div>
+  <h2>Which patterns are in it?</h2>
+  <ul>
+    <li><b>Transform</b>: <code>[word.lower() for word in words]</code> turns every word lowercase (a comprehension is the transform pattern in one line).</li>
+    <li><b>Tally</b>: the <code>for</code> loop with <code>if word in counts</code> counts each kind of word.</li>
+    <li><b>Sort + loop</b>: <code>sorted(counts.items(), key=..., reverse=True)</code> then a loop writes each row.</li>
+  </ul>
+  <p>File handling with <code>open</code> and <code>with</code> is covered fully in Week 6. The anatomy explorer above explains it now so nothing stays mysterious. One more file tool you'll use in the projects: <code>f.read().splitlines()</code> gives a list with one string per line, without the line breaks.</p>
+  <h2>Run it and extend it</h2>
+  <p>The runner has a real <code>address.txt</code> tab (the Gettysburg Address, which is public domain). After you run it, the new <code>counts.csv</code> appears as a table.</p>
+  <div class="widget runner" data-runner="w2c_full"></div>
+  <div class="widget runner" data-runner="w2c_top"></div>
+  <div class="widget runner" data-runner="w2c_clean"></div>
+  <div class="widget runner" data-runner="w2c_lengths"></div>
+</article>

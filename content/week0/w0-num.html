@@ -1,0 +1,71 @@
+<!-- ================================================================== W0 NUMBERS -->
+<article class="lesson" data-id="w0-num" data-week="0" data-title="Numbers & arithmetic">
+  <div class="eyebrow">Week 0 · Lesson 4</div>
+  <h1>Numbers: int, float, operators and formatting</h1>
+  <div class="meta"><span>40 min</span><span>Operator lab · 6 exercises</span></div>
+  <p class="lede">Text is for people; numbers are for calculating. The trick is knowing which kind of number you have, which operator you need, and how to show the result nicely.</p>
+
+  <h2>Two kinds of numbers</h2>
+  <dl class="def">
+    <dt>int</dt><dd><b>Integer</b>: a whole number, no decimal point. <code>3</code>, <code>-12</code>, <code>2026</code>. Use for counting things: people, items, seconds, years.</dd>
+    <dt>float</dt><dd><b>Floating-point</b> number: has a decimal point. <code>3.5</code>, <code>-0.25</code>, <code>2.0</code>. Use for measuring: prices, distances, temperatures.</dd>
+  </dl>
+  <p><code>type(x)</code> tells you what you have: <code>type(3)</code> is <code>&lt;class 'int'&gt;</code>, <code>type(3.0)</code> is <code>&lt;class 'float'&gt;</code>, <code>type("3")</code> is <code>&lt;class 'str'&gt;</code>.</p>
+
+  <h2>The operators</h2>
+  <div class="widget" id="opLab">
+    <div class="widget-h"><b>Operator lab</b><span class="badge">Interactive</span></div>
+    <div class="row">
+      <input type="number" id="opA" value="17" style="width:110px" aria-label="first number">
+      <input type="number" id="opB" value="5" style="width:110px" aria-label="second number">
+    </div>
+    <div class="tbl"><table id="opTable"></table></div>
+  </div>
+  <div class="note why"><b>// and % are a pair</b><p><code>17 // 5</code> is 3 (how many whole 5s fit) and <code>17 % 5</code> is 2 (what's left over). Together they split anything into "whole units and remainder": 135 minutes → <code>135 // 60</code> = 2 hours and <code>135 % 60</code> = 15 minutes. You'll use this pair constantly.</p></div>
+  <p><b>Order of operations</b> is the same as in maths: <code>**</code> first, then <code>* / // %</code>, then <code>+ -</code>. Use brackets when in doubt: <code>(a + b) / 2</code>, not <code>a + b / 2</code>.</p>
+
+  <h2>Converting: int(), float(), str()</h2>
+<pre><code class="py">x = input("x: ")      # user types 2  → x is "2" (a str)
+y = input("y: ")      # user types 3  → y is "3"
+print(x + y)          # 23   ← + joined two strings!
+
+x = int(input("x: "))   # convert straight away
+y = int(input("y: "))
+print(x + y)            # 5</code></pre>
+  <dl class="def">
+    <dt>int("42")</dt><dd>→ <code>42</code>. <code>int("4.5")</code> fails with <code>ValueError</code>, and so does <code>int("forty")</code>.</dd>
+    <dt>float("4.5")</dt><dd>→ <code>4.5</code>. Also accepts <code>"42"</code> → <code>42.0</code>.</dd>
+    <dt>int(4.9)</dt><dd>→ <code>4</code>. Converting a float to int <b>cuts off</b> the decimals; it doesn't round.</dd>
+    <dt>str(42)</dt><dd>→ <code>"42"</code>. Needed when joining with <code>+</code>: <code>"Age: " + str(age)</code>.</dd>
+  </dl>
+  <div class="note tip"><b>Nesting: int(input(...))</b><p>Python runs the innermost brackets first: <code>input</code> returns a string, then <code>int</code> converts it. Doing it in one line means the variable is a number from the start, so you can't forget to convert later.</p></div>
+
+  <h2>Rounding and formatting</h2>
+<pre><code class="py">price = 19.98765
+round(price)          # 20        nearest whole number
+round(price, 2)       # 19.99     2 decimal places
+f"{price:.2f}"        # '19.99'   a STRING with exactly 2 decimals
+f"{3:.2f}"            # '3.00'    keeps trailing zeros (round(3, 2) gives 3)
+f"{1234567:,}"        # '1,234,567'  thousands separators
+f"£{1234.5:,.2f}"     # '£1,234.50'  both together: money</code></pre>
+  <div class="tbl"><table>
+    <tr><th>Need</th><th>Use</th><th>Gives</th></tr>
+    <tr><td>A rounded <b>number</b> to keep calculating with</td><td><code>round(x, 2)</code></td><td>a float</td></tr>
+    <tr><td>Nice <b>output</b> for humans, always 2 decimals</td><td><code>f"{x:.2f}"</code></td><td>a string</td></tr>
+    <tr><td>Big numbers readable</td><td><code>f"{x:,}"</code></td><td>a string</td></tr>
+  </table></div>
+
+  <h2>Floats are not exact</h2>
+<pre><code class="py">print(0.1 + 0.2)      # 0.30000000000000004</code></pre>
+  <p>Computers store floats in binary, and some decimals (like 0.1) can't be stored exactly, the way 1/3 can't be written exactly in decimal. It's not a bug in your code. Format your output with <code>:.2f</code> and it disappears. For real money systems, professionals use whole pennies (ints) or Python's <code>decimal</code> module.</p>
+
+  <div class="note real"><b>Scenario: splitting a restaurant bill</b><p>£87.40 between 3 friends: <code>87.40 / 3</code> is 29.1333... Show <code>f"£{87.40 / 3:.2f}"</code> → "£29.13". Every banking, shopping and fitness app does this kind of convert-calculate-format sequence.</p></div>
+
+  <div class="widget runner" data-runner="w0n_add"></div>
+  <div class="widget runner" data-runner="w0n_time"></div>
+  <div class="widget runner" data-runner="w0n_split"></div>
+  <div class="widget runner" data-runner="w0n_area"></div>
+  <div class="widget runner" data-runner="w0n_bmi"></div>
+  <div class="widget runner" data-runner="w0n_bug"></div>
+  <div class="widget quiz" data-quiz="w0num"></div>
+</article>

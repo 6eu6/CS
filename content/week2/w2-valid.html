@@ -1,0 +1,69 @@
+<!-- ================================================================== W2 VALIDATE -->
+<article class="lesson" data-id="w2-valid" data-week="2" data-title="break, continue & valid input">
+  <div class="eyebrow">Week 2 · Lesson 3</div>
+  <h1>break, continue, and asking until the answer is valid</h1>
+  <div class="meta"><span>40 min</span><span>Anatomy · trace · 7 predictions · 5 exercises</span></div>
+  <p class="lede">Users type nonsense: negative ages, "maybe" to a yes/no question, letters where you wanted a number. The loop in this lesson is how every real program handles that: keep asking until you get something usable.</p>
+
+  <h2>break: leave the loop now</h2>
+<pre><code class="py">for n in range(1, 100):
+    if n * n &gt; 50:
+        break          # jump straight out of the loop
+    print(n)           # 1 2 3 4 5 6 7
+print("done")</code></pre>
+  <p><code>break</code> ends the <b>innermost</b> loop immediately. Python continues with the first line after the loop. The rest of the iterations never happen.</p>
+
+  <h2>continue: skip to the next iteration</h2>
+<pre><code class="py">for n in range(1, 8):
+    if n % 3 == 0:
+        continue       # skip the rest of THIS iteration
+    print(n)           # 1 2 4 5 7   (3 and 6 skipped)</code></pre>
+  <p><code>continue</code> doesn't leave the loop. It jumps back to the top for the next item. Use it to skip items you don't care about without nesting the rest of the body inside an <code>if</code>.</p>
+  <div class="split2">
+    <div class="panel"><h4>break</h4><p>"I'm done with this loop entirely."<br>e.g. found what I was searching for.</p></div>
+    <div class="panel"><h4>continue</h4><p>"I'm done with <i>this item</i>, next one please."<br>e.g. skip blank lines.</p></div>
+  </div>
+
+  <h2>while True: the validation loop</h2>
+  <p>This is the pattern CS50P uses for input, and you'll write it in nearly every program:</p>
+  <div class="widget" data-anat="a_valid"></div>
+  <div class="note why"><b>Why while True and not a normal condition?</b><p>You can't test the answer before you've asked. With <code>while True</code> you ask first, then test, then <code>break</code>/<code>return</code> when it's good. The alternative needs the input() call written twice (once before the loop, once inside), which is easy to get out of sync.</p></div>
+  <div class="widget stepper" data-stepper="t_valid"></div>
+
+  <h2>return inside a loop</h2>
+  <p>In a function, <code>return</code> does even more than <code>break</code>: it leaves the loop <i>and</i> the whole function, handing back a value. That's why <code>get_age</code> above can return straight from inside <code>while True</code>. Wrapping validation in a function means <code>main</code> stays clean: <code>age = get_age()</code> and you know it's valid.</p>
+
+  <h2>Counting attempts</h2>
+<pre><code class="py">attempts = 0
+while attempts &lt; 3:
+    guess = input("Password: ")
+    if guess == "open sesame":
+        print("Welcome")
+        break
+    attempts += 1
+    print(f"Wrong. {3 - attempts} tries left")</code></pre>
+  <p>Two ways to stop: the condition becomes false (3 failures) or <code>break</code> (success). After the loop you often need to know <i>which</i> one happened; check the variable: <code>if attempts == 3: print("Locked")</code>.</p>
+
+  <h2>Sentinel values: "stop when they type done"</h2>
+<pre><code class="py">total = 0
+while True:
+    item = input("Price (or done): ")
+    if item == "done":
+        break
+    total += float(item)
+print(f"Total: £{total:.2f}")</code></pre>
+  <p>A <b>sentinel</b> is a special value that means "stop". Here it's the word <code>done</code>. You don't know how many prices the user will enter; the sentinel lets them decide.</p>
+
+  <div class="note warn"><b>What if they type letters where you need a number?</b><p><code>float("abc")</code> crashes with <code>ValueError</code>. In Week 3 (Exceptions) you'll learn <code>try</code>/<code>except</code> to catch that inside the validation loop. For this week, exercises give you inputs that are numbers when a number is expected.</p></div>
+
+  <h2>Predict the output</h2>
+  <div class="widget predict" data-predict="p_valid"></div>
+
+  <h2>Exercises</h2>
+  <div class="widget runner" data-runner="w2v_positive"></div>
+  <div class="widget runner" data-runner="w2v_yesno"></div>
+  <div class="widget runner" data-runner="w2v_total"></div>
+  <div class="widget runner" data-runner="w2v_pin"></div>
+  <div class="widget runner" data-runner="w2v_skip"></div>
+  <div class="widget quiz" data-quiz="w2valid"></div>
+</article>

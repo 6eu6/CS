@@ -1,0 +1,56 @@
+<article class="lesson" data-id="tb-dict" data-week="2" data-title="The dict toolkit">
+  <div class="eyebrow">Week 2 · Power tool 8 of 9</div>
+  <h1>The dict toolkit: get, setdefault, items, pop, update</h1>
+  <div class="meta"><span>40 min</span><span>4 scenarios · 5 exercises</span></div>
+  <div class="note pro"><b>The question it answers</b><p>"How do I look up, count, group and merge data by key without KeyErrors and without messy if/else?"</p></div>
+  <div class="tbl"><table>
+    <tr><th>Method</th><th>What it does</th><th>Reach for it when</th></tr>
+    <tr><td><code>d.get(k, default)</code></td><td>Value or default, never an error</td><td>Reading a key that may be missing; tallies</td></tr>
+    <tr><td><code>d.setdefault(k, default)</code></td><td>Returns d[k]; if missing, sets it to default first</td><td>Grouping into lists: <code>d.setdefault(k, []).append(x)</code></td></tr>
+    <tr><td><code>d.items()</code></td><td>(key, value) pairs</td><td>Looping over both</td></tr>
+    <tr><td><code>d.pop(k, default)</code></td><td>Remove k and return its value</td><td>"Take" a value out, e.g. processing a queue of jobs</td></tr>
+    <tr><td><code>d.update(other)</code></td><td>Copy pairs from other, overwriting</td><td>Applying user settings over defaults</td></tr>
+    <tr><td><code>k in d</code></td><td>Is the key present?</td><td>Deciding between two behaviours</td></tr>
+  </table></div>
+  <h2>setdefault, step by step</h2>
+  <div class="widget" data-anat="a_setdef"></div>
+<pre><code class="py">by_dept = {}
+for name, dept in [("Sara", "IT"), ("Omar", "HR"), ("Lina", "IT")]:
+    by_dept.setdefault(dept, []).append(name)
+print(by_dept)      # {'IT': ['Sara', 'Lina'], 'HR': ['Omar']}</code></pre>
+  <p>Without setdefault you need four lines: <code>if dept not in by_dept: by_dept[dept] = []</code> then append. Both are correct. setdefault is the idiom you'll see in professional code; the if-version is clearer while learning. Know both.</p>
+  <div class="note warn"><b>get(k, []).append(x) is a bug</b><p><code>d.get(k, [])</code> returns a new empty list that is <b>not stored</b> in the dict. Appending to it does nothing to d. For "append to a list in a dict", use setdefault.</p></div>
+  <h2>Real-work scenarios</h2>
+  <h3>Scenario 1: Settings with defaults</h3>
+<pre><code class="py">defaults = {"currency": "GBP", "decimals": 2, "theme": "light"}
+user = {"theme": "dark"}
+settings = defaults.copy()
+settings.update(user)          # user choices win
+print(settings)    # {'currency': 'GBP', 'decimals': 2, 'theme': 'dark'}</code></pre>
+  <p>This "defaults, then overrides" pattern is how almost every app handles configuration.</p>
+  <h3>Scenario 2: Inventory movements</h3>
+<pre><code class="py">stock = {"tea": 10}
+for item, change in [("tea", -3), ("jam", 5), ("tea", 4)]:
+    stock[item] = stock.get(item, 0) + change
+print(stock)       # {'tea': 11, 'jam': 5}</code></pre>
+  <h3>Scenario 3: Translating codes</h3>
+<pre><code class="py">status_names = {"P": "Pending", "S": "Shipped", "D": "Delivered"}
+for code in ["S", "X", "D"]:
+    print(status_names.get(code, f"Unknown ({code!r})"))</code></pre>
+  <p>A dict used as a <b>lookup table</b> replaces long if/elif chains. Adding a status means adding one entry, not a new branch.</p>
+  <h3>Scenario 4: Inverting a dict</h3>
+<pre><code class="py">house = {"Sara": "Red", "Omar": "Blue", "Lina": "Red"}
+members = {}
+for person, h in house.items():
+    members.setdefault(h, []).append(person)
+# {'Red': ['Sara', 'Lina'], 'Blue': ['Omar']}</code></pre>
+  <h2>Predict the output</h2>
+  <div class="widget predict" data-predict="p_dict2"></div>
+  <h2>Exercises</h2>
+  <div class="widget bug" data-bug="bug_getappend"></div>
+  <div class="widget runner" data-runner="tb_d_stock"></div>
+  <div class="widget runner" data-runner="tb_d_group"></div>
+  <div class="widget runner" data-runner="tb_d_settings"></div>
+  <div class="widget runner" data-runner="tb_d_boss"></div>
+  <div class="widget quiz" data-quiz="tbdict"></div>
+</article>

@@ -1,0 +1,65 @@
+<!-- ================================================================== W1 L2: LOGIC -->
+<article class="lesson" data-id="w1-logic" data-week="1" data-title="or, and, not">
+  <div class="eyebrow">Week 1 · Lesson 2</div>
+  <h1>or, and, not: combining conditions</h1>
+  <div class="meta"><span>35 min</span><span>Truth lab · predictions · 6 exercises</span></div>
+  <div class="tbl"><table>
+    <tr><th>Expression</th><th>True when…</th><th>Short-circuit</th></tr>
+    <tr><td><code>a or b</code></td><td>at least one is true</td><td>If a is true, b is never evaluated</td></tr>
+    <tr><td><code>a and b</code></td><td>both are true</td><td>If a is false, b is never evaluated</td></tr>
+    <tr><td><code>not a</code></td><td>a is false</td><td>—</td></tr>
+  </table></div>
+<pre><code class="py">if answer == "y" or answer == "yes":      # NOT: answer == "y" or "yes"  (always true!)
+    print("OK")
+if 18 &lt;= age and has_ticket:
+    print("Enjoy the film")</code></pre>
+  <div class="note warn"><b>The "or" trap</b><p><code>if answer == "y" or "yes":</code> is always true, because <code>"yes"</code> on its own is a non-empty string, which counts as true. Each side of <code>or</code> must be a complete condition.</p></div>
+  <p>Precedence: <code>not</code> first, then <code>and</code>, then <code>or</code>. So <code>a or b and c</code> means <code>a or (b and c)</code>. Add brackets for the reader.</p>
+  <div class="note why"><b>Why short-circuiting matters</b><p><code>if text != "" and text[0] == "A":</code> is safe: when text is empty, <code>text[0]</code> is never evaluated. Swap the sides and an empty string crashes with IndexError. Put the "guard" test first.</p></div>
+
+  <h2>Flattening nested ifs with and</h2>
+<pre><code class="py"># nested                         # flattened
+if logged_in:                    if logged_in and is_admin:
+    if is_admin:                     print("Admin panel")
+        print("Admin panel")</code></pre>
+
+  <h2>Truthiness</h2>
+  <p>In an <code>if</code>, Python accepts any value. These count as <b>False</b> ("falsy"): <code>False</code>, <code>None</code>, <code>0</code>, <code>0.0</code>, <code>""</code> (and empty collections you'll meet in Week 2). Everything else is "truthy", including <code>"0"</code> and <code>" "</code>.</p>
+<pre><code class="py">name = input("Name: ").strip()
+if not name:                  # empty string → falsy
+    print("Please enter a name")</code></pre>
+  <div class="widget" id="truthLab">
+    <div class="widget-h"><b>Truth lab</b><span class="badge">Interactive</span></div>
+    <p class="engine">Type any value or expression. The real Python engine evaluates <code>bool(...)</code>.</p>
+    <input type="text" id="tlIn" value='" "' spellcheck="false" aria-label="Python value">
+    <div class="row"><span class="engine">Try:</span><button class="btn sm" data-tv="0">0</button><button class="btn sm" data-tv='"0"'>"0"</button><button class="btn sm" data-tv='""'>""</button><button class="btn sm" data-tv="None">None</button><button class="btn sm" data-tv="0.0">0.0</button><button class="btn sm" data-tv='"" or "default"'>"" or "default"</button><button class="btn sm" data-tv='5 and "yes"'>5 and "yes"</button></div>
+    <pre class="out" id="tlOut"></pre>
+  </div>
+  <h3>or returns a value: the default idiom</h3>
+<pre><code class="py">"" or "Guest"          # 'Guest'   or gives the first truthy value (or the last one)
+name = input("Name: ").strip() or "Guest"</code></pre>
+
+  <h2>String questions: methods that answer True/False</h2>
+  <p>Strings come with methods that answer yes/no questions. They're perfect inside conditions:</p>
+  <div class="tbl"><table class="mtable">
+    <tr><th>Method / operator</th><th>True when</th><th>Example</th></tr>
+    <tr><td>"x" in s</td><td>s contains the text "x"</td><td><code>"@" in email</code></td></tr>
+    <tr><td>s.isdigit()</td><td>only digits 0–9 (and not empty)</td><td><code>"2026".isdigit()</code> → True</td></tr>
+    <tr><td>s.isalpha()</td><td>only letters</td><td><code>"Sara".isalpha()</code> → True</td></tr>
+    <tr><td>s.isalnum()</td><td>only letters and digits</td><td><code>"sara99".isalnum()</code> → True</td></tr>
+    <tr><td>s.isupper() / s.islower()</td><td>all letters upper / lower case</td><td><code>"OK".isupper()</code> → True</td></tr>
+    <tr><td>s.startswith(x) / s.endswith(x)</td><td>begins / ends with x</td><td><code>file.endswith(".py")</code></td></tr>
+    <tr><td>s.count(x)</td><td>(a number) how many times x appears</td><td><code>email.count("@") == 1</code></td></tr>
+  </table></div>
+
+  <h2>Predict the output</h2>
+  <div class="widget predict" data-predict="p_w1b"></div>
+  <h2>Exercises</h2>
+  <div class="widget runner" data-runner="w1c_range"></div>
+  <div class="widget runner" data-runner="w1c_default"></div>
+  <div class="widget runner" data-runner="w1c_guard"></div>
+  <div class="widget runner" data-runner="x1_vowel"></div>
+  <div class="widget runner" data-runner="w1i_triangle"></div>
+  <div class="widget runner" data-runner="x1_rps"></div>
+  <div class="widget quiz" data-quiz="w1b"></div>
+</article>

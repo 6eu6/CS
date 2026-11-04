@@ -1,0 +1,57 @@
+<!-- ================================================================== W0 VARS -->
+<article class="lesson" data-id="w0-vars" data-week="0" data-title="Variables & input()">
+  <div class="eyebrow">Week 0 · Lesson 2</div>
+  <h1>Variables, return values and input()</h1>
+  <div class="meta"><span>30 min</span><span>Step-through tracer · 4 exercises</span></div>
+  <p class="lede">Programs get interesting when they react to the user. That needs two things: a way to <b>ask</b> (input) and a place to <b>keep the answer</b> (a variable).</p>
+
+  <h2>Return values: functions that hand something back</h2>
+  <p><code>print</code> <i>does</i> something (shows text). Other functions <i>give back</i> a value you can use. That value is called the <b>return value</b>.</p>
+<pre><code class="py">input("What's your name? ")</code></pre>
+  <p><code>input</code> shows the prompt, waits for the user to type and press Enter, then <b>returns</b> what they typed as a string. If you don't store it anywhere, it's lost immediately.</p>
+
+  <h2>Variables: storing a value under a name</h2>
+<pre><code class="py">name = input("What's your name? ")
+print("hello,", name)</code></pre>
+  <dl class="def">
+    <dt>name</dt><dd>A <b>variable</b>: a name you chose. It will refer to the value on the right.</dd>
+    <dt>=</dt><dd>The <b>assignment operator</b>. Read it as "gets" or "now refers to". It works <b>right to left</b>: first Python runs <code>input(...)</code> and waits for the user, <i>then</i> stores the result in <code>name</code>.</dd>
+    <dt>input(...)</dt><dd>Runs first. Its return value becomes the value of <code>name</code>.</dd>
+  </dl>
+  <div class="note warn"><b>= is not "equals"</b><p>In maths, <code>x = x + 1</code> is impossible. In Python it's normal: "take the current x, add 1, store it back in x". Comparing two values uses <code>==</code>, which you'll use in Week 1.</p></div>
+
+  <div class="widget stepper" data-stepper="w0vars"></div>
+
+  <h2>Why print("hello, name") doesn't work</h2>
+<pre><code class="py">name = "Sara"
+print("hello, name")      # hello, name    ← the word "name", not the variable
+print("hello,", name)     # hello, Sara    ← the variable's value</code></pre>
+  <p>Inside quotes, <code>name</code> is just four letters. Outside quotes, it's the variable. You can join text and variables three ways:</p>
+<pre><code class="py">print("hello,", name)          # 1. separate arguments (print adds a space)
+print("hello, " + name)        # 2. + joins strings (you add the space yourself)
+print(f"hello, {name}")        # 3. f-string: the modern, preferred way</code></pre>
+
+  <h2>Naming variables well</h2>
+  <ul>
+    <li>Letters, digits and underscores only; can't start with a digit; no spaces.</li>
+    <li>Lower case with underscores: <code>first_name</code>, <code>total_price</code> (called <b>snake_case</b>).</li>
+    <li>Describe the content: <code>age</code> beats <code>a</code>; <code>price_with_vat</code> beats <code>p2</code>.</li>
+    <li>Case matters: <code>Name</code> and <code>name</code> are different variables.</li>
+    <li>Don't reuse built-in names: <code>input = "x"</code> breaks <code>input()</code> for the rest of the program.</li>
+  </ul>
+
+  <h2>Reassigning and reusing</h2>
+<pre><code class="py">name = input("Name: ")      # "  sara "
+name = name.strip()          # "sara"     same variable, new value
+name = name.title()          # "Sara"
+print(f"hello, {name}")</code></pre>
+  <p>A variable can be given a new value any time. The old value is forgotten. This "clean it step by step" pattern is very common with user input.</p>
+
+  <div class="note real"><b>input() always returns a string</b><p>Even if the user types <code>42</code>, <code>input</code> returns the text <code>"42"</code>. To do maths you must convert it with <code>int()</code> or <code>float()</code>. Lesson 4 is all about this. It's the most common Week 0 bug.</p></div>
+
+  <div class="widget runner" data-runner="w0v_greet"></div>
+  <div class="widget runner" data-runner="w0v_story"></div>
+  <div class="widget runner" data-runner="w0v_swap"></div>
+  <div class="widget runner" data-runner="w0v_bug"></div>
+  <div class="widget quiz" data-quiz="w0vars"></div>
+</article>

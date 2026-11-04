@@ -1,0 +1,17 @@
+<!-- ================================================================== W1 CHOOSE -->
+<article class="lesson" data-id="w1-choose" data-week="1" data-title="Choosing the right decision tool">
+  <div class="eyebrow">Week 1 · Lesson 4</div>
+  <h1>Choosing the right decision tool</h1>
+  <div class="tbl"><table>
+    <tr><th>Situation</th><th>Use</th><th>Because</th></tr>
+    <tr><td>Exclusive cases with ranges (grades, tax bands, prices by weight)</td><td>if / elif / else, ordered</td><td>Ranges need comparisons; order removes repeated boundaries</td></tr>
+    <tr><td>Several independent checks (password rules)</td><td>separate ifs</td><td>More than one can be true</td></tr>
+    <tr><td>Fixed commands with different actions</td><td><code>match</code> (3.10+) or if/elif</td><td>Reads like a menu</td></tr>
+    <tr><td>Choosing between two values</td><td>conditional expression</td><td>One line, no repeated assignment</td></tr>
+    <tr><td>Special cases inside a function</td><td>guard clauses with early return</td><td>Flat code, normal case last</td></tr>
+    <tr><td>A yes/no question you'll ask in many places</td><td>a Boolean function</td><td>Name it once, read it everywhere</td></tr>
+    <tr><td>A default when input is empty</td><td><code>value or "default"</code></td><td>Short, idiomatic</td></tr>
+  </table></div>
+  <p class="engine">Coming in Week 2: dictionaries, which replace long if/elif chains that map exact values to results.</p>
+  <div class="widget quiz" data-quiz="w1choose"></div>
+</article>

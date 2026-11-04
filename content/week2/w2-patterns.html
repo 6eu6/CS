@@ -1,0 +1,69 @@
+<!-- ================================================================== W2 PATTERNS -->
+<article class="lesson" data-id="w2-patterns" data-week="2" data-title="The 7 loop patterns">
+  <div class="eyebrow">Week 2 · Lesson 7</div>
+  <h1>The seven loop patterns</h1>
+  <div class="meta"><span>40 min</span><span>Pattern identification drill · 6 exercises</span></div>
+  <p class="lede">Experienced programmers don't invent loops from scratch. They recognise which pattern a problem needs and adapt it. Almost every loop you'll write in CS50P is one of these seven, or two of them combined.</p>
+
+  <h3>1. Sum (accumulate)</h3>
+<pre><code class="py">total = 0                 # start at the "nothing" value for addition
+for price in prices:
+    total += price</code></pre>
+  <p><b>Use for:</b> totals, averages (sum ÷ count), running balances. The starting value is 0 for sums, 1 for products, <code>""</code> for building text.</p>
+
+  <h3>2. Count</h3>
+<pre><code class="py">count = 0
+for t in temps:
+    if t &gt; 25:
+        count += 1        # add 1, not t</code></pre>
+  <p><b>Use for:</b> "how many…" questions. The difference from sum: you add 1, not the value.</p>
+
+  <h3>3. Maximum / minimum (best so far)</h3>
+<pre><code class="py">best = scores[0]          # start with a REAL item, not 0
+for s in scores:
+    if s &gt; best:
+        best = s</code></pre>
+  <p><b>Use for:</b> highest, lowest, longest, earliest. Start with the first item, because starting at 0 breaks when all values are negative. (<code>max()</code> exists, but you need this pattern when you also want e.g. <i>who</i> had the best score.)</p>
+
+  <h3>4. Filter (keep some)</h3>
+<pre><code class="py">passed = []
+for s in scores:
+    if s &gt;= 50:
+        passed.append(s)</code></pre>
+  <p><b>Use for:</b> "all the ones that…". Builds a new list; the original is untouched.</p>
+
+  <h3>5. Transform (change each)</h3>
+<pre><code class="py">clean = []
+for name in names:
+    clean.append(name.strip().title())</code></pre>
+  <p><b>Use for:</b> converting every item: tidying, converting units, adding VAT.</p>
+
+  <h3>6. Search (find the first)</h3>
+<pre><code class="py">found = None
+for email in emails:
+    if email.endswith("@nhs.net"):
+        found = email
+        break             # stop at the first match
+if found is None:
+    print("Not found")</code></pre>
+  <p><b>Use for:</b> "is there one that…?" or "the first one that…". The <code>break</code> saves time; <code>None</code> means "nothing yet".</p>
+
+  <h3>7. Tally (count each kind)</h3>
+<pre><code class="py">tally = {}
+for vote in votes:
+    tally[vote] = tally.get(vote, 0) + 1</code></pre>
+  <p><b>Use for:</b> "how many of <i>each</i>?" Uses a dictionary. The word counter is this pattern.</p>
+
+  <div class="note pro"><b>Combining patterns</b><p>"Average of the scores above 50" = filter + sum + count. "Name of the student with the best score" = max pattern, tracking the whole record instead of just the number. When you face a new problem, first ask "which patterns is this?"</p></div>
+
+  <h2>Drill: which pattern?</h2>
+  <div class="widget quiz" data-quiz="w2which"></div>
+
+  <h2>Exercises</h2>
+  <div class="widget runner" data-runner="w2p_balance"></div>
+  <div class="widget runner" data-runner="w2p_longest"></div>
+  <div class="widget runner" data-runner="w2p_first"></div>
+  <div class="widget runner" data-runner="w2p_acronym"></div>
+  <div class="widget runner" data-runner="w2p_combo"></div>
+  <div class="widget runner" data-runner="w2p_second"></div>
+</article>

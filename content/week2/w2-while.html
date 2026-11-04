@@ -1,0 +1,83 @@
+<!-- ================================================================== W2 WHILE -->
+<article class="lesson" data-id="w2-while" data-week="2" data-title="while loops">
+  <div class="eyebrow">Week 2 · Lesson 1</div>
+  <h1>while: repeat as long as something is true</h1>
+  <div class="meta"><span>40 min</span><span>Anatomy · trace · 8 predictions · 5 exercises</span></div>
+  <p class="lede"><code>while</code> is the simplest loop in Python: it's an <code>if</code> that keeps coming back. Understand it completely and every other loop will be easy.</p>
+
+  <h2>The idea in plain English</h2>
+  <p>"<b>While</b> the kettle isn't boiling, wait one more second." You check a condition; if it's true you do the body; then you <b>go back and check again</b>. You stop the first time the check is false.</p>
+
+  <h2>The first while loop, every character</h2>
+  <p>Tap any part of the code. Use <b>Next</b> to walk through every token in order.</p>
+  <div class="widget" data-anat="a_while"></div>
+
+  <h2>The three parts every while loop needs</h2>
+  <div class="tbl"><table>
+    <tr><th>Part</th><th>In the example</th><th>If you forget it</th></tr>
+    <tr><td><b>1. Start</b>: set up the variable the condition uses</td><td><code>n = 3</code></td><td><code>NameError</code>: the condition uses a name that doesn't exist yet</td></tr>
+    <tr><td><b>2. Test</b>: the condition after <code>while</code></td><td><code>n &gt; 0</code></td><td>Can't forget it; it's required syntax</td></tr>
+    <tr><td><b>3. Change</b>: something in the body moves towards making the test false</td><td><code>n = n - 1</code></td><td><b>Infinite loop</b>: the test is true forever</td></tr>
+  </table></div>
+  <div class="note why"><b>Why the condition is checked at the top</b><p>Python checks the condition <i>before</i> each pass, including the first. So if <code>n</code> starts at 0, the body runs <b>zero</b> times. A while loop can run 0, 1, or a thousand times; the condition alone decides.</p></div>
+
+  <h2>Watch it run</h2>
+  <p>This trace was recorded from real Python. Each step is one line being executed; the variables panel shows their values <b>after</b> that line ran.</p>
+  <div class="widget stepper" data-stepper="t_while"></div>
+
+  <h2>One pass of the loop = one "iteration"</h2>
+  <p>Programmers call each trip through the body an <b>iteration</b>. In the countdown above there are 3 iterations. A useful habit: write a small table of the variables at the end of each iteration. That's called a <b>trace table</b>, and it's how you debug loops on paper.</p>
+  <div class="tbl"><table><tr><th>Iteration</th><th>n at the check</th><th>check result</th><th>printed</th><th>n after body</th></tr>
+    <tr><td>1</td><td>3</td><td>True</td><td>3</td><td>2</td></tr>
+    <tr><td>2</td><td>2</td><td>True</td><td>2</td><td>1</td></tr>
+    <tr><td>3</td><td>1</td><td>True</td><td>1</td><td>0</td></tr>
+    <tr><td>(stop)</td><td>0</td><td>False</td><td>—</td><td>—</td></tr></table></div>
+
+  <h2>Counting up and the "off-by-one" bug</h2>
+<pre><code class="py">i = 1
+while i &lt;= 5:     # &lt;= includes 5
+    print(i)
+    i += 1         # shorthand for i = i + 1</code></pre>
+  <p>Change <code>&lt;=</code> to <code>&lt;</code> and you get 1 to 4. Start at 0 and you get 0 to 5. Being one too many or one too few is so common it has a name: the <b>off-by-one error</b>. The cure is to trace the first and last iterations by hand: "what is i the first time? the last time?"</p>
+  <div class="tbl"><table>
+    <tr><th>Shorthand</th><th>Means</th></tr>
+    <tr><td><code>i += 1</code></td><td><code>i = i + 1</code></td></tr>
+    <tr><td><code>i -= 2</code></td><td><code>i = i - 2</code></td></tr>
+    <tr><td><code>x *= 3</code></td><td><code>x = x * 3</code></td></tr>
+    <tr><td><code>total += price</code></td><td><code>total = total + price</code></td></tr>
+  </table></div>
+
+  <h2>Infinite loops, and how to escape one</h2>
+<pre><code class="py">i = 1
+while i &lt;= 5:
+    print(i)       # forgot i += 1  →  prints 1 forever</code></pre>
+  <p>In your Codespace terminal, press <kbd>Ctrl</kbd>+<kbd>C</kbd> to stop a running program. In the runners on this site, programs are stopped automatically after 5 seconds.</p>
+  <p>Sometimes an infinite loop is exactly what you want: <code>while True:</code> runs forever <i>until</i> something inside it stops it with <code>break</code> or <code>return</code>. Lesson 3 is all about that.</p>
+
+  <h2>while loops that aren't about counting</h2>
+  <p>while shines when you <b>don't know in advance</b> how many iterations you'll need:</p>
+<pre><code class="py">balance = 100
+years = 0
+while balance &lt; 200:          # how many years until the money doubles?
+    balance = balance * 1.05
+    years += 1
+print(years)                  # 15</code></pre>
+<pre><code class="py">n = 4096
+digits = 0
+while n &gt; 0:                  # how many digits does a number have?
+    n = n // 10               # drop the last digit
+    digits += 1
+print(digits)                 # 4</code></pre>
+  <div class="note real"><b>Where while appears in real software</b><p>Game loops (keep drawing frames while the game isn't over), servers (keep handling requests while running), retrying a download while it keeps failing, reading a file while there are lines left, and every "ask again until the answer is valid" form.</p></div>
+
+  <h2>Predict the output</h2>
+  <div class="widget predict" data-predict="p_while"></div>
+
+  <h2>Exercises</h2>
+  <div class="widget runner" data-runner="w2w_count"></div>
+  <div class="widget runner" data-runner="w2w_evens"></div>
+  <div class="widget runner" data-runner="w2w_double"></div>
+  <div class="widget runner" data-runner="w2w_digits"></div>
+  <div class="widget runner" data-runner="w2w_bug"></div>
+  <div class="widget quiz" data-quiz="w2while"></div>
+</article>

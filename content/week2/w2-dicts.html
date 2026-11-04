@@ -1,0 +1,81 @@
+<!-- ================================================================== W2 DICTS -->
+<article class="lesson" data-id="w2-dicts" data-week="2" data-title="Dictionaries">
+  <div class="eyebrow">Week 2 · Lesson 5</div>
+  <h1>Dictionaries: looking things up by name</h1>
+  <div class="meta"><span>45 min</span><span>Anatomy · trace · 8 predictions · 6 exercises</span></div>
+  <p class="lede">A list finds things by position: "the 3rd student". A dictionary finds things by a name you choose: "Sara's house", "the price of tea". It's the data structure behind phone books, menus, settings and the word counter.</p>
+
+  <h2>Anatomy</h2>
+  <div class="widget" data-anat="a_dict"></div>
+
+  <h2>Everything you can do with a dict</h2>
+<pre><code class="py">menu = {"tea": 1.80, "coffee": 2.40}
+
+menu["tea"]             # 1.8       look up a value by its key
+menu["cake"] = 3.10     # add a new key-value pair
+menu["tea"] = 1.95      # replace the value for an existing key
+"coffee" in menu        # True      is this KEY present? (doesn't search values)
+menu["juice"]           # KeyError: 'juice'
+menu.get("juice")       # None      no error
+menu.get("juice", 0)    # 0         your own default
+del menu["coffee"]      # remove a pair
+len(menu)               # 2         number of pairs</code></pre>
+  <div class="note why"><b>Why are dictionaries so fast?</b><p>Finding a value in a list means checking items one by one. A dict jumps straight to the key, no matter whether it has 10 entries or 10 million. That's why "look up by name" problems should almost always use a dict.</p></div>
+  <div class="note tip"><b>Rules for keys</b><p>Keys must be unique (assigning the same key twice replaces the value) and must be unchangeable values: strings and numbers are fine, lists are not. Values can be anything, including lists and other dicts.</p></div>
+
+  <h2>Looping over a dictionary</h2>
+<pre><code class="py">houses = {"Sara": "Red", "Omar": "Blue", "Lina": "Red"}
+
+for name in houses:                 # loops over the KEYS
+    print(name, houses[name])
+
+for name, house in houses.items():  # keys and values together (clearer)
+    print(f"{name} is in {house}")
+
+for house in houses.values():       # just the values
+    print(house)</code></pre>
+  <p>Since Python 3.7, dictionaries remember the order in which keys were added, so loops go in that order.</p>
+
+  <h2>The tally pattern (counting with a dict)</h2>
+  <div class="widget stepper" data-stepper="t_dict"></div>
+<pre><code class="py">counts[w] = counts.get(w, 0) + 1    # the same tally in one line</code></pre>
+
+  <h2>Lists of dictionaries: records</h2>
+  <p>Real data usually looks like rows in a spreadsheet: several fields per thing. In Python that's a <b>list of dicts</b>, one dict per row:</p>
+<pre><code class="py">students = [
+    {"name": "Sara", "house": "Red",  "score": 88},
+    {"name": "Omar", "house": "Blue", "score": 72},
+    {"name": "Lina", "house": "Red",  "score": 95},
+]
+for s in students:
+    print(s["name"], "scored", s["score"])
+
+top = students[0]
+for s in students:
+    if s["score"] &gt; top["score"]:
+        top = s
+print("Top:", top["name"])          # Top: Lina</code></pre>
+  <p>Notice the double lookup <code>s["score"]</code>: <code>s</code> is one dict from the list, and <code>["score"]</code> picks a field from it. This shape is exactly what you'll get when you read a CSV file in Week 6, and what web APIs send in Week 4.</p>
+
+  <h2>Choosing: list or dict?</h2>
+  <div class="tbl"><table>
+    <tr><th>Question you'll ask the data</th><th>Use</th></tr>
+    <tr><td>"What's the 3rd one?" / "In what order?"</td><td>list</td></tr>
+    <tr><td>"What is X's value?" (phone, price, score)</td><td>dict</td></tr>
+    <tr><td>"How many of each?"</td><td>dict (tally)</td></tr>
+    <tr><td>"All the rows, each with several fields"</td><td>list of dicts</td></tr>
+    <tr><td>"Which items belong to group X?"</td><td>dict of lists</td></tr>
+  </table></div>
+
+  <h2>Predict the output</h2>
+  <div class="widget predict" data-predict="p_dict"></div>
+
+  <h2>Exercises</h2>
+  <div class="widget runner" data-runner="w2d_order"></div>
+  <div class="widget runner" data-runner="w2d_letters"></div>
+  <div class="widget runner" data-runner="w2d_records"></div>
+  <div class="widget runner" data-runner="w2d_groups"></div>
+  <div class="widget runner" data-runner="w2d_lookup"></div>
+  <div class="widget runner" data-runner="w2d_bug"></div>
+  <div class="widget quiz" data-quiz="w2dicts"></div>
+</article>

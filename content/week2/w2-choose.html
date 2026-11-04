@@ -1,0 +1,26 @@
+<!-- ================================================================== W2 CHOOSE -->
+<article class="lesson" data-id="w2-choose" data-week="2" data-title="When to use what">
+  <div class="eyebrow">Week 2 · Lesson 8</div>
+  <h1>When to use what: Week 2 decision guide</h1>
+  <div class="meta"><span>20 min</span><span>Scenario drill</span></div>
+  <div class="tbl"><table>
+    <tr><th>Situation</th><th>Use</th><th>Because</th></tr>
+    <tr><td>You know how many times, or have a list/string/range to walk through</td><td><code>for</code></td><td>Can't forget to increment; can't loop forever</td></tr>
+    <tr><td>You don't know how many times: "until the user types done", "until the balance doubles"</td><td><code>while</code></td><td>The condition decides, not a count</td></tr>
+    <tr><td>Ask until valid</td><td><code>while True</code> + <code>break</code>/<code>return</code></td><td>Ask first, then test</td></tr>
+    <tr><td>Found what you needed</td><td><code>break</code></td><td>Stop wasting iterations</td></tr>
+    <tr><td>Skip this item, keep going</td><td><code>continue</code></td><td>Avoids deep nesting</td></tr>
+    <tr><td>Validation inside a helper function</td><td><code>return</code> from inside the loop</td><td>Leaves loop and function with the value</td></tr>
+    <tr><td>Repeat N times, number not used</td><td><code>for _ in range(N)</code></td><td>Signals "just repeating"</td></tr>
+    <tr><td>Numbered output</td><td><code>enumerate(items, 1)</code></td><td>Index and item together</td></tr>
+    <tr><td>Many values in order</td><td>list</td><td>Access by position, keeps order</td></tr>
+    <tr><td>Look up by name/key</td><td>dict</td><td>Direct, fast lookup</td></tr>
+    <tr><td>How many of each</td><td>dict tally with <code>.get(k, 0) + 1</code></td><td>One counter per kind</td></tr>
+    <tr><td>Rows with several fields</td><td>list of dicts</td><td>Like a spreadsheet</td></tr>
+    <tr><td>A key might be missing</td><td><code>.get(key, default)</code> or <code>if key in d</code></td><td>Avoids KeyError</td></tr>
+    <tr><td>Keep the original list, get a sorted one</td><td><code>sorted(items)</code></td><td><code>.sort()</code> changes the original and returns None</td></tr>
+    <tr><td>Grid / table / pattern</td><td>nested loops (or a helper for the row)</td><td>Rows × columns</td></tr>
+    <tr><td>Highest/lowest and also who/where</td><td>max pattern tracking the record</td><td><code>max()</code> only gives the value</td></tr>
+  </table></div>
+  <div class="widget quiz" data-quiz="w2choose"></div>
+</article>

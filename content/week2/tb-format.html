@@ -1,0 +1,52 @@
+<article class="lesson" data-id="tb-format" data-week="2" data-title="f-string formatting">
+  <div class="eyebrow">Week 2 · Power tool 9 of 9</div>
+  <h1>f-string formatting: output that looks professional</h1>
+  <div class="meta"><span>40 min</span><span>Format lab · 5 exercises</span></div>
+  <div class="note pro"><b>The question it answers</b><p>"How do I line up columns, show money, percentages, signs and padded numbers, so the output looks like a real report?"</p></div>
+  <h2>The format spec, every character</h2>
+  <p>After the colon inside <code>{ }</code> comes a mini-language. Its parts always come in this order (all optional):</p>
+  <div class="tbl"><table>
+    <tr><th>Part</th><th>Example</th><th>Meaning</th></tr>
+    <tr><td>fill + align</td><td><code>{x:&lt;10}</code> <code>{x:&gt;10}</code> <code>{x:^10}</code> <code>{x:*^10}</code></td><td>Left / right / centre in 10 characters; optional fill character before the arrow</td></tr>
+    <tr><td>sign</td><td><code>{x:+}</code></td><td>Always show + or −</td></tr>
+    <tr><td>zero pad</td><td><code>{n:03}</code></td><td>Width 3, padded with zeros: 007</td></tr>
+    <tr><td>width</td><td><code>{x:8}</code></td><td>At least 8 characters wide</td></tr>
+    <tr><td>grouping</td><td><code>{x:,}</code></td><td>Thousands separators</td></tr>
+    <tr><td>precision</td><td><code>{x:.2f}</code></td><td>2 decimals</td></tr>
+    <tr><td>type</td><td><code>f</code> <code>%</code> <code>d</code> <code>e</code></td><td>fixed decimals, percentage (×100), integer, scientific</td></tr>
+  </table></div>
+  <div class="widget" id="fmtLab">
+    <div class="widget-h"><b>Format lab</b><span class="badge">Interactive</span></div>
+    <div class="row"><label class="lbl" for="fmV">value</label><input type="text" id="fmV" value="1234.5678" style="width:140px" spellcheck="false"><label class="lbl" for="fmS">spec</label><input type="text" id="fmS" value="&gt;12,.2f" style="width:140px" spellcheck="false"></div>
+    <pre id="fmCode"></pre><pre class="out" id="fmOut"></pre>
+    <div class="row"><span class="engine">Try:</span><button class="btn sm" data-fs=",.2f">,.2f</button><button class="btn sm" data-fs="&gt;12,.2f">&gt;12,.2f</button><button class="btn sm" data-fs="&lt;12">&lt;12</button><button class="btn sm" data-fs="^12">^12</button><button class="btn sm" data-fs="*^12">*^12</button><button class="btn sm" data-fs="+.1f">+.1f</button><button class="btn sm" data-fs=".1%">.1%</button><button class="btn sm" data-fs="08.2f">08.2f</button><button class="btn sm" data-fs=".3e">.3e</button></div>
+  </div>
+  <h2>Building a table</h2>
+<pre><code class="py">rows = [("Tea", 2, 1.8), ("Chocolate cake", 1, 3.1)]
+print(f"{'Item':&lt;16}{'Qty':&gt;4}{'Price':&gt;9}")
+print("-" * 29)
+for name, qty, price in rows:
+    print(f"{name:&lt;16}{qty:&gt;4}{price:&gt;9.2f}")</code></pre>
+<pre class="out">Item             Qty    Price
+-----------------------------
+Tea                2     1.80
+Chocolate cake     1     3.10</pre>
+  <p>Text is usually left-aligned and numbers right-aligned, so decimal points line up. That's the convention in every spreadsheet and receipt.</p>
+  <h2>Dynamic widths</h2>
+<pre><code class="py">width = max(len(name) for name, _, _ in rows) + 2
+print(f"{'Item':&lt;{width}}Qty")        # a { } inside the spec uses a variable</code></pre>
+  <h2>Real-work scenarios</h2>
+  <ul>
+    <li><b>Invoices and receipts:</b> <code>£{total:,.2f}</code>, aligned columns.</li>
+    <li><b>Reports:</b> <code>{growth:+.1%}</code> shows <code>+12.5%</code> or <code>-3.0%</code>.</li>
+    <li><b>IDs and file names:</b> <code>f"INV-{n:05}"</code> → INV-00042; <code>f"photo_{i:03}.jpg"</code> sorts correctly as text.</li>
+    <li><b>Times:</b> <code>f"{h}:{m:02}:{s:02}"</code>.</li>
+  </ul>
+  <h2>Exercises</h2>
+  <div class="widget blanks" data-blanks="bl_fmt"></div>
+  <div class="widget runner" data-runner="tb_f_invoice"></div>
+  <div class="widget runner" data-runner="tb_f_growth"></div>
+  <div class="widget runner" data-runner="tb_f_table"></div>
+  <div class="widget runner" data-runner="tb_f_boss"></div>
+  <div class="widget quiz" data-quiz="tbformat"></div>
+</article>

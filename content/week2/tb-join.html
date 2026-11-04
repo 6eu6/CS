@@ -1,0 +1,48 @@
+<!-- ================================================================== WEEK 2 · POWER TOOLS -->
+<!-- ================================================================== SPLIT JOIN -->
+<article class="lesson" data-id="tb-join" data-week="2" data-title="split() and join()">
+  <div class="eyebrow">Week 2 · Power tool 1 of 9</div>
+  <h1>split() and join(): text to pieces and back</h1>
+  <div class="meta"><span>35 min</span><span>4 scenarios · 5 exercises</span></div>
+  <div class="note pro"><b>The question it answers</b><p>split: "How do I break this line of text into its parts?" join: "How do I glue a list of strings into one line?" They are exact opposites.</p></div>
+  <h2>Anatomy of join (the one everyone finds odd)</h2>
+  <div class="widget" data-anat="a_join"></div>
+  <div class="note why"><b>Why is it ", ".join(list) and not list.join(", ")?</b><p>Because join belongs to <b>strings</b>, and it works on <i>any</i> iterable of strings: lists, tuples, generators, dict keys. Putting it on the separator means one method serves them all. Read it as: "use <code>", "</code> to join these".</p></div>
+  <h2>split in detail</h2>
+<pre><code class="py">"a  b\tc\n".split()        # ['a', 'b', 'c']        no argument: any whitespace, runs merged, ends ignored
+"a,,b".split(",")           # ['a', '', 'b']         with a separator: every comma counts, empties kept
+"k=v=w".split("=", 1)       # ['k', 'v=w']           maxsplit: only split once
+"".split(",")               # ['']                   one empty piece, not an empty list!</code></pre>
+  <h2>join in detail</h2>
+<pre><code class="py">", ".join(["tea", "jam"])           # 'tea, jam'
+"".join(["a", "b", "c"])            # 'abc'
+"\n".join(["line 1", "line 2"])     # two lines in one string
+", ".join([1, 2])                   # TypeError: expected str instance, int found
+", ".join(str(n) for n in [1, 2])   # '1, 2'</code></pre>
+  <div class="note tip"><b>Building strings: join beats +=</b><p><code>s += piece</code> in a loop is fine for small jobs, but each += creates a whole new string. Collecting pieces in a list and joining once at the end is the professional habit, and it's much faster for large output.</p></div>
+  <h2>Real-work scenarios</h2>
+  <h3>Scenario 1: Parsing a log line</h3>
+<pre><code class="py">line = "2026-11-02 14:03:55 ERROR Payment declined for order 1182"
+date, time, level, message = line.split(" ", 3)
+print(level, "|", message)    # ERROR | Payment declined for order 1182</code></pre>
+  <p><code>maxsplit=3</code> splits only at the first three spaces, so the message stays in one piece however many words it has.</p>
+  <h3>Scenario 2: Writing a CSV row</h3>
+<pre><code class="py">row = ["Sara", 42, "London"]
+print(",".join(str(v) for v in row))     # Sara,42,London</code></pre>
+  <h3>Scenario 3: Cleaning every field</h3>
+<pre><code class="py">raw = " Sara , 42 ,  London "
+fields = [f.strip() for f in raw.split(",")]
+print(fields)            # ['Sara', '42', 'London']</code></pre>
+  <h3>Scenario 4: Human-friendly lists</h3>
+<pre><code class="py">items = ["tea", "milk", "bread"]
+print(", ".join(items[:-1]) + " and " + items[-1])     # tea, milk and bread</code></pre>
+  <h2>Predict the output</h2>
+  <div class="widget predict" data-predict="p_join"></div>
+  <h2>Exercises</h2>
+  <div class="widget runner" data-runner="tb_js_tags"></div>
+  <div class="widget runner" data-runner="tb_js_log"></div>
+  <div class="widget runner" data-runner="tb_js_english"></div>
+  <div class="widget runner" data-runner="tb_js_wrap"></div>
+  <div class="widget runner" data-runner="tb_js_boss"></div>
+  <div class="widget quiz" data-quiz="tbjoin"></div>
+</article>

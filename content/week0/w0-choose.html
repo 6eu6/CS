@@ -1,0 +1,27 @@
+<!-- ================================================================== W0 CHOOSE -->
+<article class="lesson" data-id="w0-choose" data-week="0" data-title="When to use what">
+  <div class="eyebrow">Week 0 · Lesson 6</div>
+  <h1>When to use what: Week 0 decision guide</h1>
+  <div class="meta"><span>20 min</span><span>Scenario drill</span></div>
+  <p class="lede">Knowing the tools is half the job. The other half is picking the right one in the moment. Here are the decisions you'll face, with the reasoning.</p>
+  <div class="tbl"><table>
+    <tr><th>Situation</th><th>Use</th><th>Not</th><th>Because</th></tr>
+    <tr><td>Show a result to the user</td><td><code>print</code></td><td><code>return</code></td><td>Only print puts text on screen</td></tr>
+    <tr><td>A function calculates something other code needs</td><td><code>return</code></td><td><code>print</code></td><td>The caller gets the value back to use</td></tr>
+    <tr><td>User types a whole number (age, count)</td><td><code>int(input())</code></td><td><code>float</code></td><td>Can't have 2.5 people; int rejects bad input</td></tr>
+    <tr><td>User types a measurement or price</td><td><code>float(input())</code></td><td><code>int</code></td><td>int("4.99") would crash</td></tr>
+    <tr><td>Exact division (average, price per item)</td><td><code>/</code></td><td><code>//</code></td><td>// throws away the decimal part</td></tr>
+    <tr><td>How many whole boxes/hours/pages</td><td><code>//</code></td><td><code>/</code></td><td>You want 2, not 2.25</td></tr>
+    <tr><td>What's left over</td><td><code>%</code></td><td>subtraction</td><td>Remainder in one step</td></tr>
+    <tr><td>Show money</td><td><code>f"£{x:.2f}"</code></td><td><code>round(x, 2)</code></td><td>round(5, 2) shows "5", not "5.00"</td></tr>
+    <tr><td>Keep calculating with a rounded value</td><td><code>round(x, 2)</code></td><td>f-string</td><td>An f-string is text; you can't do maths on it</td></tr>
+    <tr><td>Clean up any typed text</td><td><code>.strip()</code> first</td><td>skipping it</td><td>Stray spaces break comparisons and formatting</td></tr>
+    <tr><td>Person's name</td><td><code>.title()</code></td><td><code>.capitalize()</code></td><td>capitalize("ada lovelace") → "Ada lovelace"</td></tr>
+    <tr><td>Compare answers ignoring case</td><td><code>.lower()</code></td><td>trying every spelling</td><td>One normal form instead of many cases</td></tr>
+    <tr><td>Combine text and numbers in output</td><td>f-string</td><td><code>+</code></td><td>+ needs str() on every number</td></tr>
+    <tr><td>Same code needed twice</td><td>a function</td><td>copy-paste</td><td>Fix bugs once, in one place</td></tr>
+    <tr><td>A function needs a value from main</td><td>a parameter</td><td>relying on main's variable</td><td>Scope: it can't see main's variables</td></tr>
+    <tr><td>An input usually has the same value</td><td>a default parameter</td><td>making every call pass it</td><td>Callers only pass it when it's different</td></tr>
+  </table></div>
+  <div class="widget quiz" data-quiz="w0choose"></div>
+</article>

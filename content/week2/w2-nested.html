@@ -1,0 +1,57 @@
+<!-- ================================================================== W2 NESTED -->
+<article class="lesson" data-id="w2-nested" data-week="2" data-title="Nested loops & patterns">
+  <div class="eyebrow">Week 2 · Lesson 6</div>
+  <h1>Loops inside loops: grids and patterns</h1>
+  <div class="meta"><span>35 min</span><span>Pattern builder · trace · 6 predictions · 5 exercises</span></div>
+  <p class="lede">Put a loop inside another and the inner one runs <b>completely</b> for every single iteration of the outer one. That's how you handle anything two-dimensional: rows and columns, tables, seats in a cinema, pixels in an image.</p>
+
+  <h2>Watch it run</h2>
+  <div class="widget stepper" data-stepper="t_nested"></div>
+  <div class="note why"><b>How many times does the inner body run?</b><p>outer iterations × inner iterations. 2 rows × 3 columns = 6 <code>#</code>. With 1,000 × 1,000 it's a million, which is why nested loops over big data can be slow.</p></div>
+
+  <h2>The rows-and-columns way of thinking</h2>
+  <p>For any grid or pattern, ask two questions: <b>how many rows?</b> (the outer loop) and <b>what goes in row number r?</b> (the inner loop, which may depend on r).</p>
+  <div class="widget" id="patLab">
+    <div class="widget-h"><b>Pattern builder</b><span class="badge">Interactive</span></div>
+    <div class="row">
+      <label class="lbl" for="ptShape">Shape</label>
+      <select id="ptShape" style="width:auto"><option value="rect">rectangle</option><option value="tri">triangle</option><option value="rtri">right-aligned triangle</option><option value="check">checkerboard</option><option value="hollow">hollow box</option></select>
+      <label class="lbl" for="ptN">size</label><input type="number" id="ptN" value="4" min="1" max="12" style="width:80px">
+    </div>
+    <div class="split2"><pre id="ptCode"></pre><pre class="out" id="ptOut"></pre></div>
+    <p class="engine" id="ptNote"></p>
+  </div>
+
+  <h2>Helper functions make nested loops readable</h2>
+<pre><code class="py">def main():
+    print_square(3)
+
+def print_square(size):
+    for _ in range(size):        # each row
+        print_row(size)
+
+def print_row(width):
+    print("#" * width)           # the inner "loop" is hidden in * repetition
+
+main()</code></pre>
+  <p>CS50P does exactly this: break the problem into "print a square" → "print a row". Each function does one simple thing. When a nested loop gets confusing, pull the inner loop out into a function.</p>
+
+  <h2>break only leaves one loop</h2>
+<pre><code class="py">for r in range(3):
+    for c in range(3):
+        if c == 1:
+            break           # leaves the INNER loop only
+        print(r, c)
+# prints  0 0  /  1 0  /  2 0   — the outer loop carries on</code></pre>
+
+  <h2>Predict the output</h2>
+  <div class="widget predict" data-predict="p_nested"></div>
+
+  <h2>Exercises</h2>
+  <div class="widget runner" data-runner="w2n_square"></div>
+  <div class="widget runner" data-runner="w2n_triangle"></div>
+  <div class="widget runner" data-runner="w2n_right"></div>
+  <div class="widget runner" data-runner="w2n_times"></div>
+  <div class="widget runner" data-runner="w2n_seats"></div>
+  <div class="widget quiz" data-quiz="w2nested"></div>
+</article>

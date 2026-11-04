@@ -1,0 +1,65 @@
+<!-- ================================================================== METHOD -->
+<article class="lesson" data-id="method" data-week="intro" data-title="How to study CS50P">
+  <div class="eyebrow">Start here</div>
+  <h1>The study method: how to come out of CS50P genuinely skilled</h1>
+  <div class="meta"><span>10 min read</span><span>Do this every week</span></div>
+  <p class="lede">Most people who "finish" an online course can't write a program from scratch a month later. The difference isn't talent; it's how they practised. Here's a weekly loop that works.</p>
+
+  <h2>The weekly loop</h2>
+  <div class="tbl"><table>
+    <tr><th>Step</th><th>What you do</th><th>Why it works</th></tr>
+    <tr><td><b>1. Watch</b></td><td>Watch the CS50P lecture with your Codespace open. Pause and type every example yourself. Don't just watch.</td><td>Typing forces you to notice every symbol. Watching feels like learning but mostly isn't.</td></tr>
+    <tr><td><b>2. Understand</b></td><td>Read this week's companion lessons. Use the "Try it" boxes to break the examples on purpose.</td><td>You find the gaps the lecture went past too quickly.</td></tr>
+    <tr><td><b>3. Drill</b></td><td>Do the practice lab, warm-up to challenge. Aim for green ticks without opening the solution.</td><td>Many small reps build the reflex of "I know which tool this needs".</td></tr>
+    <tr><td><b>4. Prove</b></td><td>Do CS50's problem sets <b>alone</b>, with only the CS50 Duck (cs50.ai) for hints.</td><td>Struggling a bit is exactly how memory forms. If someone gives you the answer, the learning is lost.</td></tr>
+    <tr><td><b>5. Review</b></td><td>Two or three days later, take the week test again and redo one lab exercise from a blank editor.</td><td>Spaced review is what turns "I understood it" into "I can do it".</td></tr>
+  </table></div>
+
+  <h2>Your study session, exactly</h2>
+  <p>Use the <b>focus timer</b> in the top bar. It follows the Pomodoro method: 25 minutes of focus, a 5-minute break, and a longer 15-minute break after every 4 sessions. Short, timed sessions stop you drifting and make starting easy ("just one session").</p>
+  <div class="tbl"><table>
+    <tr><th>When</th><th>Do this</th></tr>
+    <tr><td>Start of every day (5 min)</td><td>Open <a href="#review">Daily review</a> and clear what's due. Old material first, new material second.</td></tr>
+    <tr><td>Session 1 (25 min)</td><td>Read the next lesson. Tap through every anatomy explorer. Run and change the "Try it" code.</td></tr>
+    <tr><td>Session 2 (25 min)</td><td>Predict-the-output drills (no guessing: trace it on paper), then the arrange / fill-in / bug-hunt exercises.</td></tr>
+    <tr><td>Sessions 3–4</td><td>The lesson's coded exercises. Write a plan as comments first. Only open a solution after a real 20-minute struggle, and then retype it from memory.</td></tr>
+    <tr><td>End of the lesson</td><td>The quiz (80% to pass). Every item passed = lesson complete = next lesson unlocks.</td></tr>
+    <tr><td>Weekly</td><td>Week lab and boss level, a project, then the CS50P problem set on your own.</td></tr>
+  </table></div>
+  <div class="note why"><b>Why this works</b><p>Learning research consistently finds that three things beat re-reading: <b>retrieval</b> (answering from memory: the quizzes and predictions), <b>spacing</b> (coming back after days: the daily review) and <b>active practice</b> (writing code, not watching it). Timed sessions with breaks keep your attention fresh enough to do those well.</p></div>
+
+  <h2>How progress works</h2>
+  <ul>
+    <li>A lesson is complete only when <b>every</b> exercise, drill and quiz in it is passed. The bar at the top of each lesson shows what's left.</li>
+    <li>The next lesson stays <b>locked</b> until then. Toolbox deep dives are never locked: use them whenever you need them.</li>
+    <li>Each week's final test works as a <b>placement test</b>: pass it and the next week unlocks, even if you skipped lessons you already know.</li>
+    <li>Quizzes need 80%. Prediction drills need 80% on the first reveal. Projects unlock step by step.</li>
+  </ul>
+
+  <h2>Rules that make the difference</h2>
+  <ul>
+    <li><b>Predict before you run.</b> Before pressing Run, say what you expect the output to be. When you're wrong, that's the most valuable moment of the session.</li>
+    <li><b>Read errors to the last line.</b> Python almost always tells you what's wrong and where. Learn to read it instead of guessing.</li>
+    <li><b>Twenty minutes, then ask.</b> Stuck for 20 minutes? Explain the problem to the CS50 Duck, or to a rubber duck on your desk. Saying it out loud often solves it.</li>
+    <li><b>Never copy code you can't explain.</b> If you can't explain a line, you don't own it yet.</li>
+    <li><b>Small steps.</b> Write two lines, run, check. Then two more. Beginners write 30 lines and then face 5 errors at once.</li>
+  </ul>
+
+  <h2>Academic honesty, in plain words</h2>
+  <p>CS50 treats using AI tools other than its own (ChatGPT, Claude, Copilot and so on) to suggest or write problem-set answers as academically dishonest. CS50's own Duck is allowed. So:</p>
+  <div class="split2">
+    <div class="panel"><h4>Fine</h4><ul><li>Using this companion to understand concepts</li><li>Doing the companion's own exercises</li><li>Asking me to explain an error message or a concept in general</li><li>Using the CS50 Duck for problem-set hints</li></ul></div>
+    <div class="panel"><h4>Not fine</h4><ul><li>Pasting a problem set's spec into any AI and using its code</li><li>Copying someone's solution from GitHub</li><li>Asking for "just a hint" until the hints add up to the answer</li></ul></div>
+  </div>
+
+  <h2>Your setup</h2>
+  <p>CS50P uses its own online VS Code at <b>cs50.dev</b> (it runs in GitHub Codespaces, which you're already using). Your terminal commands are the same everywhere:</p>
+<pre class="term"><code>code hello.py        # create/open a file in the editor
+python hello.py      # run it
+ls                   # list files here
+cd folder            # move into a folder
+cd ..                # go up one folder
+check50 cs50/problems/2022/python/...   # CS50's official checker (the slug is in each problem's page)
+submit50 ...         # submit (also on each problem's page)</code></pre>
+  <p>The "Check" buttons on this site work like a mini check50: they run your code several times with different inputs and show which tests passed.</p>
+</article>

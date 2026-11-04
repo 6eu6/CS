@@ -1,0 +1,69 @@
+<!-- ================================================================== W1 L1: IF -->
+<article class="lesson" data-id="w1-if" data-week="1" data-title="Comparisons and if/elif/else">
+  <div class="eyebrow">Week 1 · Lesson 1</div>
+  <h1>Comparisons and if, elif, else</h1>
+  <div class="meta"><span>40 min</span><span>Anatomy · trace · predictions · 7 exercises</span></div>
+
+  <h2>Every comparison produces True or False</h2>
+<pre><code class="py">age = 17
+print(age &gt;= 18)        # False
+can_vote = age &gt;= 18    # you can store the answer in a variable</code></pre>
+  <p><code>True</code> and <code>False</code> are values of type <b>bool</b> (named after George Boole, who invented the algebra of logic). A comparison is an expression whose value is a bool.</p>
+  <div class="tbl"><table>
+    <tr><th>Operator</th><th>Question</th><th>Example → result</th></tr>
+    <tr><td><code>==</code></td><td>equal?</td><td><code>3 == 3.0</code> → True (numbers compare by value)</td></tr>
+    <tr><td><code>!=</code></td><td>not equal?</td><td><code>"a" != "A"</code> → True (case matters)</td></tr>
+    <tr><td><code>&lt;</code> <code>&gt;</code></td><td>less / greater?</td><td><code>"apple" &lt; "banana"</code> → True (alphabetical, character by character)</td></tr>
+    <tr><td><code>&lt;=</code> <code>&gt;=</code></td><td>…or equal?</td><td><code>50 &gt;= 50</code> → True</td></tr>
+  </table></div>
+  <div class="note warn"><b>Two classic traps</b><p><code>=</code> stores a value; <code>==</code> compares. And <code>"10" &lt; "9"</code> is True because strings compare character by character. <code>input()</code> gives strings, so convert with <code>int()</code> before comparing numbers.</p></div>
+  <h3>Chained comparisons</h3>
+<pre><code class="py">print(0 &lt;= score &lt;= 100)     # Python reads this like maths: is score between 0 and 100?</code></pre>
+
+  <h2>Anatomy of if / elif / else</h2>
+  <div class="widget" data-anat="a_if"></div>
+  <h2>Exactly one branch runs</h2>
+  <p>Python checks the conditions <b>top to bottom</b> and runs the <b>first</b> branch whose condition is true. Then it skips the rest, even if later conditions are also true. If none match, <code>else</code> runs (if there is one).</p>
+  <div class="widget stepper" data-stepper="t_grade"></div>
+  <h2>Order matters</h2>
+  <div class="split2">
+<pre><code class="py"># WRONG: 95 gets "C"
+if score &gt;= 50:
+    grade = "C"
+elif score &gt;= 60:
+    grade = "B"
+elif score &gt;= 70:
+    grade = "A"</code></pre>
+<pre><code class="py"># RIGHT: most specific first
+if score &gt;= 70:
+    grade = "A"
+elif score &gt;= 60:
+    grade = "B"
+elif score &gt;= 50:
+    grade = "C"</code></pre>
+  </div>
+  <p>With thresholds, test from the highest down, so each branch only needs one boundary: the earlier branches have already ruled out everything above.</p>
+  <h2>One chain or several ifs?</h2>
+<pre><code class="py">x = 15
+if x &gt; 10:
+    print("big")         # separate ifs: EACH one is checked
+if x &gt; 5:
+    print("medium")      # → prints big AND medium
+
+if x &gt; 10:
+    print("big")         # one chain: only the first true branch
+elif x &gt; 5:
+    print("medium")      # → prints big only</code></pre>
+  <p>Use one chain when the cases are <b>exclusive</b> (one grade, one ticket price). Use separate ifs when several things can be true at once.</p>
+  <h2>Predict the output</h2>
+  <div class="widget predict" data-predict="p_w1a"></div>
+  <h2>Exercises</h2>
+  <div class="widget parsons" data-parsons="pa_grade"></div>
+  <div class="widget runner" data-runner="w1i_grade"></div>
+  <div class="widget runner" data-runner="x1_bmi"></div>
+  <div class="widget runner" data-runner="x1_ticket"></div>
+  <div class="widget runner" data-runner="x1_time"></div>
+  <div class="widget bug" data-bug="bug_order"></div>
+  <div class="widget bug" data-bug="bug_strcmp"></div>
+  <div class="widget quiz" data-quiz="w1a"></div>
+</article>

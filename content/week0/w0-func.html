@@ -1,0 +1,94 @@
+<!-- ================================================================== W0 FUNCTIONS -->
+<article class="lesson" data-id="w0-func" data-week="0" data-title="Writing your own functions">
+  <div class="eyebrow">Week 0 · Lesson 5</div>
+  <h1>def: writing your own functions</h1>
+  <div class="meta"><span>45 min</span><span>Scope tracer · 6 exercises</span></div>
+  <p class="lede">So far you've called functions other people wrote. Now you write your own. This is the most important idea of the week, and every later week depends on it.</p>
+
+  <h2>The smallest function</h2>
+<pre><code class="py">def hello():
+    print("hello")
+
+hello()
+hello()</code></pre>
+  <dl class="def">
+    <dt>def</dt><dd>"Define": I'm creating a new function. Python stores the instructions but <b>doesn't run them yet</b>.</dd>
+    <dt>hello</dt><dd>The name you chose. Same naming rules as variables. Use a verb: it <i>does</i> something.</dd>
+    <dt>()</dt><dd>The parameter list. Empty here: this function needs no input.</dd>
+    <dt>:</dt><dd>"The body comes next."</dd>
+    <dt>4 spaces</dt><dd>Indentation marks the <b>body</b>: the lines that belong to the function. When the indentation stops, the function ends.</dd>
+    <dt>hello()</dt><dd>A <b>call</b>. Now the body actually runs. Two calls, two hellos.</dd>
+  </dl>
+
+  <h2>Parameters: giving a function input</h2>
+<pre><code class="py">def hello(to):
+    print("hello,", to)
+
+hello("Sara")       # hello, Sara
+hello("Omar")       # hello, Omar</code></pre>
+  <p><code>to</code> is a <b>parameter</b>: a variable that gets its value from the call. When you write <code>hello("Sara")</code>, Python does <code>to = "Sara"</code> just before the body runs. The value you pass, <code>"Sara"</code>, is the <b>argument</b>.</p>
+  <div class="note why"><b>Why "to"? Could it be anything?</b><p>Yes. <code>def hello(person)</code> or <code>def hello(x)</code> work identically, as long as the body uses the same name. Programmers pick a name that makes the body read like English: <code>print("hello,", to)</code>. Parameter names are for the human reader.</p></div>
+
+  <h2>Default values</h2>
+<pre><code class="py">def hello(to="world"):
+    print("hello,", to)
+
+hello()            # hello, world   ← no argument, so the default is used
+hello("Sara")      # hello, Sara</code></pre>
+  <p><code>to="world"</code> means "if no argument is given, use "world"". That's exactly how <code>print</code>'s <code>sep=" "</code> and <code>end="\n"</code> work.</p>
+
+  <h2>return: giving a value back</h2>
+<pre><code class="py">def square(n):
+    return n * n
+
+x = square(4)          # x is 16
+print(square(3) + 1)   # 10</code></pre>
+  <p><code>return</code> does two things: it hands a value back to the caller, and it ends the function immediately. Any line after <code>return</code> in the same block never runs.</p>
+  <div class="split2">
+    <div class="panel"><h4>print inside a function</h4><p>Shows a value to the person. The caller gets <code>None</code> back and can't use it.</p></div>
+    <div class="panel"><h4>return inside a function</h4><p>Gives the value to the code that called it, so that code can store it, calculate with it, or print it.</p></div>
+  </div>
+<pre><code class="py">def bad_square(n):
+    print(n * n)       # shows 16...
+
+x = bad_square(4)      # ...but x is None
+print(x + 1)           # TypeError: unsupported operand type(s) for +: 'NoneType' and 'int'</code></pre>
+  <div class="note tip"><b>Rule of thumb</b><p>Functions that <b>calculate</b> should <code>return</code>. Let <code>main</code> decide what to print. That way the same function works in a terminal program, a website, or a test.</p></div>
+
+  <h2>main(): organising a program</h2>
+<pre><code class="py">def main():
+    name = input("Name: ")
+    hello(name)
+
+def hello(to):
+    print("hello,", to)
+
+main()</code></pre>
+  <p>CS50P uses this shape for every program. <code>main</code> holds the big picture; helper functions do the details. Notice <code>hello</code> is defined <i>below</i> <code>main</code> and it still works. That's because <code>main()</code> is only <b>called</b> on the last line, by which time Python has read every <code>def</code>.</p>
+  <p>Later in the course you'll see this instead of the plain <code>main()</code>:</p>
+<pre><code class="py">if __name__ == "__main__":
+    main()</code></pre>
+  <p>It means "run main only if this file was run directly, not imported by another file". It matters in Week 5 (unit tests). For now, either works.</p>
+
+  <h2>Scope: where a variable lives</h2>
+  <p>A variable created inside a function exists <b>only inside that function</b>, and only while it's running. That's called its <b>scope</b>.</p>
+<pre><code class="py">def main():
+    name = input("Name: ")
+    hello()
+
+def hello():
+    print("hello,", name)    # NameError: name 'name' is not defined
+
+main()</code></pre>
+  <p><code>name</code> belongs to <code>main</code>. <code>hello</code> can't see it. The fix is to <b>pass it in</b> as an argument: <code>hello(name)</code> and <code>def hello(to)</code>. Passing values in and returning values out is how functions talk to each other.</p>
+  <div class="widget stepper" data-stepper="w0scope"></div>
+  <div class="note why"><b>Why does Python work this way?</b><p>If every function could see and change every variable, a change in one place could silently break another. Scope keeps each function self-contained: you can understand it by reading just that function, its parameters and its return.</p></div>
+
+  <div class="widget runner" data-runner="w0f_cube"></div>
+  <div class="widget runner" data-runner="w0f_default"></div>
+  <div class="widget runner" data-runner="w0f_convert"></div>
+  <div class="widget runner" data-runner="w0f_refactor"></div>
+  <div class="widget runner" data-runner="w0f_scopebug"></div>
+  <div class="widget runner" data-runner="w0f_returnbug"></div>
+  <div class="widget quiz" data-quiz="w0func"></div>
+</article>

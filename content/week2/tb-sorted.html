@@ -1,0 +1,72 @@
+<article class="lesson" data-id="tb-sorted" data-week="2" data-title="sorted(), key= and lambda">
+  <div class="eyebrow">Week 2 · Power tool 4 of 9</div>
+  <h1>sorted(), key= and lambda: ordering by any rule</h1>
+  <div class="meta"><span>45 min</span><span>Sort lab · 5 scenarios · 5 exercises</span></div>
+  <div class="note pro"><b>The question it answers</b><p>"Put these in order, but by <i>my</i> rule: by price, by length, by surname, by score then by name…"</p></div>
+
+  <h2>Anatomy</h2>
+  <div class="widget" data-anat="a_sorted"></div>
+
+  <h2>How key= really works</h2>
+  <p>Python calls your key function <b>once per item</b>, gets back a "sort value" for each, sorts by those values, and returns the <b>original items</b> in that order. The key never changes the items; it only decides their order.</p>
+<pre><code class="py">words = ["banana", "fig", "apple"]
+sorted(words)               # ['apple', 'banana', 'fig']        alphabetical
+sorted(words, key=len)      # ['fig', 'apple', 'banana']        len("fig")=3, len("apple")=5, len("banana")=6
+sorted(words, key=len, reverse=True)   # ['banana', 'apple', 'fig']</code></pre>
+  <div class="widget" id="sortLab2">
+    <div class="widget-h"><b>Sort lab</b><span class="badge">Interactive</span></div>
+    <p class="engine">Data: <code>people = [("Sara", "Ali", 31), ("omar", "Khan", 25), ("Lina", "Ali", 25), ("zaid", "Noor", 40)]</code></p>
+    <div class="row"><label class="lbl" for="sk2">key=</label><select id="sk2" style="width:auto">
+      <option value="none">(none)</option><option value="age">lambda p: p[2]</option><option value="first">lambda p: p[0]</option><option value="firstl">lambda p: p[0].lower()</option><option value="sur">lambda p: (p[1], p[0])</option><option value="agefirst">lambda p: (p[2], p[0].lower())</option><option value="agedesc">lambda p: (-p[2], p[1])</option></select>
+      <label class="lbl"><input type="checkbox" id="sr2"> reverse=True</label></div>
+    <div class="tbl"><table id="sortOut2"></table></div>
+    <p class="engine" id="sortNote2"></p>
+  </div>
+
+  <h2>lambda: a function in one line</h2>
+<pre><code class="py">lambda p: p[2]
+# is exactly the same as:
+def get_age(p):
+    return p[2]</code></pre>
+  <p><code>lambda</code> makes a small function without a name. Before the colon: the parameter(s). After it: the value to return (no <code>return</code> keyword). Use it when the function is tiny and used once, which is almost always the case with <code>key=</code>.</p>
+
+  <h2>Sorting by several things: tuples</h2>
+  <p>Tuples are compared item by item: first items first; only if equal, the second items, and so on. So <code>key=lambda p: (p[1], p[0])</code> means "by surname, then by first name". To sort one part descending and another ascending, negate the number: <code>(-score, name)</code>.</p>
+
+  <h2>sorted() vs .sort()</h2>
+  <div class="tbl"><table>
+    <tr><th></th><th><code>sorted(x)</code></th><th><code>x.sort()</code></th></tr>
+    <tr><td>Works on</td><td>any iterable: lists, strings, dict keys, tuples</td><td>lists only</td></tr>
+    <tr><td>Original</td><td>unchanged</td><td>changed in place</td></tr>
+    <tr><td>Returns</td><td>a new list</td><td><code>None</code></td></tr>
+    <tr><td>Use when</td><td>you need the original too, or it isn't a list</td><td>you only need the sorted version and want to save memory</td></tr>
+  </table></div>
+  <p>Python's sort is <b>stable</b>: items with equal keys keep their original order. Professionals use this deliberately: sort by name first, then by department, and people within each department stay alphabetical.</p>
+
+  <h2>Real-work scenarios</h2>
+  <h3>Scenario 1: A leaderboard with tie-breaks</h3>
+<pre><code class="py">scores = {"Sara": 88, "Omar": 95, "Lina": 88}
+for name, s in sorted(scores.items(), key=lambda kv: (-kv[1], kv[0])):
+    print(name, s)
+# Omar 95 / Lina 88 / Sara 88   ← ties broken alphabetically</code></pre>
+  <h3>Scenario 2: Case-insensitive sorting of names</h3>
+  <p><code>sorted(["bob", "Alice", "carl"])</code> gives <code>['Alice', 'bob', 'carl']</code>, but only by luck: capitals come before all lower-case letters. <code>sorted(["bob", "alice", "Carl"])</code> puts Carl first. Fix: <code>key=str.lower</code>. You can pass a method itself as the key, without calling it.</p>
+  <h3>Scenario 3: The most common words (the word counter!)</h3>
+<pre><code class="py">sorted(counts.items(), key=lambda x: x[1], reverse=True)[:10]</code></pre>
+  <p>Now every piece is clear: pairs, sorted by the count (<code>x[1]</code>), biggest first, the first 10.</p>
+  <h3>Scenario 4: Dates as text</h3>
+  <p>Dates written <code>2026-11-02</code> (year-month-day, the ISO format) sort correctly as plain text. Dates written <code>02/11/2026</code> don't. That's one reason professionals store dates in ISO format. To sort the other style, build a key: <code>key=lambda d: (d[6:], d[3:5], d[:2])</code>.</p>
+  <h3>Scenario 5: Sorting files by extension, then name</h3>
+<pre><code class="py">files = ["b.txt", "a.py", "c.txt", "a.csv"]
+sorted(files, key=lambda f: (f.split(".")[-1], f))   # ['a.csv', 'a.py', 'b.txt', 'c.txt']</code></pre>
+
+  <h2>Predict the output</h2>
+  <div class="widget predict" data-predict="p_sorted"></div>
+  <h2>Exercises</h2>
+  <div class="widget parsons" data-parsons="pa_sorted"></div>
+  <div class="widget runner" data-runner="tb_sort_len"></div>
+  <div class="widget runner" data-runner="tb_sort_league"></div>
+  <div class="widget runner" data-runner="tb_sort_dates"></div>
+  <div class="widget runner" data-runner="tb_sort_boss"></div>
+  <div class="widget quiz" data-quiz="tbsorted"></div>
+</article>

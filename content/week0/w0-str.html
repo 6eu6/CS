@@ -1,0 +1,77 @@
+<!-- ================================================================== W0 STRINGS -->
+<article class="lesson" data-id="w0-str" data-week="0" data-title="Strings & their methods">
+  <div class="eyebrow">Week 0 · Lesson 3</div>
+  <h1>Strings and their methods: cleaning up what users type</h1>
+  <div class="meta"><span>35 min</span><span>Method lab · 6 exercises</span></div>
+  <p class="lede">Users type messy things: extra spaces, random capitals, the wrong separator. String methods are the tools for tidying that up before you use it.</p>
+
+  <h2>What a method is</h2>
+<pre><code class="py">name = "  sARA  "
+name.strip()</code></pre>
+  <p>A <b>method</b> is a function that belongs to a value. You call it with a <b>dot</b>: <code>value.method()</code>. The dot means "use the <code>strip</code> ability that belongs to this string". Strings come with dozens of methods.</p>
+  <div class="note why"><b>Strings never change; methods return new ones</b><p><code>name.strip()</code> does <b>not</b> change <code>name</code>. It returns a cleaned <i>copy</i>. If you don't store it, the copy is lost:</p>
+<pre><code class="py">name = "  sara  "
+name.strip()          # cleaned copy made... and thrown away
+print(name)           # "  sara  "  still messy!
+name = name.strip()   # store the copy back
+print(name)           # "sara"</code></pre>
+  <p>Strings are <b>immutable</b>: once made, they can't be edited, only replaced. This is the #1 string bug for beginners.</p></div>
+
+  <h2>The methods you'll use most</h2>
+  <div class="tbl"><table class="mtable">
+    <tr><th>Method</th><th>"  hello WORLD  " becomes</th><th>Use it when</th></tr>
+    <tr><td>.strip()</td><td><code>"hello WORLD"</code></td><td>Always, on user input: removes spaces/new lines at both ends</td></tr>
+    <tr><td>.lstrip() / .rstrip()</td><td>only the left / right end</td><td>You want to keep one side's spacing</td></tr>
+    <tr><td>.lower()</td><td><code>"  hello world  "</code></td><td>Comparing without caring about capitals ("Yes", "YES", "yes")</td></tr>
+    <tr><td>.upper()</td><td><code>"  HELLO WORLD  "</code></td><td>Codes, shouting, postcodes like "SW1A 1AA"</td></tr>
+    <tr><td>.title()</td><td><code>"  Hello World  "</code></td><td>People's names, book titles</td></tr>
+    <tr><td>.capitalize()</td><td><code>"  hello world  "</code>*</td><td>A sentence: only the first character capital, rest lower</td></tr>
+    <tr><td>.replace(a, b)</td><td><code>.replace("WORLD","Sara")</code> → <code>"  hello Sara  "</code></td><td>Swap every occurrence of some text</td></tr>
+    <tr><td>.split(sep)</td><td><code>["hello", "WORLD"]</code></td><td>Break text into pieces (a list)</td></tr>
+    <tr><td>len(text)</td><td><code>15</code></td><td>How many characters (a function, not a method)</td></tr>
+  </table></div>
+  <p class="engine">*capitalize upper-cases the very first character. Here that's a space, so nothing visible changes. That's why you strip first.</p>
+
+  <div class="widget" id="strLab">
+    <div class="widget-h"><b>Method lab</b><span class="badge">Interactive</span></div>
+    <label class="lbl" for="slIn">Type any text (spaces count)</label>
+    <input type="text" id="slIn" value="  mUHAMMAD ali  " spellcheck="false" autocomplete="off">
+    <div class="tbl"><table id="slTable"></table></div>
+  </div>
+
+  <h2>Chaining methods</h2>
+<pre><code class="py">name = input("Name: ").strip().title()</code></pre>
+  <p>Read it left to right: <code>input(...)</code> returns a string → <code>.strip()</code> is called on that and returns a new string → <code>.title()</code> is called on <i>that</i>. Each dot works on the result of everything to its left.</p>
+  <div class="note tip"><b>Order matters</b><p><code>"  sara".capitalize().strip()</code> gives <code>"sara"</code> (capitalize hit the space). <code>"  sara".strip().capitalize()</code> gives <code>"Sara"</code>. Strip first, then change case.</p></div>
+
+  <h2>split() and unpacking</h2>
+<pre><code class="py">full = "Ada Lovelace"
+first, last = full.split(" ")     # first = "Ada", last = "Lovelace"
+print(f"hello, {first}")</code></pre>
+  <p><code>split(" ")</code> returns a list of pieces. Writing two names on the left with a comma <b>unpacks</b> the two pieces into two variables. If the text has three pieces, you'd get <code>ValueError: too many values to unpack</code>, so this only works when you know how many pieces there are.</p>
+
+  <h2>Joining and repeating</h2>
+<pre><code class="py">"tea" + "pot"         # "teapot"     + joins strings
+"ha" * 3              # "hahaha"     * repeats
+"-" * 20              # "--------------------"  handy for dividers
+"Age: " + 30          # TypeError: can only concatenate str (not "int") to str</code></pre>
+
+  <h2>Picking characters: indexing and slicing</h2>
+<pre><code class="py">word = "python"
+word[0]      # "p"      the first character is position 0
+word[-1]     # "n"      negative counts from the end
+word[0:3]    # "pyt"    from 0 up to (not including) 3
+word[:2]     # "py"     from the start
+word[2:]     # "thon"   to the end</code></pre>
+  <p>Positions start at <b>0</b>. Slices include the start and exclude the end. You'll use this for initials, codes and file extensions.</p>
+
+  <div class="note real"><b>Scenario: a sign-up form</b><p>A user types their email as <code>"  Sara.Ali@Example.COM "</code>. Before saving it you'd do <code>email = email.strip().lower()</code>, because emails are case-insensitive and stray spaces cause "user not found" bugs later. Websites you use every day do exactly this.</p></div>
+
+  <div class="widget runner" data-runner="w0s_name"></div>
+  <div class="widget runner" data-runner="w0s_slug"></div>
+  <div class="widget runner" data-runner="w0s_initials"></div>
+  <div class="widget runner" data-runner="w0s_hide"></div>
+  <div class="widget runner" data-runner="w0s_ext"></div>
+  <div class="widget runner" data-runner="w0s_bug"></div>
+  <div class="widget quiz" data-quiz="w0str"></div>
+</article>
