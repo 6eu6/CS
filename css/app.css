@@ -244,3 +244,6 @@ a.wk-h:hover{background:var(--surface-2)}
 .side-cont{display:none;margin:0 10px 14px;text-align:center}
 @media (max-width:940px){.side-cont{display:block}}
 @media (max-width:560px){.brand{display:none}}
+
+.rev-ex{margin-top:28px;display:flex;flex-direction:column;gap:10px}
+.rev-ex>p{padding:0 2px}

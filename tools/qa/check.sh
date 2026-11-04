@@ -8,4 +8,5 @@ NODE_PATH=${NODE_PATH:-$(npm root -g)} node tools/qa/dump.js "$OUT"
 (cd "$OUT" && python3 -I "$OLDPWD/tools/qa/cpycheck.py" jobs.json)
 (cd "$OUT" && python3 "$OLDPWD/tools/audit.py" data.json "$OLDPWD/tools/allow.json" | tail -3)
 NODE_PATH=${NODE_PATH:-$(npm root -g)} node tools/qa/browsercheck.js | grep -E "FAIL|passed|PASS all"
+NODE_PATH=${NODE_PATH:-$(npm root -g)} node tools/qa/review-test.js | grep -E "FAIL|passed"
 NODE_PATH=${NODE_PATH:-$(npm root -g)} node tools/qa/smoke.js

@@ -1,10 +1,10 @@
 /* The exercise runner (editor + run + check + hints) */
 /* ======================================================= runner (rewritten for the editor, files and staged projects) */
 function mountRunner(el){
-  const id=el.dataset.runner,d=R[id];if(!d)return;const draftKey='c50-code-'+id;
+  const id=el.dataset.runner,d=R[id];if(!d)return;const review=el.dataset.review==='1';let usedSol=false;const draftKey=(review?'c50-rcode-':'c50-code-')+id;
   const stages=d.stages||null;let stage=stages?Math.min(Math.max(prog.stage&&prog.stage[id]||0,LS.get('c50-stage-'+id,0)),stages.length-1):0;
   const carried=d.carry&&prog.ex[d.carry]?(LS.get('c50-code-'+d.carry,null)||(prog.drafts&&prog.drafts[d.carry]&&prog.drafts[d.carry].code)):null;
-  const init={'main.py':carried||d.code,...(d.files||{})};const buf={...init,'main.py':LS.get(draftKey,null)??(prog.drafts&&prog.drafts[id]&&prog.drafts[id].code)??init['main.py']};
+  const init={'main.py':carried||d.code,...(d.files||{})};const buf={...init,'main.py':review?init['main.py']:(LS.get(draftKey,null)??(prog.drafts&&prog.drafts[id]&&prog.drafts[id].code)??init['main.py'])};
   const names=Object.keys(init);let active='main.py';
   const lvlName={l1:'Warm-up',l2:'Core',l3:'Challenge',l4:'Scenario',l5:'Boss',dbg:'Debug',proj:'Project'}[d.lvl]||'Try it';el.dataset.lvl=d.lvl||'';
   const hasIn=d.stdin!==undefined;
@@ -54,13 +54,14 @@ function mountRunner(el){
       if(!ok)all=false;rows.push({ok,label:t.label||(t.inp?`input ${JSON.stringify(t.inp.replace(/\n/g,' ⏎ '))} → ${JSON.stringify(t.exp.split('\n')[0])}${t.exp.includes('\n')?'…':''}`:'prints the expected output'),det});
       if(t===tests[0]){showOut(r);renderFiles(fo,files,r.files)}}
     let note=null;if(all&&extra){note=extra(code);if(note)all=false}
+    if(!all&&!review&&!stages&&!prog.ex[id])noteFail(id);
     b.disabled=false;b.textContent='✓ Check';
     res.innerHTML=`<ul class="checks">${rows.map(x=>`<li class="${x.ok?'p':'f'}"><span class="ic">${x.ok?':)':':('}</span><span>${esc(x.label)}${x.det?`<div class="det">${esc(x.det)}</div>`:''}</span></li>`).join('')}${note?`<li class="f"><span class="ic">:|</span><span>${esc(note)}</span></li>`:''}</ul>`+
       (all?`<div class="result pass" style="margin-top:8px">${stages?(stage<stages.length-1?`Step ${stage+1} passed. Step ${stage+2} is unlocked.`:'Project complete. All steps passed.'):'All tests passed.'}</div>`:'');
-    if(all){if(stages){passEx(id+'#'+stage);if(stage===stages.length-1){passEx(id);el.querySelector('[data-pb]').hidden=false}else{stage++;LS.set('c50-stage-'+id,stage);prog.stage[id]=stage;saveProg()}drawTask()}else{passEx(id);el.querySelector('[data-pb]').hidden=false}}}
+    if(all){if(stages){passEx(id+'#'+stage);if(stage===stages.length-1){passEx(id);el.querySelector('[data-pb]').hidden=false}else{stage++;LS.set('c50-stage-'+id,stage);prog.stage[id]=stage;saveProg()}drawTask()}else{if(review){res.insertAdjacentHTML('beforeend',`<div class="result pass" style="margin-top:8px">${esc(reviewResult(id,!usedSol))}</div>`)}else{const first=!prog.ex[id];passEx(id);if(first)scheduleExercise(id)}el.querySelector('[data-pb]').hidden=false}}}
   el.querySelector('[data-a=run]').onclick=run;const cb=el.querySelector('[data-a=check]');if(cb)cb.onclick=check;
   el.querySelector('[data-a=reset]').onclick=()=>{if(el._hp)el._hp.reset();Object.assign(buf,init);LS.set(draftKey,null);docs={};active='main.py';drawTabs();load();if(hasIn)stdinEl().value=d.stdin;res.innerHTML='';fo.innerHTML='';clearErr();con.innerHTML='<span class="dim">Reset to the starting code.</span>'};
-  const sb=el.querySelector('[data-a=sol]');if(sb)sb.onclick=function(){if(!this.dataset.c){this.dataset.c=1;this.textContent='Really? Tap again';return}delete this.dataset.c;this.textContent='Solution';
+  const sb=el.querySelector('[data-a=sol]');if(sb)sb.onclick=function(){if(!this.dataset.c){this.dataset.c=1;this.textContent='Really? Tap again';return}delete this.dataset.c;this.textContent='Solution';if(review)usedSol=true;else if(!prog.ex[id]&&!stages)noteSolution(id);
     const sol=stages?stages[stage].sol:d.sol;const old=el.querySelector('details.solbox');if(old)old.remove();const pre=document.createElement('details');pre.className='more solbox';pre.open=true;
     pre.innerHTML=`<summary>One possible solution${stages?` (step ${stage+1})`:''}</summary><div><pre><code>${hlPy(sol)}</code></pre><p class="engine">Other correct answers exist. Read it, close it, then type your own version from memory.</p></div>`;sb.closest('.row').after(pre)};
   const hp=hintPanel(el,id,d,()=>stages?stage:null,()=>{persist();return getF('main.py')},()=>con.textContent+'\n'+res.textContent);
