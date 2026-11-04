@@ -26,6 +26,26 @@ const {open}=require('./serve');let fails=0;const ok=(c,m)=>{console.log((c?'PAS
   ok(pg.errs.length===0,`${name}: no page errors ${pg.errs.slice(0,2)}`);
   await close()}
 
+ // quizzes: options are shuffled each attempt, the right button is always the right answer, and the answer's position is no longer biased
+ {const {pg,close}=await open({width:1280,height:800});
+  const r=await pg.evaluate(()=>{const pos={};let total=0,mapErr=0,pinnedErr=0;
+   const holder=document.createElement('div');document.body.appendChild(holder);
+   for(let rep=0;rep<40;rep++)for(const [id,qs] of Object.entries(Q)){holder.innerHTML='';const el=document.createElement('div');el.dataset.quiz=id;holder.appendChild(el);mountQuiz(el);
+    [...el.querySelectorAll('.q')].forEach((qe,qi)=>{const btns=[...qe.querySelectorAll('button.opt')];const q=qs[qi];
+     if(btns.length!==q.o.length||new Set(btns.map(b=>b.dataset.oi)).size!==q.o.length)mapErr++;
+     btns.forEach(b=>{if(b.textContent!==q.o[+b.dataset.oi])mapErr++});
+     const ai=btns.findIndex(b=>+b.dataset.oi===q.a);pos[ai]=(pos[ai]||0)+1;total++;
+     btns.forEach((b,bi)=>{if(/^(both|[A-D] and [A-D])$/i.test(b.textContent.trim())&&bi!==btns.length-1)pinnedErr++})})}
+   // clicking the button that carries the right original index must be marked correct, a different one wrong
+   holder.innerHTML='';const el=document.createElement('div');el.dataset.quiz='w0print';holder.appendChild(el);mountQuiz(el);
+   const q0=el.querySelector('.q');const right=[...q0.querySelectorAll('button.opt')].find(b=>+b.dataset.oi===Q.w0print[0].a);right.click();
+   return {pos,total,mapErr,pinnedErr,rightMarked:right.classList.contains('right'),wrongMarked:q0.querySelectorAll('.wrong').length}});
+  const pct=k=>Math.round(100*(r.pos[k]||0)/r.total);
+  ok(r.mapErr===0,'quiz: every shuffled button still carries its own text and original index');
+  ok(r.pinnedErr===0,'quiz: "both" / "A and B" options stay last');
+  ok(r.rightMarked&&r.wrongMarked===0,'quiz: clicking the right answer is marked correct');
+  ok(pct(0)<=45&&pct(1)<=45,`quiz: answer position is spread out (first ${pct(0)}%, second ${pct(1)}%, third ${pct(2)}%; was 36/60/3)`);
+  await close()}
  // slow network: late scripts must not cause errors in scripts that finished earlier (real-world load order)
  {const {pg,close}=await open({width:1280,height:800},{delay:{'js/runner/runner.js':1500,'js/progress/gating.js':2500,'content/week0/exercises.js':800}});
   ok(pg.errs.length===0,`slow network: no page errors while scripts arrive late ${pg.errs.slice(0,2)}`);
