@@ -11,7 +11,7 @@ const {open}=require('./serve');let fails=0;const ok=(c,m)=>{console.log((c?'PAS
   await pg.evaluate(([id])=>{const w=document.querySelector(`.lesson.on [data-runner="${id}"]`);w.querySelector('.CodeMirror').CodeMirror.setValue(R[id].sol)},[id]);
   await pg.click(`.lesson.on [data-runner="${id}"] [data-a=check]`);await pg.waitForTimeout(1500);
   ok(await pg.evaluate(id=>!!prog.ex[id],id),`${name}: Check passes the reference solution of ${id}`);
-  await pg.reload();await pg.waitForFunction("typeof LESSONS!=='undefined'&&typeof CMready!=='undefined'&&CMready");
+  await pg.reload();await pg.waitForFunction("window.appReady===true&&CMready");
   ok(await pg.evaluate(id=>!!JSON.parse(localStorage.getItem('c50-prog')).ex[id],id),`${name}: progress survives reload`);
   await pg.evaluate("prog.lessons={home:true};show('home')");await pg.evaluate(()=>document.querySelector(innerWidth<=560?'#contSide':'#contBtn').click());ok(await pg.evaluate('cur')==='method',`${name}: Continue opens the first unfinished lesson`);
   // header: every control fully inside the viewport, with the menu open and closed

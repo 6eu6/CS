@@ -13,3 +13,4 @@ $$('[data-runner]').forEach(mountRunner);$$('[data-quiz]').forEach(mountQuiz);$$
  if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
 })();
 show((location.hash||'').slice(1)||LS.get('c50-last','home'));
+window.appReady=true; // everything is loaded and mounted

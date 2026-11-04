@@ -14,7 +14,7 @@ async function open(vp={width:1280,height:800},{theme}={}){const srv=await serve
     if(/codemirror/.test(u)){const n=u.split('/').pop().replace('.min','');if(cm[n])return r.fulfill({body:fs.readFileSync(cm[n]),contentType:u.endsWith('.css')?'text/css':'application/javascript'})}
     if(u.startsWith('http://127.0.0.1'))return r.continue();return r.abort()});
   await pg.goto(`http://127.0.0.1:${port}/`);
-  await pg.waitForFunction("typeof LESSONS!=='undefined'&&typeof CMready!=='undefined'&&CMready&&engine==='ready'",{timeout:60000});
+  await pg.waitForFunction("window.appReady===true&&CMready&&engine==='ready'",{timeout:60000});
   if(theme)await pg.evaluate(t=>document.documentElement.setAttribute('data-theme',t),theme);
   await pg.evaluate("window.lockOf=()=>null");
   return {pg,close:async()=>{await browser.close();srv.close()},port}}
