@@ -10,7 +10,7 @@ const CM_SOURCES=[
 let CMready=false,CMfailed=false;const cmWaiters=[];
 function setEdStatus(){const e=$('#editorStatus');if(e)e.textContent=CMready?'Code editor: ready ✓ (colours, autocomplete, hints)':CMfailed?'Code editor: basic mode (the full editor could not load)':'Code editor: loading…'}
 (async()=>{for(const s of CM_SOURCES){try{if(!window.CodeMirror)await loadScript(s.base+s.core);for(const p of CM_FILES)await loadScript(s.base+s.f(p));if(window.CodeMirror&&CodeMirror.modes.python&&CodeMirror.showHint){defineCsvMode();CMready=true;break}}catch(e){}}
-  if(!CMready)CMfailed=true;setEdStatus();cmWaiters.splice(0).forEach(f=>f());upgradeIn($('.lesson.on'))})();
+  if(!CMready)CMfailed=true;setEdStatus();cmWaiters.splice(0).forEach(f=>f());if(window.appReady)upgradeIn($('.lesson.on')); /* otherwise boot.js upgrades once every script has loaded */})();
 
 function defineCsvMode(){CodeMirror.defineMode('csv',()=>({startState:()=>({col:0,q:false,row:0}),copyState:s=>({...s}),
   token(s,st){if(s.sol()){if(!st.q){st.col=0;st.row++}}const cls=()=>'csvc'+(st.col%6)+(st.row===1?' strong':'');

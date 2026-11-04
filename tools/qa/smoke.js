@@ -25,4 +25,9 @@ const {open}=require('./serve');let fails=0;const ok=(c,m)=>{console.log((c?'PAS
   ok(bad.length===0,`${name}: no horizontal overflow on any page ${bad.slice(0,5)}`);
   ok(pg.errs.length===0,`${name}: no page errors ${pg.errs.slice(0,2)}`);
   await close()}
+
+ // slow network: late scripts must not cause errors in scripts that finished earlier (real-world load order)
+ {const {pg,close}=await open({width:1280,height:800},{delay:{'js/runner/runner.js':1500,'js/progress/gating.js':2500,'content/week0/exercises.js':800}});
+  ok(pg.errs.length===0,`slow network: no page errors while scripts arrive late ${pg.errs.slice(0,2)}`);
+  ok(await pg.evaluate("document.querySelectorAll('.lesson.on .CodeMirror').length>=0&&typeof renderNav==='function'"),'slow network: app fully started');await close()}
  console.log(fails?`\n${fails} FAILED`:'\nall smoke checks passed');process.exit(fails?1:0)})();

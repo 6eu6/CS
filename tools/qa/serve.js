@@ -6,10 +6,10 @@ const MIME={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=u
 const cm={};(function w(d){for(const f of fs.readdirSync(d)){const p=path.join(d,f);fs.statSync(p).isDirectory()?w(p):cm[f.replace('.min','')]=p}})(V+'codemirror');
 function server(){return new Promise(res=>{const s=http.createServer((q,r)=>{let u=decodeURIComponent(q.url.split('?')[0]);if(u.endsWith('/'))u+='index.html';const p=path.join(ROOT,u);
   if(p.startsWith(ROOT)&&fs.existsSync(p)&&fs.statSync(p).isFile()){r.writeHead(200,{'content-type':MIME[path.extname(p)]||'application/octet-stream'});r.end(fs.readFileSync(p))}else{r.writeHead(404);r.end('404')}}).listen(0,()=>res(s))})}
-async function open(vp={width:1280,height:800},{theme}={}){const srv=await server();const port=srv.address().port;const browser=await chromium.launch();const ctx=await browser.newContext({viewport:vp});const pg=await ctx.newPage();
+async function open(vp={width:1280,height:800},{theme,delay={}}={}){const srv=await server();const port=srv.address().port;const browser=await chromium.launch();const ctx=await browser.newContext({viewport:vp});const pg=await ctx.newPage();
   pg.errs=[];pg.on('pageerror',e=>pg.errs.push(String(e)));pg.on('console',m=>{if(m.type()==='error'&&!/Failed to load resource/.test(m.text()))pg.errs.push('console: '+m.text())});
   await pg.route('**/*',async r=>{const u=r.request().url();
-    if(u.startsWith('http://127.0.0.1'))return r.continue();
+    if(u.startsWith('http://127.0.0.1')){const d=Object.entries(delay).find(([k])=>u.endsWith(k));if(d)await new Promise(x=>setTimeout(x,d[1]));return r.continue()}
     if(u.includes('skulpt'))return r.fulfill({body:fs.readFileSync(V+(u.includes('stdlib')?'skulpt/skulpt-stdlib.js':'skulpt/skulpt.min.js')),contentType:'application/javascript'});
     if(/codemirror/.test(u)){const n=u.split('/').pop().replace('.min','');if(cm[n])return r.fulfill({body:fs.readFileSync(cm[n]),contentType:u.endsWith('.css')?'text/css':'application/javascript'})}
     if(u.startsWith('http://127.0.0.1'))return r.continue();return r.abort()});
