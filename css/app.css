@@ -240,3 +240,7 @@ details.more>div{padding:0 14px 14px;display:flex;flex-direction:column;gap:10px
 .toc .sec:first-child{padding-top:2px}
 a.wk-h{text-decoration:none;border-radius:8px;padding:6px 10px;margin:0}
 a.wk-h:hover{background:var(--surface-2)}
+
+.side-cont{display:none;margin:0 10px 14px;text-align:center}
+@media (max-width:940px){.side-cont{display:block}}
+@media (max-width:560px){.brand{display:none}}
