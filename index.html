@@ -37,6 +37,7 @@
   --code-bg:#0b0e15; color-scheme:dark}
 
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.7;margin:0}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--surface)}
 a{color:var(--blue)}
@@ -70,7 +71,7 @@ a{color:var(--blue)}
 .chk.done::after{content:"";position:absolute;left:4.5px;top:1.5px;width:4px;height:8px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
 .chk.lock{border-style:dashed}
 .side .tools{margin-top:16px;display:flex;flex-direction:column;gap:6px;padding:0 10px}
-.engine{font-size:.78rem;color:var(--muted)}
+.engine{font-size:.78rem;color:var(--muted);max-width:none}
 
 @media (max-width:940px){
   .shell{grid-template-columns:1fr}
@@ -114,10 +115,11 @@ pre.out::before{content:"OUTPUT";display:block;font-size:.62rem;letter-spacing:.
 .note.warn{border-left:4px solid var(--bad)}.note.warn>b:first-child{color:var(--bad)}
 .note.real{border-left:4px solid var(--ok)}.note.real>b:first-child{color:var(--ok)}
 .note.pro{border-left:4px solid var(--accent)}.note.pro>b:first-child{color:var(--accent)}
-.def{display:grid;grid-template-columns:minmax(120px,auto) 1fr;gap:6px 16px;margin:0;max-width:70ch}
-.def dt{font-family:var(--f-code);font-size:.86rem;font-weight:600}
-.def dd{margin:0}
-@media (max-width:540px){.def{grid-template-columns:1fr}.def dd{margin-bottom:8px}}
+.def{display:grid;grid-template-columns:minmax(120px,auto) 1fr;gap:0 20px;margin:12px 0 0;max-width:70ch;align-items:baseline;border-bottom:1px solid var(--line)}
+.def dt,.def dd{padding:10px 0;border-top:1px solid var(--line);margin:0}
+.def dt{font-family:var(--f-code);font-size:.86rem;font-weight:600;color:var(--accent);overflow-wrap:anywhere}
+@media (max-width:540px){.def{grid-template-columns:1fr}.def dt{padding-bottom:0}.def dd{border-top:0;padding-top:2px}}
+p,li,dd,.note,.engine,.prog-txt{text-wrap:pretty}
 .tbl{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
 .tbl table{border-collapse:collapse;width:100%;font-size:.9rem}
 .tbl th,.tbl td{text-align:left;padding:8px 12px;border-bottom:1px solid var(--line);vertical-align:top}
@@ -217,7 +219,8 @@ details.more>div{padding:0 14px 14px;display:flex;flex-direction:column;gap:10px
 .chip{font-family:var(--f-code);font-size:.8rem;padding:2px 8px;border-radius:6px;border:1px solid var(--line);background:var(--bg)}
 .mtable td:first-child{font-family:var(--f-code);font-size:.85rem;white-space:nowrap}
 /* anatomy */
-.anat{background:var(--code-bg);border-radius:10px;padding:10px 0;overflow-x:auto}
+.anat-code{background:var(--code-bg);border-radius:10px;padding:10px 0;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.anat-code::-webkit-scrollbar{height:6px}.anat-code::-webkit-scrollbar-thumb{background:#3a4156;border-radius:3px}
 .al{display:flex;font-family:var(--f-code);font-size:.82rem;line-height:1.9;padding:0 14px;white-space:pre;color:var(--code-fg)}
 .al .no{color:#5c6578;min-width:2em;text-align:right;margin-right:12px;user-select:none}
 .tok{font:inherit;color:inherit;background:none;border:0;padding:0;margin:0;border-radius:3px;cursor:pointer;white-space:pre}
@@ -713,6 +716,8 @@ li.CodeMirror-hint-active{background:#2f4bc0;color:#fff}
 .revlink .rb{position:absolute;top:-6px;right:-6px;background:var(--accent);color:var(--accent-ink);font-size:.62rem;border-radius:99px;padding:0 5px;font-weight:700}
 @media (max-width:760px){.tm-count,.tm-mode{display:none}.brand b{display:none}}
 @media (max-width:480px){.prog{display:none}}
+@media (max-width:560px){.top-in{gap:8px}#contBtn{display:none}}
+.top-in>*{flex-shrink:0}.top-in .prog{flex:1 1 auto;min-width:0}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
@@ -1436,7 +1441,7 @@ can_vote = age &gt;= 18    # you can store the answer in a variable</code></pre>
 <pre><code class="py">print(0 &lt;= score &lt;= 100)     # Python reads this like maths: is score between 0 and 100?</code></pre>
 
   <h2>Anatomy of if / elif / else</h2>
-  <div class="widget anat" data-anat="a_if"></div>
+  <div class="widget" data-anat="a_if"></div>
   <h2>Exactly one branch runs</h2>
   <p>Python checks the conditions <b>top to bottom</b> and runs the <b>first</b> branch whose condition is true. Then it skips the rest, even if later conditions are also true. If none match, <code>else</code> runs (if there is one).</p>
   <div class="widget stepper" data-stepper="t_grade"></div>
@@ -1692,7 +1697,7 @@ print(f"{n} item{'s' if n != 1 else ''}")     # "1 item", "2 items"</code></pre>
 
   <h2>The first while loop, every character</h2>
   <p>Tap any part of the code. Use <b>Next</b> to walk through every token in order.</p>
-  <div class="widget anat" data-anat="a_while"></div>
+  <div class="widget" data-anat="a_while"></div>
 
   <h2>The three parts every while loop needs</h2>
   <div class="tbl"><table>
@@ -1772,7 +1777,7 @@ print(digits)                 # 4</code></pre>
   <p class="lede">A <code>for</code> loop says "do this <b>for each</b> item". You don't manage a counter or a condition; Python hands you the items one at a time and stops when they run out.</p>
 
   <h2>Anatomy</h2>
-  <div class="widget anat" data-anat="a_for"></div>
+  <div class="widget" data-anat="a_for"></div>
 
   <h2>What range() really produces</h2>
   <p><code>range</code> creates a sequence of whole numbers. It has three forms:</p>
@@ -1878,7 +1883,7 @@ print("done")</code></pre>
 
   <h2>while True: the validation loop</h2>
   <p>This is the pattern CS50P uses for input, and you'll write it in nearly every program:</p>
-  <div class="widget anat" data-anat="a_valid"></div>
+  <div class="widget" data-anat="a_valid"></div>
   <div class="note why"><b>Why while True and not a normal condition?</b><p>You can't test the answer before you've asked. With <code>while True</code> you ask first, then test, then <code>break</code>/<code>return</code> when it's good. The alternative needs the input() call written twice (once before the loop, once inside), which is easy to get out of sync.</p></div>
   <div class="widget stepper" data-stepper="t_valid"></div>
 
@@ -2047,7 +2052,7 @@ c = a.copy()    # a real, separate copy</code></pre>
   <p class="lede">A list finds things by position: "the 3rd student". A dictionary finds things by a name you choose: "Sara's house", "the price of tea". It's the data structure behind phone books, menus, settings and the word counter.</p>
 
   <h2>Anatomy</h2>
-  <div class="widget anat" data-anat="a_dict"></div>
+  <div class="widget" data-anat="a_dict"></div>
 
   <h2>Everything you can do with a dict</h2>
 <pre><code class="py">menu = {"tea": 1.80, "coffee": 2.40}
@@ -2284,7 +2289,7 @@ for vote in votes:
   <div class="meta"><span>35 min</span><span>4 scenarios · 5 exercises</span></div>
   <div class="note pro"><b>The question it answers</b><p>split: "How do I break this line of text into its parts?" join: "How do I glue a list of strings into one line?" They are exact opposites.</p></div>
   <h2>Anatomy of join (the one everyone finds odd)</h2>
-  <div class="widget anat" data-anat="a_join"></div>
+  <div class="widget" data-anat="a_join"></div>
   <div class="note why"><b>Why is it ", ".join(list) and not list.join(", ")?</b><p>Because join belongs to <b>strings</b>, and it works on <i>any</i> iterable of strings: lists, tuples, generators, dict keys. Putting it on the separator means one method serves them all. Read it as: "use <code>", "</code> to join these".</p></div>
   <h2>split in detail</h2>
 <pre><code class="py">"a  b\tc\n".split()        # ['a', 'b', 'c']        no argument: any whitespace, runs merged, ends ignored
@@ -2345,7 +2350,7 @@ print(repr(name))          # 'Sara '    ← there it is: a space before the clos
   <p><code>print</code> can't show you a trailing space: it's invisible. <code>repr</code> wraps the value in quotes, so you can see exactly where the text starts and ends.</p>
 
   <h2>Anatomy</h2>
-  <div class="widget anat" data-anat="a_repr"></div>
+  <div class="widget" data-anat="a_repr"></div>
 
   <h2>str() vs repr(), side by side</h2>
   <div class="tbl"><table>
@@ -2447,7 +2452,7 @@ print([Book("Dune"), Book("Emma")])     # [Book('Dune'), Book('Emma')]</code></p
   <div class="note pro"><b>The question it answers</b><p>"While looping, I need each item <i>and</i> which number it is."</p></div>
 
   <h2>Anatomy</h2>
-  <div class="widget anat" data-anat="a_enum"></div>
+  <div class="widget" data-anat="a_enum"></div>
 
   <h2>What it really produces</h2>
 <pre><code class="py">list(enumerate(["tea", "jam"]))      # [(0, 'tea'), (1, 'jam')]
@@ -2508,7 +2513,7 @@ print(hot_days)      # [1, 3]   both positions of the maximum</code></pre>
   <div class="note pro"><b>The question it answers</b><p>"Put these in order, but by <i>my</i> rule: by price, by length, by surname, by score then by name…"</p></div>
 
   <h2>Anatomy</h2>
-  <div class="widget anat" data-anat="a_sorted"></div>
+  <div class="widget" data-anat="a_sorted"></div>
 
   <h2>How key= really works</h2>
   <p>Python calls your key function <b>once per item</b>, gets back a "sort value" for each, sorts by those values, and returns the <b>original items</b> in that order. The key never changes the items; it only decides their order.</p>
@@ -2620,7 +2625,7 @@ print(top["name"], top["sales"])    # Omar 44   — the whole dict, not just 44<
   <h2>The name</h2>
   <p>Like a zip on a jacket: two separate sides joined tooth by tooth.</p>
   <h2>Anatomy</h2>
-  <div class="widget anat" data-anat="a_zip"></div>
+  <div class="widget" data-anat="a_zip"></div>
 <pre><code class="py">names = ["Sara", "Omar", "Lina"]
 scores = [88, 72, 95]
 list(zip(names, scores))       # [('Sara', 88), ('Omar', 72), ('Lina', 95)]
@@ -2716,7 +2721,7 @@ if not all(value.strip() for value in form.values()):
     <tr><td><code>k in d</code></td><td>Is the key present?</td><td>Deciding between two behaviours</td></tr>
   </table></div>
   <h2>setdefault, step by step</h2>
-  <div class="widget anat" data-anat="a_setdef"></div>
+  <div class="widget" data-anat="a_setdef"></div>
 <pre><code class="py">by_dept = {}
 for name, dept in [("Sara", "IT"), ("Omar", "HR"), ("Lina", "IT")]:
     by_dept.setdefault(dept, []).append(name)
@@ -2817,7 +2822,7 @@ print(f"{'Item':&lt;{width}}Qty")        # a { } inside the spec uses a variable
   <h1>Capstone: the word counter, explained with loop eyes</h1>
   <div class="meta"><span>40 min</span><span>Every token explained · 4 extensions</span></div>
   <p class="lede">The program you asked about at the start uses almost everything from this week: a function, a list, a list comprehension, a <code>for</code> loop, a dict tally, sorting, and writing a CSV file. Tap through every piece of it.</p>
-  <div class="widget anat" data-anat="a_cap"></div>
+  <div class="widget" data-anat="a_cap"></div>
   <h2>Which patterns are in it?</h2>
   <ul>
     <li><b>Transform</b>: <code>[word.lower() for word in words]</code> turns every word lowercase (a comprehension is the transform pattern in one line).</li>
@@ -4498,7 +4503,7 @@ function tokenize(line){const out=[];const m=/^ */.exec(line)[0];if(m.length)out
   let mm;while(rest.length&&(mm=re.exec(rest))){const s=mm[0];let k=mm[1]?'com':mm[2]?'str':mm[3]?'num':mm[4]?'id':mm[5]?'op':'sp';out.push({t:s,k});rest=rest.slice(s.length);re.lastIndex=0}
   if(rest.length)out.push({t:rest,k:'op'});return out}
 function mountAnat(el){const a=ANAT[el.dataset.anat];if(!a)return;const lines=a.code.split('\n');const toks=[];
-  let h='<div class="anat">';lines.forEach((ln,li)=>{h+=`<div class="al"><span class="no">${li+1}</span>`;const occ={};
+  let h='<div class="anat-code">';lines.forEach((ln,li)=>{h+=`<div class="al"><span class="no">${li+1}</span>`;const occ={};
     tokenize(ln).forEach(tk=>{if(tk.k==='sp'){h+=`<span class="tsp">${tk.t}</span>`;return}occ[tk.t]=(occ[tk.t]||0)+1;const i=toks.length;toks.push({...tk,line:li+1,occ:occ[tk.t]});
       const cls=tk.k==='str'?'ts':tk.k==='num'?'tn':tk.k==='com'?'tc':(tk.k==='id'&&KW.has(tk.t))?'tk':(tk.k==='id'&&BI.has(tk.t))?'tb':'';
       h+=`<button class="tok ${cls} ${tk.k==='indent'?'ws':''}" data-i="${i}" aria-label="${esc(tk.k==='indent'?tk.t.length+' spaces':tk.t)}">${esc(tk.t)}</button>`});h+='</div>'});
@@ -4518,7 +4523,7 @@ function mountAnat(el){const a=ANAT[el.dataset.anat];if(!a)return;const lines=a.
     el.querySelectorAll('.tok').forEach(b=>b.classList.toggle('on',+b.dataset.i===i));
     card.innerHTML=`<span class="tg">Line ${tk.line} · ${esc(tag)}</span><span class="tt">${esc(tk.k==='indent'?`(${tk.t.length} spaces)`:tk.t)}</span><div>${body}</div>`;
     el.querySelector('[data-c]').textContent=`${i+1} of ${toks.length}`}
-  el.querySelector('.anat').onclick=e=>{const b=e.target.closest('.tok');if(b)show(+b.dataset.i)};
+  el.querySelector('.anat-code').onclick=e=>{const b=e.target.closest('.tok');if(b)show(+b.dataset.i)};
   el.querySelector('[data-n]').onclick=()=>show(Math.min(toks.length-1,cur+1));el.querySelector('[data-p]').onclick=()=>show(Math.max(0,cur-1));show(0)}
 
 /* ======================================================= predict the output */
