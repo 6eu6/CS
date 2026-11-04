@@ -4,7 +4,7 @@
   "content/curriculum.js",
   "js/core/registry.js",
   "js/core/nav.js",
-  "js/engine/skulpt.js",
+  "js/engine/engine.js",
   "js/engine/test-helpers.js",
   "content/week0/exercises.js",
   "content/week0/widgets.js",

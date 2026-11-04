@@ -53,7 +53,7 @@ Counts: 183 coded exercises (484 tests), 32 quizzes, 20 prediction drills, 4 Par
 ## 2. Architecture
 
 ### Libraries
-Self-hosted in `vendor/` (no CDN needed; CDNs remain only as a fallback): **Skulpt 1.2.0** (Python in the browser), **CodeMirror 5.65.16**, and the fonts.
+Self-hosted in `vendor/` (no CDN needed; CDNs remain only as a fallback): **Pyodide 0.27.7** (real CPython 3.12.7, run in a Web Worker; ~13 MB, cached after the first visit), **CodeMirror 5.65.16**, and the fonts.
 
 ### Registries (`js/core/registry.js`)
 Every data file fills these with `Object.assign(R, {...})`:
@@ -74,9 +74,10 @@ Every data file fills these with `Object.assign(R, {...})`:
 
 There is intentionally no AI tutor.
 
-### Skulpt limitations (avoid in exercises, or note them in the lesson)
-- Float repr can differ from CPython.
-- Not supported: `{x=}` in f-strings, `removeprefix`, `match`, and the `.3e` format.
+### Engine notes
+- Programs run in `js/engine/pyodide-worker.js`. A program that runs more than 5 s is killed (the worker is terminated and restarted); output is capped at 200,000 characters.
+- Input comes from the Input box up front (no interactive blocking). `prelude()` (Python source in `js/engine/engine.js`) provides `input()`, a virtual file system for `open()`, and a stable `sorted`; the same prelude is used by `tools/qa/cpycheck.py`, so browser and CPython results are identical.
+- No Skulpt limitations remain: `match`, `{x=}`, `removeprefix`, exact float repr all work.
 
 ---
 
@@ -84,7 +85,8 @@ There is intentionally no AI tutor.
 
 | Command | Purpose |
 |---|---|
-| `bash tools/qa/check.sh` | **Run before every commit.** dump → CPython check → concept audit → smoke test |
+| `bash tools/qa/check.sh` | **Run before every commit.** dump → CPython check → concept audit → in-browser engine check → smoke test |
+| `bash tools/qa/mutation.sh` | mutation testing: injects bugs into each reference solution; surviving mutants = weak tests |
 | `node tools/qa/dump.js <dir>` | exports exercise data, test jobs and a structural fingerprint |
 | `python3 tools/qa/cpycheck.py <dir>/jobs.json` | runs all reference solutions in real CPython |
 | `python3 tools/audit.py <dir>/data.json tools/allow.json` | concept audit. `TAUGHT` maps each concept to the lesson that teaches it: add new concepts there as lessons are added |
@@ -98,7 +100,7 @@ Needs `node` with `playwright` and `python3`.
 
 Import the repo, framework preset **Other**, empty build command. Static files only; `vercel.json` sets security headers and long caching for `/vendor`. There is no backend. Progress lives in the browser; Export/Import moves it between devices.
 
-Possible later upgrade: **Pyodide** (real CPython in WebAssembly, run in a Web Worker with a Stop button) to remove every Skulpt difference. Do not add COOP/COEP headers; they would break YouTube embeds.
+Do not add COOP/COEP headers; they would break YouTube embeds (Pyodide does not need them here).
 
 ---
 

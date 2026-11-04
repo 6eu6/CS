@@ -1,9 +1,8 @@
-/* Python in the browser (Skulpt): prelude, run, error explanations */
-/* ======================================================= Python engine */
+/* Python in the browser: REAL CPython 3.12 (Pyodide) running in a Web Worker.
+   The worker is terminated if a program runs too long (a "while True" can never freeze the page). */
 let engine='loading';const waiters=[];
-function setEngine(s){engine=s;$('#engineStatus').textContent=s==='ready'?'Python engine: ready ✓':s==='failed'?'Python engine could not load. Use Copy code and run in your Codespace.':'Python engine: loading…';waiters.splice(0).forEach(f=>f())}
+function setEngine(s){engine=s;const e=$('#engineStatus');if(e)e.textContent=s==='ready'?'Python engine: ready ✓ (real CPython 3.12)':s==='failed'?'Python engine could not load. Use Copy code and run in your Codespace.':'Python engine: loading… (first visit downloads about 13 MB)';waiters.splice(0).forEach(f=>f())}
 function loadScript(src){return new Promise((res,rej)=>{const s=document.createElement('script');s.src=src;s.onload=res;s.onerror=rej;document.head.appendChild(s)})}
-(async()=>{for(const b of['vendor/skulpt/','https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/','https://unpkg.com/skulpt@1.2.0/dist/']){try{await loadScript(b+'skulpt.min.js');await loadScript(b+'skulpt-stdlib.js');if(window.Sk){setEngine('ready');return}}catch(e){}}setEngine('failed')})();
 
 function prelude(files,stdin){
   const L=['_VFS = {}',...Object.entries(files||{}).map(([k,v])=>`_VFS[${JSON.stringify(k)}] = ${JSON.stringify(v)}`),
@@ -45,17 +44,34 @@ function prelude(files,stdin){
 const INP='\u2063';
 function parseRun(out){const k=out.lastIndexOf('@@VFS@@\n');const user=k>=0?out.slice(0,k):out.replace(/@@VFS@@[\s\S]*$/,'');const vfs={};
   if(k>=0)out.slice(k+8).split('@@F@@').slice(1).forEach(ch=>{const nl=ch.indexOf('\n');vfs[ch.slice(0,nl)]=ch.slice(nl+1).replace(/@@E@@\n?$/,'')});return{user,vfs}}
+
+/* ---- worker client ---- */
+const RUN_LIMIT_MS=5000;
+let pyWorker=null;const pyJobs=new Map();let pySeq=0;
+function spawnPython(){
+  setEngine('loading');
+  try{pyWorker=new Worker('js/engine/pyodide-worker.js')}catch(e){setEngine('failed');return}
+  const w=pyWorker;
+  w.onmessage=ev=>{if(w!==pyWorker)return;const m=ev.data;
+    if(m.type==='ready')setEngine('ready');
+    else if(m.type==='fail'){console.error('Pyodide failed:',m.error);setEngine('failed')}
+    else if(m.type==='start'){const j=pyJobs.get(m.id);if(j)j.timer=setTimeout(()=>killPython(m.id),RUN_LIMIT_MS)}
+    else if(m.type==='result'){const j=pyJobs.get(m.id);if(!j)return;clearTimeout(j.timer);pyJobs.delete(m.id);j.finish(m)}};
+  w.onerror=ev=>{if(w===pyWorker){console.error(ev.message||ev);setEngine('failed')}}}
+function killPython(id){ // the program ran too long: stop the worker, answer the job, start a fresh engine
+  const j=pyJobs.get(id);try{pyWorker.terminate()}catch(_){}
+  pyJobs.forEach((x,k)=>{clearTimeout(x.timer);if(k===id)x.resolve({ok:false,out:'',err:'Your program ran too long. Is it waiting forever, or stuck repeating?',files:null});else x.resolve({ok:false,out:'',err:'The Python engine restarted. Run it again.',files:null})});
+  pyJobs.clear();spawnPython()}
 function runPython(code,files,stdin){return new Promise(resolve=>{
   if(engine!=='ready'){resolve({ok:false,out:'',err:'The Python engine is not available. Copy the code into your Codespace to run it.',files:null});return}
-  let out='';const pre=prelude(files,stdin);const preLines=pre.split('\n').length;const uLines=code.split('\n').length;
-  const full=pre+'\n'+code.replace(/\t/g,'    ')+'\n_dump()\n';
-  Sk.configure({output:t=>{out+=t},read:x=>{if(Sk.builtinFiles&&Sk.builtinFiles.files[x]!==undefined)return Sk.builtinFiles.files[x];throw "File not found: '"+x+"'"},__future__:Sk.python3,execLimit:5000});
-  Sk.misceval.asyncToPromise(()=>Sk.importMainWithBody('<stdin>',false,full,true)).then(()=>{const p=parseRun(out);resolve({ok:true,out:p.user,err:'',files:p.vfs})},e=>{
-    let msg=String(e&&e.toString?e.toString():e);let L=null;
-    try{(e.traceback||[]).forEach(t=>{const l=t.lineno-preLines;if(L===null&&l>0&&l<=uLines)L=l})}catch(_){}
-    if(L!==null)msg=msg.replace(/ on line \d+/g,'')+` (line ${L})`;else msg=msg.replace(/ on line (\d+)/g,(m,d)=>{const x=+d-preLines;return x>0&&x<=uLines?` (line ${x})`:''});
-    if(/TimeLimitError/.test(msg))msg='Your program ran too long. Is it waiting forever, or stuck repeating?';
-    resolve({ok:false,out:parseRun(out).user,err:msg,files:null})})})}
+  const pre=prelude(files,stdin);const preLines=pre.split('\n').length;const uLines=code.split('\n').length;
+  const full=pre+'\n'+code.replace(/\t/g,'    ')+'\n_dump()\n';const id=++pySeq;
+  const finish=m=>{const p=parseRun(m.out||'');
+    if(!m.err){resolve({ok:true,out:p.user,err:'',files:p.vfs});return}
+    const L=m.line!=null&&m.line-preLines>0&&m.line-preLines<=uLines?m.line-preLines:null;
+    resolve({ok:false,out:p.user,err:m.err+(L!==null?` (line ${L})`:''),files:null})};
+  pyJobs.set(id,{resolve,finish,timer:null});pyWorker.postMessage({id,src:full})})}
+spawnPython();
 function explainErr(e){
   const m=[[/NameError: name '(\w+)'/,n=>`Python doesn't know <b>${esc(n)}</b>. Check the spelling, check it's defined before this line, and check it's not inside another function (scope). If you meant text, put it in quotes.`],
    [/EOFError/,()=>`The program called input() more times than there were lines in the Input box.`],

@@ -43,7 +43,7 @@ print(repr(name))          # 'Sara '    ← there it is: a space before the clos
 print(repr(name))         # 'Sara '   1. the function
 print(f"{name!r}")        # 'Sara '   2. !r inside an f-string: "use repr for this one"
 print(f"[{name}]")        # [Sara ]   3. the poor man's version: brackets around it</code></pre>
-  <p>In real Python 3.8 or newer there's a fourth, beloved by professionals: <code>print(f"{name=}")</code> prints <code>name='Sara '</code>, the variable's name <i>and</i> its repr. It's the fastest debug print there is. (The in-browser engine on this site doesn't support <code>=</code> in f-strings, so try that one in your Codespace.)</p>
+  <p>In real Python 3.8 or newer there's a fourth, beloved by professionals: <code>print(f"{name=}")</code> prints <code>name='Sara '</code>, the variable's name <i>and</i> its repr. It's the fastest debug print there is. (Try it in any runner on this page: it runs real Python.)</p>
 
   <h2>Real-work scenarios</h2>
   <h3>Scenario 1: "The login says the email doesn't exist, but it does"</h3>
@@ -97,7 +97,7 @@ print([Book("Dune"), Book("Emma")])     # [Book('Dune'), Book('Emma')]</code></p
     <li><b>Logs and error messages:</b> use <code>!r</code> for values that came from users or files.</li>
     <li><b>Never show repr to end users.</b> Customers should see <code>Hello, Sara</code>, not <code>Hello, 'Sara'</code>. str is for users, repr is for developers.</li>
     <li><b>Don't parse repr output.</b> It's for reading, not for storing data. To save data, use CSV (Week 6) or JSON.</li>
-    <li><b>Floats:</b> in real Python, <code>repr(0.1 + 0.2)</code> is <code>0.30000000000000004</code>, the exact stored value, while formatting hides it. (This site's engine rounds float repr, so try that one in your Codespace.)</li>
+    <li><b>Floats:</b> in real Python, <code>repr(0.1 + 0.2)</code> is <code>0.30000000000000004</code>, the exact stored value, while formatting hides it. (Run <code>print(repr(0.1 + 0.2))</code> in any runner to see it.)</li>
   </ul>
 
   <h2>Predict the output</h2>
