@@ -236,3 +236,7 @@ details.more>div{padding:0 14px 14px;display:flex;flex-direction:column;gap:10px
 .csvtable .rn{color:var(--muted);background:var(--surface-2);text-align:right;width:1%}
 .filesout{display:flex;flex-direction:column;gap:8px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+.toc .sec{list-style:none;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:10px 10px 3px;opacity:.85}
+.toc .sec:first-child{padding-top:2px}
+a.wk-h{text-decoration:none;border-radius:8px;padding:6px 10px;margin:0}
+a.wk-h:hover{background:var(--surface-2)}

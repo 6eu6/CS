@@ -12,3 +12,12 @@ const WEEKS=[
  {n:8,t:'Object-Oriented Programming',blurb:'classes, objects, methods, properties, inheritance'},
  {n:9,t:'Et Cetera',blurb:'sets, global, constants, type hints, docstrings, argparse, comprehensions, generators'},
 ];
+
+/* Sidebar structure. Lesson ORDER and each lesson's section live in content/manifest.json. */
+const SECTION_LABELS={learn:'Lessons',tools:'Power tools',practice:'Practice',test:'Test',build:'Build it'};
+const GROUPS=[
+ {key:'intro',label:'Start here',built:true},
+ ...WEEKS.filter(w=>w.built).map(w=>({key:String(w.n),label:`Week ${w.n} · ${w.t}`,built:true,week:w})),
+ {key:'proj',label:'Main project · Pocket Ledger',built:true},
+ {key:'tb',label:'Reference',built:true},
+ ...WEEKS.filter(w=>!w.built).map(w=>({key:String(w.n),label:`Week ${w.n} · ${w.t}`,built:false,week:w}))];

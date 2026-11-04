@@ -66,44 +66,48 @@
    "file": "intro/review.html"
   },
   {
-   "id": "tb-index",
-   "file": "intro/tb-index.html"
-  },
-  {
    "id": "w0-intro",
    "file": "week0/w0-intro.html"
   },
   {
    "id": "w0-print",
-   "file": "week0/w0-print.html"
+   "file": "week0/w0-print.html",
+   "section": "learn"
   },
   {
    "id": "w0-vars",
-   "file": "week0/w0-vars.html"
+   "file": "week0/w0-vars.html",
+   "section": "learn"
   },
   {
    "id": "w0-str",
-   "file": "week0/w0-str.html"
+   "file": "week0/w0-str.html",
+   "section": "learn"
   },
   {
    "id": "w0-num",
-   "file": "week0/w0-num.html"
+   "file": "week0/w0-num.html",
+   "section": "learn"
   },
   {
    "id": "w0-func",
-   "file": "week0/w0-func.html"
+   "file": "week0/w0-func.html",
+   "section": "learn"
   },
   {
    "id": "w0-choose",
-   "file": "week0/w0-choose.html"
+   "file": "week0/w0-choose.html",
+   "section": "learn"
   },
   {
    "id": "w0-lab",
-   "file": "week0/w0-lab.html"
+   "file": "week0/w0-lab.html",
+   "section": "practice"
   },
   {
    "id": "w0-test",
-   "file": "week0/w0-test.html"
+   "file": "week0/w0-test.html",
+   "section": "test"
   },
   {
    "id": "w1-intro",
@@ -111,27 +115,33 @@
   },
   {
    "id": "w1-if",
-   "file": "week1/w1-if.html"
+   "file": "week1/w1-if.html",
+   "section": "learn"
   },
   {
    "id": "w1-logic",
-   "file": "week1/w1-logic.html"
+   "file": "week1/w1-logic.html",
+   "section": "learn"
   },
   {
    "id": "w1-func",
-   "file": "week1/w1-func.html"
+   "file": "week1/w1-func.html",
+   "section": "learn"
   },
   {
    "id": "w1-choose",
-   "file": "week1/w1-choose.html"
+   "file": "week1/w1-choose.html",
+   "section": "learn"
   },
   {
    "id": "w1-lab",
-   "file": "week1/w1-lab.html"
+   "file": "week1/w1-lab.html",
+   "section": "practice"
   },
   {
    "id": "w1-test",
-   "file": "week1/w1-test.html"
+   "file": "week1/w1-test.html",
+   "section": "test"
   },
   {
    "id": "w2-intro",
@@ -139,91 +149,113 @@
   },
   {
    "id": "w2-while",
-   "file": "week2/w2-while.html"
+   "file": "week2/w2-while.html",
+   "section": "learn"
   },
   {
    "id": "w2-for",
-   "file": "week2/w2-for.html"
+   "file": "week2/w2-for.html",
+   "section": "learn"
   },
   {
    "id": "w2-valid",
-   "file": "week2/w2-valid.html"
+   "file": "week2/w2-valid.html",
+   "section": "learn"
   },
   {
    "id": "w2-lists",
-   "file": "week2/w2-lists.html"
+   "file": "week2/w2-lists.html",
+   "section": "learn"
   },
   {
    "id": "w2-dicts",
-   "file": "week2/w2-dicts.html"
+   "file": "week2/w2-dicts.html",
+   "section": "learn"
   },
   {
    "id": "w2-nested",
-   "file": "week2/w2-nested.html"
+   "file": "week2/w2-nested.html",
+   "section": "learn"
   },
   {
    "id": "w2-patterns",
-   "file": "week2/w2-patterns.html"
+   "file": "week2/w2-patterns.html",
+   "section": "learn"
   },
   {
    "id": "w2-choose",
-   "file": "week2/w2-choose.html"
+   "file": "week2/w2-choose.html",
+   "section": "learn"
   },
   {
    "id": "tb-join",
-   "file": "week2/tb-join.html"
+   "file": "week2/tb-join.html",
+   "section": "tools"
   },
   {
    "id": "tb-repr",
-   "file": "week2/tb-repr.html"
+   "file": "week2/tb-repr.html",
+   "section": "tools"
   },
   {
    "id": "tb-enum",
-   "file": "week2/tb-enum.html"
+   "file": "week2/tb-enum.html",
+   "section": "tools"
   },
   {
    "id": "tb-sorted",
-   "file": "week2/tb-sorted.html"
+   "file": "week2/tb-sorted.html",
+   "section": "tools"
   },
   {
    "id": "tb-minmax",
-   "file": "week2/tb-minmax.html"
+   "file": "week2/tb-minmax.html",
+   "section": "tools"
   },
   {
    "id": "tb-zip",
-   "file": "week2/tb-zip.html"
+   "file": "week2/tb-zip.html",
+   "section": "tools"
   },
   {
    "id": "tb-anyall",
-   "file": "week2/tb-anyall.html"
+   "file": "week2/tb-anyall.html",
+   "section": "tools"
   },
   {
    "id": "tb-dict",
-   "file": "week2/tb-dict.html"
+   "file": "week2/tb-dict.html",
+   "section": "tools"
   },
   {
    "id": "tb-format",
-   "file": "week2/tb-format.html"
+   "file": "week2/tb-format.html",
+   "section": "tools"
   },
   {
    "id": "w2-capstone",
-   "file": "week2/w2-capstone.html"
+   "file": "week2/w2-capstone.html",
+   "section": "practice"
   },
   {
    "id": "w2-lab",
-   "file": "week2/w2-lab.html"
+   "file": "week2/w2-lab.html",
+   "section": "practice"
   },
   {
    "id": "w2-boss",
-   "file": "week2/w2-boss.html"
+   "file": "week2/w2-boss.html",
+   "section": "practice"
   },
   {
    "id": "w2-projects",
-   "file": "week2/w2-projects.html"
+   "file": "week2/w2-projects.html",
+   "section": "practice"
   },
   {
    "id": "w2-test",
-   "file": "week2/w2-test.html"
+   "file": "week2/w2-test.html",
+   "section": "test"
   },
   {
    "id": "pj-intro",
@@ -231,15 +263,23 @@
   },
   {
    "id": "pj-a",
-   "file": "project/pj-a.html"
+   "file": "project/pj-a.html",
+   "section": "build"
   },
   {
    "id": "pj-b",
-   "file": "project/pj-b.html"
+   "file": "project/pj-b.html",
+   "section": "build"
   },
   {
    "id": "pj-c",
-   "file": "project/pj-c.html"
+   "file": "project/pj-c.html",
+   "section": "build"
+  },
+  {
+   "id": "tb-index",
+   "file": "intro/tb-index.html",
+   "week": "tb"
   }
  ]
 }

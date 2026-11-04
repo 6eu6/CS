@@ -43,12 +43,12 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-read]');if
   const j=e.target.closest('[data-jump]');if(j){const L=LESSONS.find(l=>l.id===cur);const it=REQ[cur][+j.dataset.jump];if(it&&it.el){it.el.scrollIntoView({behavior:'smooth',block:'start'})}}});
 
 /* sidebar with locks and partial progress */
-renderNav=function(){
+function renderNav(){
   const nav=$('#nav');let h='';
-  const groups=[{key:'intro',label:'Start here'},...WEEKS.map(w=>({key:String(w.n),label:`Week ${w.n} · ${w.t}`,built:w.built})),{key:'proj',label:'Main project · Pocket Ledger',built:true}];
-  groups.forEach(g=>{const ls=LESSONS.filter(l=>l.week===g.key);if(!ls.length)return;const dn=ls.filter(l=>lessonDone(l.id)).length;const built=g.key==='intro'||g.built;
-    h+=`<div class="wk"><div class="wk-h ${built?'':'soon'}"><span>${esc(g.label)}</span>${g.key!=='intro'?(built?`<span>${dn}/${ls.length}</span>`:'<span>soon</span>'):''}</div><ol class="toc">`;
-    ls.forEach(l=>{const lk=built?lockOf(l.id):null;const d=lessonDone(l.id);const r=REQ[l.id];const part=r.length&&!d?doneCount(l.id):0;
+  GROUPS.forEach(g=>{const ls=LESSONS.filter(l=>l.week===g.key);if(!ls.length)return;const dn=ls.filter(l=>lessonDone(l.id)).length;const built=g.built;
+    if(!built){h+=`<div class="wk"><a class="wk-h soon" href="#${ls[0].id}" data-l="${ls[0].id}"><span>${esc(g.label)}</span><span>soon</span></a></div>`;return}
+    h+=`<div class="wk"><div class="wk-h ${built?'':'soon'}"><span>${esc(g.label)}</span>${g.key!=='intro'&&g.key!=='tb'?(built?`<span>${dn}/${ls.length}</span>`:'<span>soon</span>'):''}</div><ol class="toc">`;
+    let sec=null;ls.forEach(l=>{if(l.section&&l.section!==sec&&built){h+=`<li class="sec">${esc(SECTION_LABELS[l.section]||l.section)}</li>`}sec=l.section;const lk=built?lockOf(l.id):null;const d=lessonDone(l.id);const r=REQ[l.id];const part=r.length&&!d?doneCount(l.id):0;
       h+=`<li><a href="#${l.id}" data-l="${l.id}" class="${l.id===cur?'on':''} ${built?'':'soon'} ${lk?'locked':''}"><span>${esc(l.title)}${part?` <small class="engine">${part}/${r.length}</small>`:''}</span><span class="chk ${d?'done':''} ${lk?'lockd':''} ${built?'':'lock'}"></span></a></li>`});
     h+='</ol></div>'});
   nav.innerHTML=h;
@@ -57,7 +57,7 @@ renderNav=function(){
   $('#progTxt').textContent=`${d}/${counted.length} lessons · ${Object.keys(prog.ex).filter(k=>R[k]).length} exercises passed`;
   const road=$('#road');if(road)road.innerHTML=WEEKS.map(w=>{const ls=LESSONS.filter(l=>l.week===String(w.n));const dn=ls.filter(l=>lessonDone(l.id)).length;
     return `<a href="#w${w.n}-intro"><span class="n">WEEK ${w.n}</span><b>${esc(w.t)}</b><span>${esc(w.blurb)}</span><span class="st" style="color:${w.built?'var(--ok)':'var(--muted)'}">${w.built?`Ready · ${dn}/${ls.length} done`:'Coming next'}</span></a>`}).join('');
-  LESSONS.forEach(l=>{if(isBuiltWeek(l.week))drawLesson(l.id)});drawReviewCount()};
+  LESSONS.forEach(l=>{if(isBuiltWeek(l.week))drawLesson(l.id)});drawReviewCount()}
 
 /* lock page */
 const lockPage=document.createElement('article');lockPage.className='lesson lockpage';$('#main').appendChild(lockPage);
