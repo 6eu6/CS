@@ -13,6 +13,7 @@ const {open}=require('./serve');let fails=0;const ok=(c,m)=>{console.log((c?'PAS
   ok(await pg.evaluate(id=>!!prog.ex[id],id),`${name}: Check passes the reference solution of ${id}`);
   await pg.reload();await pg.waitForFunction("typeof LESSONS!=='undefined'&&typeof CMready!=='undefined'&&CMready");
   ok(await pg.evaluate(id=>!!JSON.parse(localStorage.getItem('c50-prog')).ex[id],id),`${name}: progress survives reload`);
+  await pg.evaluate("prog.lessons={home:true};show('home')");await pg.click('#contBtn');ok(await pg.evaluate('cur')==='method',`${name}: Continue opens the first unfinished lesson`);
   // locked lesson really locks (undo the test bypass)
   const lock=await pg.evaluate("(()=>{prog.ex={};prog.lessons={};return typeof lockOf==='function'})()");
   // layout: no page-level horizontal scroll on any lesson

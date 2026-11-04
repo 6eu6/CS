@@ -20,11 +20,11 @@ function mountRunner(el){
   const getF=n=>cm&&docs[n]?docs[n].getValue():buf[n];
   function drawTask(){const s=stages?stages[stage]:d;taskEl.innerHTML=`<div>${s.task}</div>${s.spec?`<div class="spec">${esc(s.spec)}</div>`:''}`;
     if(stages){const sb=el.querySelector('.stages');sb.innerHTML=stages.map((s,i)=>{const done=prog.ex[id+'#'+i];const locked=i>0&&!prog.ex[id+'#'+(i-1)]&&i!==stage;return `<button class="stg ${i===stage?'on':''} ${done?'done':''}" data-s="${i}" ${locked?'disabled title="Pass the previous step first"':''}>${done?'✓ ':''}Step ${i+1}: ${esc(s.title)}</button>`}).join('')}}
-  if(stages)el.querySelector('.stages').onclick=e=>{const b=e.target.closest('[data-s]');if(!b||b.disabled)return;stage=+b.dataset.s;LS.set('c50-stage-'+id,stage);prog.stage[id]=stage;queueSync();drawTask();res.innerHTML=''};
+  if(stages)el.querySelector('.stages').onclick=e=>{const b=e.target.closest('[data-s]');if(!b||b.disabled)return;stage=+b.dataset.s;LS.set('c50-stage-'+id,stage);prog.stage[id]=stage;drawTask();res.innerHTML=''};
   function drawTabs(){tabs.innerHTML=names.map(n=>{const L=langOf(n);return `<button class="tab ${n===active?'on':''}" data-tab="${esc(n)}"><span class="ft ft-${L.tag}">${L.tag==='py'?'py':L.tag}</span>${esc(n)}</button>`}).join('')}
   function fit(){const nl=ta.value.split('\n').length;gut.textContent=Array.from({length:nl},(_,i)=>i+1).join('\n');ta.rows=Math.min(Math.max(nl+1,5),28)}
   function load(){langEl.textContent=langOf(active).label;if(cm){if(!docs[active])docs[active]=CodeMirror.Doc(buf[active],langOf(active).mode);cm.swapDoc(docs[active]);updPos()}else{ta.value=buf[active];fit()}}
-  function persist(){if(cm)buf[active]=cm.getValue();else buf[active]=ta.value;if(active==='main.py'){LS.set(draftKey,buf['main.py']);if(d.lvl==='proj'&&buf['main.py']!==(prog.drafts[id]&&prog.drafts[id].code)){prog.drafts[id]={code:buf['main.py'],at:Date.now()};queueSync()}}}
+  function persist(){if(cm)buf[active]=cm.getValue();else buf[active]=ta.value;if(active==='main.py'){LS.set(draftKey,buf['main.py']);if(d.lvl==='proj'&&buf['main.py']!==(prog.drafts[id]&&prog.drafts[id].code)){prog.drafts[id]={code:buf['main.py'],at:Date.now()}}}}
   function updPos(){if(!cm)return;const c=cm.getCursor();posEl.textContent=`Ln ${c.line+1}, Col ${c.ch+1}`;const s=langOf(active).mode==='python'?sigAt(cm):null;if(s){sig.hidden=false;sig.innerHTML=renderSig(s)}else sig.hidden=true}
   function clearErr(){if(errW){errW.clear();errW=null}if(errLine!=null&&cm){cm.removeLineClass(errLine,'background','cm-errline');errLine=null}}
   function markErr(err){const m=/\(line (\d+)\)\s*$/.exec(err);if(!m||!cm)return;if(active!=='main.py'){active='main.py';drawTabs();load()}

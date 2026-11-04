@@ -33,13 +33,13 @@
   "js/progress/review.js",
   "js/features/timer.js",
   "js/widgets/toolbox.js",
-  "js/progress/sync.js",
+  "js/progress/persist.js",
   "js/features/plan.js",
   "js/widgets/truth-lab.js",
   "content/hints.js",
   "content/lectures.js",
   "js/features/lectures.js",
-  "js/features/tutor.js",
+  "js/features/hints.js",
   "js/boot.js"
  ],
  "styles": [

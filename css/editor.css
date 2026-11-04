@@ -72,7 +72,6 @@ li.CodeMirror-hint-active{background:#2f4bc0;color:#fff}
 .hintbox{display:flex;flex-direction:column;gap:8px}
 .hint{border:1px solid var(--line);border-left:4px solid var(--hl);background:var(--hl-soft);border-radius:10px;padding:10px 14px;font-size:.92rem;display:flex;flex-direction:column;gap:6px}
 .hint ul{margin:0}.hint pre{font-size:.8rem}
-.tutor-out{font-size:.92rem;line-height:1.6}.tutor-out pre{margin:6px 0}
 .lprog .prog-bar,.plstage .prog-bar{flex:none;height:8px}
 .plstage{border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:8px;margin-top:14px}
 /* timer */

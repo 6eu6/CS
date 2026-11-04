@@ -3,7 +3,7 @@
 let engine='loading';const waiters=[];
 function setEngine(s){engine=s;$('#engineStatus').textContent=s==='ready'?'Python engine: ready ✓':s==='failed'?'Python engine could not load. Use Copy code and run in your Codespace.':'Python engine: loading…';waiters.splice(0).forEach(f=>f())}
 function loadScript(src){return new Promise((res,rej)=>{const s=document.createElement('script');s.src=src;s.onload=res;s.onerror=rej;document.head.appendChild(s)})}
-(async()=>{for(const b of['https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/','https://unpkg.com/skulpt@1.2.0/dist/']){try{await loadScript(b+'skulpt.min.js');await loadScript(b+'skulpt-stdlib.js');if(window.Sk){setEngine('ready');return}}catch(e){}}setEngine('failed')})();
+(async()=>{for(const b of['vendor/skulpt/','https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/','https://unpkg.com/skulpt@1.2.0/dist/']){try{await loadScript(b+'skulpt.min.js');await loadScript(b+'skulpt-stdlib.js');if(window.Sk){setEngine('ready');return}}catch(e){}}setEngine('failed')})();
 
 function prelude(files,stdin){
   const L=['_VFS = {}',...Object.entries(files||{}).map(([k,v])=>`_VFS[${JSON.stringify(k)}] = ${JSON.stringify(v)}`),

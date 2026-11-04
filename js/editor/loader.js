@@ -3,6 +3,7 @@
 const CMV='5.65.16';
 const CM_FILES=['mode/python/python','addon/edit/matchbrackets','addon/edit/closebrackets','addon/comment/comment','addon/selection/active-line','addon/hint/show-hint'];
 const CM_SOURCES=[
+ {base:'vendor/codemirror/',core:'lib/codemirror.min.js',f:p=>p+'.min.js'},
  {base:`https://cdnjs.cloudflare.com/ajax/libs/codemirror/${CMV}/`,core:'codemirror.min.js',f:p=>p+'.min.js'},
  {base:`https://cdn.jsdelivr.net/npm/codemirror@${CMV}/`,core:'lib/codemirror.min.js',f:p=>p+'.min.js'},
 ];

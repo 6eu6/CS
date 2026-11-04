@@ -10,8 +10,7 @@
 <link rel="apple-touch-icon" href="/icon.svg">
 <script>try{var t=localStorage.getItem('c50-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
 <title>CS50P Companion</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="css/fonts.css">
 <link rel="stylesheet" href="css/app.css">
 <link rel="stylesheet" href="css/codemirror.css">
 <link rel="stylesheet" href="css/editor.css">
@@ -35,7 +34,7 @@
 
 <div class="shell">
 <aside class="side" id="side"><nav id="nav" aria-label="Weeks and lessons"></nav>
-  <div class="tools"><span class="engine" id="engineStatus">Python engine: loading…</span><span class="engine" id="editorStatus">Code editor: loading…</span><span class="engine" id="syncStatus">Progress: saved on this device only</span><button class="btn sm" id="expProg">Export progress</button><button class="btn sm" id="impProg">Import progress</button><input type="file" id="impFile" accept="application/json" hidden><button class="btn sm" id="resetProg">Reset my progress</button></div>
+  <div class="tools"><span class="engine" id="engineStatus">Python engine: loading…</span><span class="engine" id="editorStatus">Code editor: loading…</span><span class="engine" id="syncStatus">Progress is saved in this browser. Use Export to back it up or move it to another device.</span><button class="btn sm" id="expProg">Export progress</button><button class="btn sm" id="impProg">Import progress</button><input type="file" id="impFile" accept="application/json" hidden><button class="btn sm" id="resetProg">Reset my progress</button></div>
 </aside>
 <main id="main"><p class="lede" id="loading">Loading your lessons…</p></main>
 </div>

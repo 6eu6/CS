@@ -1,4 +1,5 @@
-"""Build HINTS (tools used + outline skeleton) and LESSON_CONCEPTS from the audit data."""
+"""Build HINTS (tools used + outline skeleton) and WIDGET_LESSON from the audit data.
+usage: python3 tools/hints.py <data.json> content/hints.js tools/"""
 import ast, json, sys, re
 sys.path.insert(0, sys.argv[3])
 import audit as A  # noqa  (re-uses concepts() and TAUGHT)
@@ -112,13 +113,8 @@ def main():
                 H[f'{wid}#{i}'] = {'t': tools(s), 's': skeleton(s, r['code'])}
         elif r['sol']:
             H[wid] = {'t': tools(r['sol']), 's': skeleton(r['sol'], r['code'])}
-    # concepts known at each lesson (for the tutor)
-    LC = {}
-    for L in order + ['pj-a', 'pj-b', 'pj-c']:
-        p = pos[L]
-        LC[L] = sorted({NAMES[c] for c, t in A.TAUGHT.items() if t and c in NAMES and pos.get(t, 999) <= p})
     WL = {wid: L for (k, wid), L in wl.items() if k == 'r'}
-    open(sys.argv[2], 'w').write('const HINTS=' + json.dumps(H, ensure_ascii=False) + ';\nconst LESSON_CONCEPTS=' + json.dumps(LC, ensure_ascii=False) + ';\nconst WIDGET_LESSON=' + json.dumps(WL) + ';\n')
+    open(sys.argv[2], 'w').write('const HINTS=' + json.dumps(H, ensure_ascii=False) + ';\nconst WIDGET_LESSON=' + json.dumps(WL) + ';\n')
     print('hints', len(H))
     for key in ['w2l_stats', 'x1_validator', 'ledger_c#2']:
         if key in H: print('---', key, H[key]['t']); print(H[key]['s'])
