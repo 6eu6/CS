@@ -8,11 +8,11 @@ def fail(message):
     raise SystemExit("CURRICULUM ORDER FAIL: " + message)
 
 print_lesson = (W0 / "w0-print.html").read_text()
-if re.search(r"\\binput\\s*\\(", print_lesson):
+if re.search(r"\binput\s*\(", print_lesson):
     fail("input() appears in the print lesson before the Variables lesson teaches it")
 
 vars_lesson = (W0 / "w0-vars.html").read_text()
-early_methods = re.findall(r"\\.(strip|lstrip|rstrip|lower|upper|title|capitalize|replace|split)\\s*\\(", vars_lesson)
+early_methods = re.findall(r"\.(strip|lstrip|rstrip|lower|upper|title|capitalize|replace|split)\s*\(", vars_lesson)
 if early_methods:
     fail("string methods appear before the Strings lesson: " + ", ".join(sorted(set(early_methods))))
 
@@ -22,7 +22,7 @@ end = widgets.find("w0scope:{", start)
 if start < 0 or end < 0:
     fail("the Variables step-through widget could not be located")
 stepper = widgets[start:end]
-early_stepper_methods = re.findall(r"\\.(strip|lstrip|rstrip|lower|upper|title|capitalize|replace|split)\\s*\\(", stepper)
+early_stepper_methods = re.findall(r"\.(strip|lstrip|rstrip|lower|upper|title|capitalize|replace|split)\s*\(", stepper)
 if early_stepper_methods:
     fail("the Variables step-through uses string methods too early: " + ", ".join(sorted(set(early_stepper_methods))))
 
