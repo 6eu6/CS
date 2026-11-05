@@ -11,6 +11,7 @@
     <dt>int</dt><dd><b>Integer</b>: a whole number, no decimal point. <code>3</code>, <code>-12</code>, <code>2026</code>. Use for counting things: people, items, seconds, years.</dd>
     <dt>float</dt><dd><b>Floating-point</b> number: has a decimal point. <code>3.5</code>, <code>-0.25</code>, <code>2.0</code>. Use for measuring: prices, distances, temperatures.</dd>
   </dl>
+  <div class="widget runner" data-runner="w0n_add"></div>
   <p><code>type(x)</code> tells you what you have: <code>type(3)</code> is <code>&lt;class 'int'&gt;</code>, <code>type(3.0)</code> is <code>&lt;class 'float'&gt;</code>, <code>type("3")</code> is <code>&lt;class 'str'&gt;</code>.</p>
 
   <h2>The operators</h2>
@@ -24,7 +25,9 @@
     <div class="tbl"><table id="opTable"></table></div>
   </div>
   <div class="note why"><b>// and % are a pair</b><p><code>17 // 5</code> is 3 (how many whole 5s fit) and <code>17 % 5</code> is 2 (what's left over). Together they split anything into "whole units and remainder": 135 minutes → <code>135 // 60</code> = 2 hours and <code>135 % 60</code> = 15 minutes. You'll use this pair constantly.</p></div>
+  <div class="widget runner" data-runner="w0n_time"></div>
   <p><b>Order of operations</b> is the same as in maths: <code>**</code> first, then <code>* / // %</code>, then <code>+ -</code>. Use brackets when in doubt: <code>(a + b) / 2</code>, not <code>a + b / 2</code>.</p>
+  <div class="widget runner" data-runner="w0n_area"></div>
 
   <h2>Converting: int(), float(), str()</h2>
   <p class="engine">Official Python reference: <a href="https://docs.python.org/3/library/functions.html#int" target="_blank" rel="noopener">int(), float() and str()</a></p>
@@ -42,6 +45,7 @@ print(x + y)            # 5</code></pre>
     <dt>str(42)</dt><dd>→ <code>"42"</code>. Needed when joining with <code>+</code>: <code>"Age: " + str(age)</code>.</dd>
   </dl>
   <div class="note tip"><b>Nesting: int(input(...))</b><p>Python runs the innermost brackets first: <code>input</code> returns a string, then <code>int</code> converts it. Doing it in one line means the variable is a number from the start, so you can't forget to convert later.</p></div>
+  <div class="widget runner" data-runner="w0n_split"></div>
 
   <h2>Rounding and formatting</h2>
   <p class="engine">Official Python reference: <a href="https://docs.python.org/3/library/string.html#format-string-syntax" target="_blank" rel="noopener">Format string syntax</a></p>
@@ -58,19 +62,21 @@ f"£{1234.5:,.2f}"     # '£1,234.50'  both together: money</code></pre>
     <tr><td>Nice <b>output</b> for humans, always 2 decimals</td><td><code>f"{x:.2f}"</code></td><td>a string</td></tr>
     <tr><td>Big numbers readable</td><td><code>f"{x:,}"</code></td><td>a string</td></tr>
   </table></div>
+  <div class="widget runner" data-runner="w0n_bmi"></div>
 
   <h2>Floats are not exact</h2>
   <p class="engine">Official Python reference: <a href="https://docs.python.org/3/tutorial/floatingpoint.html" target="_blank" rel="noopener">Floating-point arithmetic: issues and limitations</a></p>
 <pre><code class="py">print(0.1 + 0.2)      # 0.30000000000000004</code></pre>
   <p>Computers store floats in binary, and some decimals (like 0.1) can't be stored exactly, the way 1/3 can't be written exactly in decimal. It's not a bug in your code. Format your output with <code>:.2f</code> and it disappears. For real money systems, professionals use whole pennies (ints) or Python's <code>decimal</code> module.</p>
+  <div class="widget runner" data-runner="w0n_bug"></div>
 
   <div class="note real"><b>Scenario: splitting a restaurant bill</b><p>£87.40 between 3 friends: <code>87.40 / 3</code> is 29.1333... Show <code>f"£{87.40 / 3:.2f}"</code> → "£29.13". Every banking, shopping and fitness app does this kind of convert-calculate-format sequence.</p></div>
 
-  <div class="widget runner" data-runner="w0n_add"></div>
-  <div class="widget runner" data-runner="w0n_time"></div>
-  <div class="widget runner" data-runner="w0n_split"></div>
-  <div class="widget runner" data-runner="w0n_area"></div>
-  <div class="widget runner" data-runner="w0n_bmi"></div>
-  <div class="widget runner" data-runner="w0n_bug"></div>
+
+
+
+
+
+
   <div class="widget quiz" data-quiz="w0num"></div>
 </article>
