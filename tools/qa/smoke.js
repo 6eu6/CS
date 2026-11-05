@@ -16,7 +16,7 @@ const {open}=require('./serve');let fails=0;const ok=(c,m)=>{console.log((c?'PAS
   await pg.evaluate("prog.lessons={home:true};show('home')");await pg.evaluate(()=>document.querySelector(innerWidth<=560?'#contSide':'#contBtn').click());ok(await pg.evaluate('cur')==='method',`${name}: Continue opens the first unfinished lesson`);
   // complete Variables lesson as a learner: solve every visible coding exercise, then pass the quiz.
   const learner=await pg.evaluate(async()=>{
-    prog.ex={};prog.lessons={};show('w0-vars');
+    prog.ex={};prog.lessons={home:true,'w0-intro':true};REQ['w0-print'].forEach(it=>prog.ex[it.key]=true);show('w0-vars');
     const ids=['w0v_greet','w0v_profile','w0v_story','w0v_swap','w0v_bug'];
     const missing=[];
     for(const id of ids){
