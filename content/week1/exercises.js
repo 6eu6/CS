@@ -404,18 +404,18 @@ ledger_b:{title:'Pocket Ledger · Part B',lvl:'proj',carry:'ledger_a',stdin:'Tes
  {title:'Check one transaction',task:'Replace <code>main()</code>: ask for a description, an amount (negative = spending) and the monthly budget for its category. Print the two lines below. For income (positive amounts), print <code>Budget: n/a</code> instead of a status.',spec:'Tesco Express: groceries, -£23.40\nBudget: OK',
   tests:[T('Tesco Express\n-23.40\n250','Tesco Express: groceries, -£23.40\nBudget: OK'),T(' uber \n-140\n120','Uber: transport, -£140.00\nBudget: Over by £20.00'),T('Salary\n2300\n0','Salary: income, £2,300.00\nBudget: n/a')],
   sol:'@LB'}]},
-ledger_c:{title:'Pocket Ledger · Part C',lvl:'proj',carry:'ledger_b',files:{'transactions.csv':TX_OCT},stdin:'transactions.csv',stages:[
- {title:'load()',task:'Your Part B code is loaded. The file <b>transactions.csv</b> (see its tab) has lines <code>date,description,amount</code>. Add <code>load(filename)</code> that returns a list of <code>(date, description, amount)</code> tuples with amount as a float. Read with <code>with open(filename) as f: lines = f.read().splitlines()</code> and skip blank lines. Keep main() as it is for now: the check gives it input.',
-  tests:[{inp:'Tesco\n-1\n10',after:'tx = load("transactions.csv")\nprint(len(tx))\nprint(tx[0])\nprint(tx[-1][2] + 1)',exp:"13\n('2026-10-01', 'Salary', 2300.0)\n-11.0",label:'load the October file'},{inp:'Tesco\n-1\n10',files:{'transactions.csv':TX_NOV},after:'print(len(load("transactions.csv")))',exp:'5',label:'load another file'}],
+ledger_c:{title:'Pocket Ledger · Part C',lvl:'proj',carry:'ledger_b',stdin:'',stages:[
+ {title:'load()',task:'Your Part B code is loaded. The file <b>transactions.csv</b> (see its tab) has lines <code>date,description,amount</code>. Add <code>transactions()</code> that returns a list of <code>(date, description, amount)</code> tuples with amount as a float. Read Do not use file handling yet; Week 6 teaches that. Keep main() as it is for now: the check gives it input.',
+  tests:[{inp:'Tesco\n-1\n10',after:'tx = transactions()\nprint(len(tx))\nprint(tx[0])\nprint(tx[-1][2] + 1)',exp:"13\n('2026-10-01', 'Salary', 2300.0)\n-11.0",label:'load the October file'},{inp:'Tesco\n-1\n10',after:'print(len(transactions()))',exp:'5',label:'load another file'}],
   sol:'@LC1'},
  {title:'Totals by category',task:'Add <code>totals_by_category(transactions)</code> returning a dict of category → total <b>spent</b> as a positive number. Only negative amounts count (income is ignored). Use your <code>category()</code>.',
-  tests:[{inp:'Tesco\n-1\n10',after:'t = totals_by_category(load("transactions.csv"))\nfor k in sorted(t):\n    print(k, round(t[k], 2))',exp:'groceries 175.5\nother 47.0\nrent 950.0\nsubscriptions 22.98\ntransport 69.7',label:'October totals'}],
+  tests:[{inp:'Tesco\n-1\n10',after:'t = totals_by_category(transactions())\nfor k in sorted(t):\n    print(k, round(t[k], 2))',exp:'groceries 175.5\nother 47.0\nrent 950.0\nsubscriptions 22.98\ntransport 69.7',label:'October totals'}],
   sol:'@LC2'},
  {title:'The report',task:'Add <code>report(transactions)</code> that <b>prints</b> the report below: income, spent, saved; then each category by spend, biggest first, as <code>f"  {cat:&lt;14}{money(total):&gt;10}"</code>; then the biggest single purchase (most negative amount).',spec:"Income: £2,300.00\nSpent: £1,265.18\nSaved: £1,034.82\nBy category:\n  rent             £950.00\n  groceries        £175.50\n  transport         £69.70\n  other             £47.00\n  subscriptions     £22.98\nBiggest purchase: Rent (£950.00)",
-  tests:[{inp:'Tesco\n-1\n10',after:'report(load("transactions.csv"))',exp:"Income: £2,300.00\nSpent: £1,265.18\nSaved: £1,034.82\nBy category:\n  rent             £950.00\n  groceries        £175.50\n  transport         £69.70\n  other             £47.00\n  subscriptions     £22.98\nBiggest purchase: Rent (£950.00)",label:'October report'},{inp:'Tesco\n-1\n10',files:{'transactions.csv':TX_NOV},after:'report(load("transactions.csv"))',exp:"Income: £1,850.00\nSpent: £420.00\nSaved: £1,430.00\nBy category:\n  groceries        £280.00\n  transport        £140.00\nBiggest purchase: Tesco (£160.00)",label:'November report'}],
+  tests:[{inp:'Tesco\n-1\n10',after:'report(transactions())',exp:"Income: £2,300.00\nSpent: £1,265.18\nSaved: £1,034.82\nBy category:\n  rent             £950.00\n  groceries        £175.50\n  transport         £69.70\n  other             £47.00\n  subscriptions     £22.98\nBiggest purchase: Rent (£950.00)",label:'October report'},{inp:'Tesco\n-1\n10',after:'report(transactions())',exp:"Income: £1,850.00\nSpent: £420.00\nSaved: £1,430.00\nBy category:\n  groceries        £280.00\n  transport        £140.00\nBiggest purchase: Tesco (£160.00)",label:'November report'}],
   sol:'@LC3'},
  {title:'The real program',task:'Replace <code>main()</code>: ask for the file name, print the report, then a line <code>Budgets:</code> and, for each budget in the dict below (in this order), <code>  CATEGORY: STATUS</code> using your <code>budget_status()</code> (0 spent if the category is missing). Add this dict at the top of your file: <code>BUDGETS = {"groceries": 250, "transport": 120, "subscriptions": 25, "other": 200}</code>.',
-  tests:[T('transactions.csv','Budgets:\n  groceries: OK\n  transport: OK\n  subscriptions: Warning\n  other: OK'),{inp:'transactions.csv',files:{'transactions.csv':TX_NOV},exp:'Budgets:\n  groceries: Over by £30.00\n  transport: Over by £20.00\n  subscriptions: OK\n  other: OK',label:'November budgets'}],
+  tests:[T('','Budgets:\n  groceries: OK\n  transport: OK\n  subscriptions: Warning\n  other: OK'),{inp:'',exp:'Budgets:\n  groceries: Over by £30.00\n  transport: Over by £20.00\n  subscriptions: OK\n  other: OK',label:'November budgets'}],
   sol:'@LC4'}]},
 });
 
@@ -476,20 +476,9 @@ main()
 
 main()
 `;
- const load=`def load(filename):
-    with open(filename) as f:
-        lines = f.read().splitlines()
-    transactions = []
-    for line in lines:
-        if not line.strip():
-            continue
-        date, description, amount = line.split(",")
-        transactions.append((date, description, float(amount)))
-    return transactions
-
-
-`;
- const totals=`def totals_by_category(transactions):
+ const txRows=TX_OCT.trim().split('\n').map(line=>{const [date,description,amount]=line.split(',');return [date,description,Number(amount)]});
+ const transactions='def transactions():\n    return [\n'+txRows.map(([date,description,amount])=>'        ('+JSON.stringify(date)+', '+JSON.stringify(description)+', '+amount+'),').join('\n')+'\n    ]\n\n\n';
+  const totals=`def totals_by_category(transactions):
     totals = {}
     for date, description, amount in transactions:
         if amount < 0:
@@ -516,9 +505,9 @@ main()
 `;
  const mainC=`def main():
     filename = input("File: ").strip()
-    transactions = load(filename)
-    report(transactions)
-    totals = totals_by_category(transactions)
+    transactions = transactions()
+    report(tx)
+    totals = totals_by_category(tx)
     print("Budgets:")
     for cat, budget in BUDGETS.items():
         print(f"  {cat}: {budget_status(totals.get(cat, 0), budget)}")
@@ -532,10 +521,10 @@ main()
   '@LA+cat+neg':head+moneyNeg+parse+pct+cat+mainA,
   '@LA+cat+neg+bud':head+moneyNeg+parse+pct+cat+bud+mainA,
   '@LB':head+moneyNeg+parse+pct+cat+bud+mainB,
-  '@LC1':head+moneyNeg+parse+pct+cat+bud+load+mainB,
-  '@LC2':head+moneyNeg+parse+pct+cat+bud+load+totals+mainB,
-  '@LC3':head+moneyNeg+parse+pct+cat+bud+load+totals+report+mainB,
-  '@LC4':head+budgets+moneyNeg+parse+pct+cat+bud+load+totals+report+mainC,
+  '@LC1':head+moneyNeg+parse+pct+cat+bud+transactions+mainB,
+  '@LC2':head+moneyNeg+parse+pct+cat+bud+transactions+totals+mainB,
+  '@LC3':head+moneyNeg+parse+pct+cat+bud+transactions+totals+report+mainB,
+  '@LC4':head+budgets+moneyNeg+parse+pct+cat+bud+transactions+totals+report+mainC,
  };
  ['ledger_b','ledger_c'].forEach(id=>R[id].stages.forEach(s=>{if(S[s.sol])s.sol=S[s.sol]}));
  R.ledger_b.code=R.ledger_a.stages[3].sol;   // reference starter if Part A isn't finished
