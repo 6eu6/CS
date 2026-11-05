@@ -16,7 +16,7 @@ const {open}=require('./serve');let fails=0;const ok=(c,m)=>{console.log((c?'PAS
   await pg.evaluate("prog.lessons={home:true};show('home')");await pg.evaluate(()=>document.querySelector(innerWidth<=560?'#contSide':'#contBtn').click());ok(await pg.evaluate('cur')==='method',`${name}: Continue opens the first unfinished lesson`);
   // complete Variables lesson as a learner: solve every visible coding exercise, then pass the quiz.
   const learner=await pg.evaluate(async()=>{
-    prog.ex={};prog.lessons={home:true,'w0-intro':true};REQ['w0-print'].forEach(it=>prog.ex[it.key]=true);show('w0-vars');
+    prog.ex={};prog.lessons={home:true,'w0-intro':true};REQ['w0-print'].forEach(it=>prog.ex[it.key]=true);show('w0-vars');await new Promise(r=>setTimeout(r,250));
     const ids=['w0v_greet','w0v_profile','w0v_story','w0v_swap','w0v_bug'];
     const missing=[];
     for(const id of ids){
@@ -37,7 +37,7 @@ const {open}=require('./serve');let fails=0;const ok=(c,m)=>{console.log((c?'PAS
     const passed=Object.fromEntries([...ids.map(id=>[id,!!prog.ex[id]]),['quiz',!!prog.ex['quiz-w0vars']]]);
     const complete=lessonDone('w0-vars');
     const nextLock=lockOf('w0-str');
-    return {missing,passed,quizVisible,complete,nextUnlocked:!nextLock,lockReason:nextLock?.why||null,progress:document.querySelector('[data-lp="w0-vars"]')?.innerText||''};
+    return {missing,passed,quizVisible,quizExists:!!quiz,quizQuestions:quiz?.querySelectorAll('.q').length||0,quizHeight:quiz?.getBoundingClientRect().height||0,complete,nextUnlocked:!nextLock,lockReason:nextLock?.why||null,progress:document.querySelector('[data-lp="w0-vars"]')?.innerText||''};
   });
   ok(learner.missing.length===0, `learner: all five Variables coding exercises are mounted (${JSON.stringify(learner.missing)})`);
   ok(Object.values(learner.passed).every(Boolean), `learner: all five coding exercises and the quiz can be passed (${JSON.stringify(learner.passed)})`);
