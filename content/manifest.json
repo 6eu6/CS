@@ -25,6 +25,7 @@
     "js/runner/runner.js",
     "js/widgets/exercises.js",
     "content/project/data.js",
+    "content/project/advanced.js",
     "content/week1/exercises.js",
     "content/week1/widgets.js",
     "content/week3/exercises.js",
@@ -492,6 +493,55 @@
       "id": "pj-c",
       "file": "project/pj-c.html",
       "section": "build"
+    },
+    {
+      "id": "pj-d",
+      "file": "project/pj-d.html",
+      "section": "build",
+      "week": "proj",
+      "needs": "3"
+    },
+    {
+      "id": "pj-e",
+      "file": "project/pj-e.html",
+      "section": "build",
+      "week": "proj",
+      "needs": "4"
+    },
+    {
+      "id": "pj-f",
+      "file": "project/pj-f.html",
+      "section": "build",
+      "week": "proj",
+      "needs": "5"
+    },
+    {
+      "id": "pj-g",
+      "file": "project/pj-g.html",
+      "section": "build",
+      "week": "proj",
+      "needs": "6"
+    },
+    {
+      "id": "pj-h",
+      "file": "project/pj-h.html",
+      "section": "build",
+      "week": "proj",
+      "needs": "7"
+    },
+    {
+      "id": "pj-i",
+      "file": "project/pj-i.html",
+      "section": "build",
+      "week": "proj",
+      "needs": "8"
+    },
+    {
+      "id": "pj-j",
+      "file": "project/pj-j.html",
+      "section": "build",
+      "week": "proj",
+      "needs": "9"
     },
     {
       "id": "tb-index",
