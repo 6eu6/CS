@@ -56,7 +56,10 @@ print("Ledger validation tests passed")
 `},
 ledger_g:{title:"Part G · import a bank CSV",lvl:"proj",task:"Use csv.DictReader and io.StringIO to read the supplied CSV. Return a list of (description, float amount) tuples.",code:py`import csv
 import io
-data = "date,description,amount\\n2026-11-01,Salary,1800.00\\n2026-11-02,Food,-25.50\\n"
+data = """date,description,amount
+2026-11-01,Salary,1800.00
+2026-11-02,Food,-25.50
+"""
 # define read_transactions(data)
 print(read_transactions(data))
 `,tests:[T("","[('Salary', 1800.0), ('Food', -25.5)]")],sol:py`import csv
@@ -73,7 +76,7 @@ print(read_transactions(data))
 `},
 ledger_h:{title:"Part H · parse messy bank text",lvl:"proj",task:"Use re.search with named groups to extract a date (YYYY-MM-DD) and signed decimal amount from the supplied line. Print date and amount separated by a space, or Invalid line.",stdin:"Card payment 2026-11-05 amount -12.50 GBP",code:"",tests:[T("Card payment 2026-11-05 amount -12.50 GBP","2026-11-05 -12.50"),T("no transaction data","Invalid line")],sol:py`import re
 line = input("Bank text: ")
-match = re.search(r"(?P<date>\\d{4}-\\d{2}-\\d{2}).*?(?P<amount>-?\\d+\\.\\d{2})", line)
+match = re.search(r"(?P<date>[0-9]{4}-[0-9]{2}-[0-9]{2}).*?(?P<amount>-?[0-9]+\\.[0-9]{2})", line)
 if match:
     print(match.group("date"), match.group("amount"))
 else:
