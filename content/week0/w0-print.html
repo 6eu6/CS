@@ -18,11 +18,13 @@
   <div class="note why"><b>Why quotes matter</b><p><code>print(hello)</code> without quotes gives <code>NameError: name 'hello' is not defined</code>. Python looked for a <i>variable</i> called hello. Quotes are how you say "the literal text hello".</p></div>
 
   <h2>Several arguments at once</h2>
+  <p class="engine">Official Python reference: <a href="https://docs.python.org/3/library/functions.html#print" target="_blank" rel="noopener">Built-in print() reference</a></p>
 <pre><code class="py">print("hello,", "Sara")          # hello, Sara
 print("Total:", 42, "items")     # Total: 42 items</code></pre>
   <p>Commas <i>between</i> arguments (outside the quotes) separate them. <code>print</code> puts a <b>space</b> between each argument automatically and a <b>line break</b> at the end. Both of those are adjustable.</p>
 
   <h2>sep and end: the hidden parameters</h2>
+  <p class="engine">Official Python reference: <a href="https://docs.python.org/3/library/functions.html#print" target="_blank" rel="noopener">print() parameters: sep and end</a></p>
   <p><code>print</code> has extra settings with default values. You change them by name, using <code>name=value</code> inside the brackets. These are called <b>keyword arguments</b>.</p>
   <dl class="def">
     <dt>sep=" "</dt><dd>What goes <b>between</b> arguments. Default: one space.</dd>
@@ -50,6 +52,7 @@ Sara
   </div>
 
   <h2>Escape sequences: typing the untypeable</h2>
+  <p class="engine">Official Python reference: <a href="https://docs.python.org/3/reference/lexical_analysis.html#string-and-bytes-literals" target="_blank" rel="noopener">String and bytes literals</a></p>
   <p>Inside a string, a backslash <code>\</code> means "the next character is special". Two characters in the code become one in the text.</p>
   <div class="tbl"><table>
     <tr><th>You write</th><th>You get</th><th>Typical use</th></tr>
@@ -61,8 +64,9 @@ Sara
   <p>Often simpler: use the other kind of quote outside. <code>'She said "hi"'</code> needs no backslashes. <code>"It's fine"</code> neither.</p>
 
   <h2>Comments: notes for humans</h2>
-<pre><code class="py"># Ask the user for their name
-name = input("What's your name? ")   # input returns a str</code></pre>
+  <p class="engine">Official Python reference: <a href="https://docs.python.org/3/reference/lexical_analysis.html#comments" target="_blank" rel="noopener">Comments</a></p>
+<pre><code class="py"># Show a welcome message
+print("Welcome!")</code></pre>
   <p>Everything after <code>#</code> on a line is ignored by Python. Use comments to explain <b>why</b>, not to repeat <i>what</i> the code obviously does. CS50 also suggests writing your plan as comments first ("pseudocode"), then filling in code under each one.</p>
 
   <h2>Bugs: your first one</h2>
