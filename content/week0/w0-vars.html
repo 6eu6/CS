@@ -6,11 +6,13 @@
   <p class="lede">Programs get interesting when they react to the user. That needs two things: a way to <b>ask</b> (input) and a place to <b>keep the answer</b> (a variable).</p>
 
   <h2>Return values: functions that hand something back</h2>
+  <p class="engine">Official Python reference: <a href="https://docs.python.org/3/library/functions.html#input" target="_blank" rel="noopener">input() built-in reference</a></p>
   <p><code>print</code> <i>does</i> something (shows text). Other functions <i>give back</i> a value you can use. That value is called the <b>return value</b>.</p>
 <pre><code class="py">input("What's your name? ")</code></pre>
   <p><code>input</code> shows the prompt, waits for the user to type and press Enter, then <b>returns</b> what they typed as a string. If you don't store it anywhere, it's lost immediately.</p>
 
   <h2>Variables: storing a value under a name</h2>
+  <p class="engine">Official Python reference: <a href="https://docs.python.org/3/reference/simple_stmts.html#assignment-statements" target="_blank" rel="noopener">Assignment statements</a></p>
 <pre><code class="py">name = input("What's your name? ")
 print("hello,", name)</code></pre>
   <dl class="def">
@@ -23,6 +25,7 @@ print("hello,", name)</code></pre>
   <div class="widget stepper" data-stepper="w0vars"></div>
 
   <h2>Why print("hello, name") doesn't work</h2>
+  <p class="engine">Official Python reference: <a href="https://docs.python.org/3/reference/lexical_analysis.html#f-strings" target="_blank" rel="noopener">Formatted string literals (f-strings)</a></p>
 <pre><code class="py">name = "Sara"
 print("hello, name")      # hello, name    ← the word "name", not the variable
 print("hello,", name)     # hello, Sara    ← the variable's value</code></pre>
@@ -32,6 +35,7 @@ print("hello, " + name)        # 2. + joins strings (you add the space yourself)
 print(f"hello, {name}")        # 3. f-string: the modern, preferred way</code></pre>
 
   <h2>Naming variables well</h2>
+  <p class="engine">Official Python reference: <a href="https://docs.python.org/3/reference/lexical_analysis.html#identifiers" target="_blank" rel="noopener">Identifiers and keywords</a></p>
   <ul>
     <li>Letters, digits and underscores only; can't start with a digit; no spaces.</li>
     <li>Lower case with underscores: <code>first_name</code>, <code>total_price</code> (called <b>snake_case</b>).</li>
@@ -41,11 +45,12 @@ print(f"hello, {name}")        # 3. f-string: the modern, preferred way</code></
   </ul>
 
   <h2>Reassigning and reusing</h2>
-<pre><code class="py">name = input("Name: ")      # "  sara "
-name = name.strip()          # "sara"     same variable, new value
-name = name.title()          # "Sara"
-print(f"hello, {name}")</code></pre>
-  <p>A variable can be given a new value any time. The old value is forgotten. This "clean it step by step" pattern is very common with user input.</p>
+<pre><code class="py">score = 10
+print(score)       # 10
+
+score = 15         # assign a new value to the same variable
+print(score)       # 15</code></pre>
+  <p>A variable can be given a new value any time. The old value is replaced. We will use this same idea with text in the next lesson, when we learn string methods.</p>
 
   <div class="note real"><b>input() always returns a string</b><p>Even if the user types <code>42</code>, <code>input</code> returns the text <code>"42"</code>. To do maths you must convert it with <code>int()</code> or <code>float()</code>. Lesson 4 is all about this. It's the most common Week 0 bug.</p></div>
 
