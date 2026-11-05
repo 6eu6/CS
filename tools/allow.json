@@ -16,5 +16,13 @@
   "w2c_lengths": [
     "file_methods",
     "with_open"
+  ],
+  "w2c_full": [
+    "file_methods",
+    "with_open"
+  ],
+  "w2c_clean": [
+    "file_methods",
+    "with_open"
   ]
 }
