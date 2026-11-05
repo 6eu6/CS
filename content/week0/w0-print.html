@@ -16,6 +16,7 @@
     <dt>)</dt><dd>Ends the call. Every <code>(</code> needs its <code>)</code>.</dd>
   </dl>
   <p>The value you put inside the brackets is an <b>argument</b>: the input you hand to the function. <code>print</code>'s job is to take its arguments and display them.</p>
+  <div class="widget runner" data-runner="w0p_badge"></div>
   <div class="note why"><b>Why quotes matter</b><p><code>print(hello)</code> without quotes gives <code>NameError: name 'hello' is not defined</code>. Python looked for a <i>variable</i> called hello. Quotes are how you say "the literal text hello".</p></div>
 
   <h2>Several arguments at once</h2>
@@ -32,9 +33,11 @@ print("Total:", 42, "items")     # Total: 42 items</code></pre>
     <dt>end="\n"</dt><dd>What goes <b>after</b> everything. Default: <code>\n</code>, a new line.</dd>
   </dl>
 <pre><code class="py">print("2026", "10", "25", sep="-")     # 2026-10-25
+  <div class="widget runner" data-runner="w0p_date"></div>
 print("a", "b", "c", sep="")           # abc
 print("Loading", end="...")
-print("done")                          # Loading...done   (same line!)</code></pre>
+print("done")                          # Loading...done   (same line!)
+  <div class="widget runner" data-runner="w0p_oneline"></div></code></pre>
 
   <div class="widget" id="printPlay">
     <div class="widget-h"><b>print() playground</b><span class="badge">Interactive</span></div>
@@ -74,10 +77,11 @@ print("Welcome!")</code></pre>
 <pre><code class="py">print("hello, world"</code></pre>
 <pre class="term"><code>SyntaxError: '(' was never closed</code></pre>
   <p>A <b>syntax error</b> means Python can't even understand the shape of the code, so nothing runs. The fix is always on that line or the one just above it: a missing bracket, quote or colon.</p>
-
-  <div class="widget runner" data-runner="w0p_badge"></div>
-  <div class="widget runner" data-runner="w0p_date"></div>
-  <div class="widget runner" data-runner="w0p_oneline"></div>
   <div class="widget runner" data-runner="w0p_bug"></div>
+
+
+
+
+
   <div class="widget quiz" data-quiz="w0print"></div>
 </article>
