@@ -54,12 +54,11 @@ Object.assign(Q,{
 
 /* ======================================================= steppers */
 Object.assign(STEP,{
- w0vars:{title:'Step through: variables',code:'name = input("Name: ")\nname = name.strip()\nname = name.title()\nprint(f"hello, {name}")',steps:[
-  {l:1,n:'Python sees <code>name = ...</code>. Before it can store anything, it must work out the right side, so it calls <code>input("Name: ")</code>. The prompt appears and the program waits.',v:{},out:'Name: '},
-  {l:1,n:'The user types <code>  sARA </code> and presses Enter. input returns the string <code>"  sARA "</code>, and <code>=</code> stores it in a new variable <code>name</code>.',v:{name:'"  sARA "'},out:'Name:   sARA '},
-  {l:2,n:'<code>name.strip()</code> makes a <b>new</b> string without the outer spaces. <code>=</code> makes <code>name</code> refer to the new one. The old value is forgotten.',v:{name:'"sARA"'},out:'Name:   sARA '},
-  {l:3,n:'<code>.title()</code> returns <code>"Sara"</code> and it\'s stored in <code>name</code> again.',v:{name:'"Sara"'},out:'Name:   sARA '},
-  {l:4,n:'The f-string replaces <code>{name}</code> with the current value, then print shows the result.',v:{name:'"Sara"'},out:'Name:   sARA \nhello, Sara'}]},
+ w0vars:{title:'Step through: variables',code:'name = input("Name: ")\nname = "Ada"\nprint(f"hello, {name}")',steps:[
+  {l:1,n:'Python evaluates the right side first. It calls <code>input("Name: ")</code>, shows the prompt and waits for the user.',v:{},out:'Name: '},
+  {l:1,n:'The user types <code>Sara</code>. input returns the string <code>"Sara"</code>, and <code>=</code> stores it in the variable <code>name</code>.',v:{name:'"Sara"'},out:'Name: Sara'},
+  {l:2,n:'The next assignment gives <code>name</code> a new value: <code>"Ada"</code>. The previous value is replaced. This is called reassignment.',v:{name:'"Ada"'},out:'Name: Sara'},
+  {l:3,n:'The f-string inserts the current value of <code>name</code>, so print displays <code>hello, Ada</code>.',v:{name:'"Ada"'},out:'Name: Sara\nhello, Ada'}]},
  w0scope:{title:'Step through: calls and scope',code:'def main():\n    n = int(input("n: "))\n    result = square(n)\n    print(result)\n\ndef square(x):\n    y = x * x\n    return y\n\nmain()',steps:[
   {l:1,n:'<code>def main</code> is read and stored. The body is <b>not</b> run.',g:{main:'function'},out:''},
   {l:6,n:'<code>def square</code> is read and stored too.',g:{main:'function',square:'function'},out:''},
