@@ -21,6 +21,9 @@ const {open}=require('./serve');let fails=0;const ok=(c,m)=>{console.log((c?'PAS
   // locked lesson really locks (undo the test bypass)
   const lock=await pg.evaluate("(()=>{prog.ex={};prog.lessons={};const result=lockOf('w0-str');show('w0-str');return {available:typeof lockOf==='function',blocked:!!result,hasLockPage:document.querySelector('.lockpage.on')!==null,hasReason:!!document.querySelector('.lockpage.on .lede')?.textContent}})()");
   ok(lock.available&&lock.blocked&&lock.hasLockPage&&lock.hasReason, `${name}: prerequisite gating blocks a later lesson and shows the reason (${JSON.stringify(lock)})`);
+  const optional=await pg.evaluate(()=>{prog.ex={};prog.lessons={};LESSONS.filter(l=>l.week==='1'||(l.week==='2'&&l.id!=='w2-capstone')).forEach(l=>{if(REQ[l.id].length)REQ[l.id].forEach(it=>prog.ex[it.key]=true);else prog.lessons[l.id]=true});return {isOptional:LESSONS.find(l=>l.id==='w2-capstone').el.dataset.optional==='true',lock:lockOf('w2-lab')}}); 
+  ok(optional.isOptional&&optional.lock===null, `${name}: optional Week 6 preview does not block Week 2 progression (${JSON.stringify(optional)})`);
+
   // layout: no page-level horizontal scroll on any lesson
   const bad=await pg.evaluate(()=>{const o=[];LESSONS.forEach(l=>{show(l.id);const d=document.documentElement;if(d.scrollWidth>d.clientWidth+1)o.push(l.id+':'+d.scrollWidth)});return o});
   ok(bad.length===0,`${name}: no horizontal overflow on any page ${bad.slice(0,5)}`);
