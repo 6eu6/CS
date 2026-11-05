@@ -1,0 +1,11 @@
+<article class="lesson" data-id="w3-try" data-week="3" data-title="Catching exceptions"><div class="eyebrow">Week 3 · Lesson 1</div><h1>Catching exceptions</h1><p class="lede">An exception is a runtime signal that normal execution cannot continue at that point. Handle the specific failure you expect.</p><h2>try and except</h2><pre><code>try:
+    age = int(input("Age: "))
+except ValueError:
+    print("Please enter a whole number.")</code></pre><p>The risky operation belongs inside <code>try</code>. If it raises <code>ValueError</code>, Python runs the matching handler. Other exceptions still surface, helping reveal bugs.</p><h2>else and finally</h2><pre><code>try:
+    number = int(input("Number: "))
+except ValueError:
+    print("Not a whole number")
+else:
+    print(number * 2)
+finally:
+    print("Attempt finished")</code></pre><ul><li><code>else</code> runs only when try succeeds.</li><li><code>finally</code> runs whether an exception happened or not; use it for cleanup.</li></ul><p class="engine">Official reference: <a href="https://docs.python.org/3/tutorial/errors.html" target="_blank" rel="noopener">Errors and Exceptions</a></p><div class="widget runner" data-runner="w3_try_int"></div><div class="widget quiz" data-quiz="w3try"></div></article>
