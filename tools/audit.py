@@ -23,7 +23,7 @@ TAUGHT = {
  'dict_advanced':'tb-dict','align_fmt':'tb-format',
  'with_open':'w2-capstone','file_methods':'w2-capstone','splitlines':'w2-capstone',
  # never taught yet in built weeks:
- 'set':None,'reversed':None,'chr_ord':None,'recursion':None,'class':None,'import':None,'try':None,'global':None,'dictcomp':None,'nested_func':None,'starred':None,'divmod':None,'isinstance':None,'str_misc':None,'list()':None,
+ 'set':None,'reversed':None,'chr_ord':None,'recursion':None,'class':None,'import':None,'try':'w3-try','global':None,'dictcomp':None,'nested_func':None,'starred':None,'divmod':None,'isinstance':None,'str_misc':None,'list()':None,
 }
 BUILTIN_CALL = {'print':'print','input':'input','int':'int','float':'float','str':'str()','round':'round','len':'len','type':'type','range':'range','sorted':'sorted',
  'sum':'sum_max_min','max':'sum_max_min','min':'sum_max_min','enumerate':'enumerate','zip':'zip','repr':'repr','any':'any_all','all':'any_all','open':'with_open',
