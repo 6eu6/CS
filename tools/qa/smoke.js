@@ -41,8 +41,8 @@ const {open}=require('./serve');let fails=0;const ok=(c,m)=>{console.log((c?'PAS
   });
   ok(learner.missing.length===0, `learner: all five Variables coding exercises are mounted (${JSON.stringify(learner.missing)})`);
   ok(Object.values(learner.passed).every(Boolean), `learner: all five coding exercises and the quiz can be passed (${JSON.stringify(learner.passed)})`);
-  ok(learner.quizVisible, `learner: Variables quiz is visible with all four questions (${learner.quizVisible})`);
-  ok(learner.complete&&learner.nextUnlocked, `learner: completing Variables unlocks Strings (${JSON.stringify({complete:learner.complete,nextUnlocked:learner.nextUnlocked,lockReason:learner.lockReason})})`);
+  ok(learner.quizVisible, `learner: Variables quiz is visible with all four questions (${JSON.stringify(learner)})`);
+  ok(learner.complete&&learner.nextUnlocked, `learner: completing Variables unlocks Strings (${JSON.stringify(learner)})`);
   const weekGates=await pg.evaluate(()=>{const out=[];for(let n=1;n<=9;n++){prog.ex={};prog.lessons={};const locked=!!lockOf('w'+n+'-intro');const previous=LESSONS.find(l=>l.id==='w'+(n-1)+'-test');if(previous)REQ[previous.id].forEach(it=>prog.ex[it.key]=true);out.push({week:n,locked,unlocked:lockOf('w'+n+'-intro')===null})}return out});
   ok(weekGates.every(x=>x.locked&&x.unlocked),name+': every week 1–9 locks until the previous mastery test is passed, then unlocks '+JSON.stringify(weekGates));
   // header: every control fully inside the viewport, with the menu open and closed
