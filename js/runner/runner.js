@@ -10,11 +10,13 @@ function mountRunner(el){
   const hasIn=d.stdin!==undefined;
   el.innerHTML=`<div class="widget-h"><b>${esc(d.title)}</b><span class="row" style="gap:6px"><span class="badge ${d.lvl||''}">${lvlName}</span><span class="badge pass" data-pb ${prog.ex[id]?'':'hidden'}>Passed</span></span></div>
   ${stages?'<div class="stages" role="tablist"></div>':''}<div class="task"></div>
+  <div class="workbench"><section class="code-pane" aria-label="Python code workspace">
   <div class="ide"><div class="tabs"></div><div class="edhost"><div class="editor"><div class="gutter" aria-hidden="true"></div><textarea spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="Code editor for ${esc(d.title)}" id="ed-${id}"></textarea></div></div>
-  <div class="sigbar" hidden></div><div class="statusbar"><span data-pos>Ln 1, Col 1</span><span>Spaces: 4</span><span>UTF-8</span><span data-lang>Python</span></div></div>
-  ${hasIn?`<div class="stdin-box"><label class="lbl" for="in-${id}">Input: what the user types, one line per input() call</label><textarea id="in-${id}" rows="${Math.max(1,String(d.stdin).split('\n').length)}" spellcheck="false" autocapitalize="off">${esc(d.stdin)}</textarea></div>`:''}
+  <div class="hintbox" hidden></div><div class="sigbar" hidden></div><div class="statusbar"><span data-pos>Ln 1, Col 1</span><span>Spaces: 4</span><span>UTF-8</span><span data-lang>Python</span></div></div>
+  ${hasIn?`<div class="stdin-box"><label class="lbl" for="in-${id}">Input: what the user types, one line per input() call</label><textarea id="in-${id}" rows="${Math.max(1,String(d.stdin).split('\\n').length)}" spellcheck="false" autocapitalize="off">${esc(d.stdin)}</textarea></div>`:''}
+  </section><section class="output-pane" aria-label="Program output"><div class="output-title">Program output</div><div class="console" aria-live="polite"><span class="dim">Run shows the output here. Check runs all the tests.</span></div><div class="filesout"></div></section></div>
   <div class="row"><button class="btn pri" data-a="run">▶ Run</button>${(d.tests||stages)?'<button class="btn chk50" data-a="check">✓ Check</button>':''}<button class="btn" data-a="reset">Reset</button>${(d.sol||stages)?'<button class="btn" data-a="hint">Hint</button><button class="btn" data-a="sol">Solution</button>':''}<button class="btn" data-a="copy">Copy code</button><span class="engine kb">Ctrl+Enter runs · Ctrl+Space suggests · Ctrl+/ comments</span></div>
-  <div class="hintbox" hidden></div><div class="console" aria-live="polite"><span class="dim">Run shows the output here. Check runs all the tests.</span></div><div class="filesout"></div><div class="resbox"></div>`;
+  <div class="resbox"></div>`;
   const tabs=el.querySelector('.tabs'),host=el.querySelector('.edhost'),ta=el.querySelector('#ed-'+id),gut=el.querySelector('.gutter'),con=el.querySelector('.console'),res=el.querySelector('.resbox'),fo=el.querySelector('.filesout'),sig=el.querySelector('.sigbar'),posEl=el.querySelector('[data-pos]'),langEl=el.querySelector('[data-lang]'),taskEl=el.querySelector('.task');
   let cm=null,docs={},errW=null,errLine=null;
   const getF=n=>cm&&docs[n]?docs[n].getValue():buf[n];
