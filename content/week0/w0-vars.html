@@ -15,6 +15,7 @@
   <p class="engine">Official Python reference: <a href="https://docs.python.org/3/reference/simple_stmts.html#assignment-statements" target="_blank" rel="noopener">Assignment statements</a></p>
 <pre><code class="py">name = input("What's your name? ")
 print("hello,", name)</code></pre>
+  <div class="widget runner" data-runner="w0v_greet"></div>
   <dl class="def">
     <dt>name</dt><dd>A <b>variable</b>: a name you chose. It will refer to the value on the right.</dd>
     <dt>=</dt><dd>The <b>assignment operator</b>. Read it as "gets" or "now refers to". It works <b>right to left</b>: first Python runs <code>input(...)</code> and waits for the user, <i>then</i> stores the result in <code>name</code>.</dd>
@@ -33,6 +34,7 @@ print("hello,", name)     # hello, Sara    ← the variable's value</code></pre>
 <pre><code class="py">print("hello,", name)          # 1. separate arguments (print adds a space)
 print("hello, " + name)        # 2. + joins strings (you add the space yourself)
 print(f"hello, {name}")        # 3. f-string: the modern, preferred way</code></pre>
+  <div class="widget runner" data-runner="w0v_profile"></div>
 
   <h2>Naming variables well</h2>
   <p class="engine">Official Python reference: <a href="https://docs.python.org/3/reference/lexical_analysis.html#identifiers" target="_blank" rel="noopener">Identifiers and keywords</a></p>
@@ -41,6 +43,7 @@ print(f"hello, {name}")        # 3. f-string: the modern, preferred way</code></
     <li>Lower case with underscores: <code>first_name</code>, <code>total_price</code> (called <b>snake_case</b>).</li>
     <li>Describe the content: <code>age</code> beats <code>a</code>; <code>price_with_vat</code> beats <code>p2</code>.</li>
     <li>Case matters: <code>Name</code> and <code>name</code> are different variables.</li>
+  <div class="widget runner" data-runner="w0v_story"></div>
     <li>Don't reuse built-in names: <code>input = "x"</code> breaks <code>input()</code> for the rest of the program.</li>
   </ul>
 
@@ -51,13 +54,15 @@ print(score)       # 10
 score = 15         # assign a new value to the same variable
 print(score)       # 15</code></pre>
   <p>A variable can be given a new value any time. The old value is replaced. We will use this same idea with text in the next lesson, when we learn string methods.</p>
-
-  <div class="note real"><b>input() always returns a string</b><p>Even if the user types <code>42</code>, <code>input</code> returns the text <code>"42"</code>. To do maths you must convert it with <code>int()</code> or <code>float()</code>. Lesson 4 is all about this. It's the most common Week 0 bug.</p></div>
-
-  <div class="widget runner" data-runner="w0v_greet"></div>
-  <div class="widget runner" data-runner="w0v_profile"></div>
-  <div class="widget runner" data-runner="w0v_story"></div>
   <div class="widget runner" data-runner="w0v_swap"></div>
-  <div class="widget runner" data-runner="w0v_bug"></div>
+
+  <div class="note real"><b>input() always returns a string</b><p>Even if the user types <code>42</code>, <code>input</code> returns the text <code>"42"</code>. To do maths you must convert it with <code>int()</code> or <code>float()</code>. Lesson 4 is all about this. It's the most common Week 0 bug.</p>
+  <div class="widget runner" data-runner="w0v_bug"></div></div>
+
+
+
+
+
+
   <div class="widget quiz" data-quiz="w0vars"></div>
 </article>
