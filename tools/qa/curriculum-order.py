@@ -47,4 +47,10 @@ if "const txRows=TX_OCT" not in ledger or "const transactions=" not in ledger:
     fail("Pocket Ledger Part C reference data must be built from the supplied in-memory statement")
 if "const mainC=\x60def main():" not in ledger or "tx = transactions()" not in ledger:
     fail("Pocket Ledger Part C reference main() must use the in-memory statement")
+capstone = (ROOT / "content" / "week2" / "w2-capstone.html").read_text()
+gating = (ROOT / "js" / "progress" / "gating.js").read_text()
+if 'data-optional="true"' not in capstone or "Optional look-ahead" not in capstone:
+    fail("the Week 2 File I/O preview must be clearly optional")
+if "l.el.dataset.optional==='true'" not in gating:
+    fail("optional preview lessons must not block prerequisite progression")
 print("PASS Week 0 prerequisite order and official references")
