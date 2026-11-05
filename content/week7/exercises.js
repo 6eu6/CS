@@ -1,5 +1,5 @@
 Object.assign(R,{
-w7_search:{title:"Find a pattern",lvl:"l1",task:"Import re. Use re.search to check whether the text contains exactly three consecutive digits. Print Match or No match.",stdin:"Order 482 ready",code:"",tests:[T("Order 482 ready","Match"),T("Order 48 ready","No match"),T("1234","Match")],sol:py`import re
+w7_search:{title:"Find a pattern",lvl:"l1",task:"Import re. Use re.search to check whether the text contains a run of at least three consecutive digits. Print Match or No match.",stdin:"Order 482 ready",code:"",tests:[T("Order 482 ready","Match"),T("Order 48 ready","No match"),T("1234","Match")],sol:py`import re
 text = input("Text: ")
 if re.search(r"\d{3}", text):
     print("Match")
