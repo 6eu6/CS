@@ -31,4 +31,20 @@ for filename in ("w0-print.html", "w0-vars.html", "w0-str.html", "w0-num.html", 
     if "https://docs.python.org/3/" not in source:
         fail(filename + " has no nearby official Python documentation reference")
 
+project_intro = (ROOT / "content" / "project" / "pj-intro.html").read_text()
+project_c = (ROOT / "content" / "project" / "pj-c.html").read_text()
+ledger = (ROOT / "content" / "week1" / "exercises.js").read_text()
+start = ledger.find("ledger_c:{")
+end = ledger.find("\\n});", start)
+if start < 0 or end < 0:
+    fail("Pocket Ledger Part C could not be located")
+part_c = ledger[start:end]
+if re.search(r"\\b(open|load)\\s*\\(|with\\s+open|transactions\\.csv", part_c):
+    fail("Pocket Ledger Part C introduces File I/O before Week 6")
+if "in-memory transaction rows" not in project_intro or "already in memory" not in project_c:
+    fail("Pocket Ledger roadmap and Part C must describe the Week 2 in-memory data model")
+if "const txRows=TX_OCT" not in ledger or "const transactions=" not in ledger:
+    fail("Pocket Ledger Part C reference data must be built from the supplied in-memory statement")
+if "const mainC=\x60def main():" not in ledger or "tx = transactions()" not in ledger:
+    fail("Pocket Ledger Part C reference main() must use the in-memory statement")
 print("PASS Week 0 prerequisite order and official references")
