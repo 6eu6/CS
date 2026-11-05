@@ -1,0 +1,6 @@
+<article class="lesson" data-id="w3-raise" data-week="3" data-title="Raising and validating"><div class="eyebrow">Week 3 · Lesson 2</div><h1>Raising and validating</h1><p class="lede">A function should protect its own contract. If a caller supplies an impossible value, raise a clear exception instead of silently returning nonsense.</p><pre><code>def withdraw(balance, amount):
+    if amount &lt;= 0:
+        raise ValueError("amount must be positive")
+    if amount &gt; balance:
+        raise ValueError("insufficient funds")
+    return balance - amount</code></pre><p>Use <code>ValueError</code> when the type is acceptable but the value is not. Use <code>TypeError</code> when the kind of object is inappropriate. Validate at boundaries, then keep internal code simple.</p><p>Do not use exceptions as ordinary branching: check normal conditions directly.</p><p class="engine">Official reference: <a href="https://docs.python.org/3/library/exceptions.html" target="_blank" rel="noopener">Built-in exceptions</a></p><div class="widget runner" data-runner="w3_raise"></div><div class="widget quiz" data-quiz="w3raise"></div></article>
