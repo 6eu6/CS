@@ -21,9 +21,9 @@ TAUGHT = {
  'minmax_key':'tb-minmax','default_kw':'tb-minmax',
  'any_all':'tb-anyall','genexp':'tb-anyall',
  'dict_advanced':'tb-dict','align_fmt':'tb-format',
- 'with_open':'w2-capstone','file_methods':'w2-capstone','splitlines':'w2-capstone',
+ 'with_open':'w6-read','file_methods':'w6-read','splitlines':'w2-capstone',
  # never taught yet in built weeks:
- 'set':None,'reversed':None,'chr_ord':None,'recursion':None,'class':None,'import':None,'try':'w3-try','global':None,'dictcomp':None,'nested_func':None,'starred':None,'divmod':None,'isinstance':None,'str_misc':None,'list()':None,
+ 'set':'w9-sets','assert':'w5-assert','reversed':None,'chr_ord':None,'recursion':None,'class':'w8-classes','import':'w4-import','try':'w3-try','global':None,'dictcomp':None,'nested_func':None,'starred':None,'divmod':None,'isinstance':None,'str_misc':None,'list()':None,
 }
 BUILTIN_CALL = {'print':'print','input':'input','int':'int','float':'float','str':'str()','round':'round','len':'len','type':'type','range':'range','sorted':'sorted',
  'sum':'sum_max_min','max':'sum_max_min','min':'sum_max_min','enumerate':'enumerate','zip':'zip','repr':'repr','any':'any_all','all':'any_all','open':'with_open',
@@ -112,6 +112,7 @@ def concepts(code):
         elif t=='ClassDef': out.add('class')
         elif t in('Import','ImportFrom'): out.add('import')
         elif t=='Try': out.add('try')
+        elif t=='Assert': out.add('assert')
         elif t=='Global': out.add('global')
         elif t=='Starred': out.add('starred')
     return out
