@@ -18,6 +18,9 @@ const {open}=require('./serve');let fails=0;const ok=(c,m)=>{console.log((c?'PAS
  ok(lessonInventory.duplicates.length===0, `lesson IDs are unique ${lessonInventory.duplicates}`);
  ok(lessonInventory.missing.length===0, `every mounted interactive widget resolves to a registry entry ${lessonInventory.missing.slice(0,5)}`);
  ok(lessonInventory.empty.length===0, `every manifest lesson has a title and h1 ${lessonInventory.empty}`);
+ const quizMounts=await pg.evaluate(()=>[...document.querySelectorAll('[data-quiz]')].filter(el=>Q[el.dataset.quiz]&&el.querySelectorAll('.q').length!==Q[el.dataset.quiz].length).map(el=>({id:el.dataset.quiz,expected:Q[el.dataset.quiz].length,actual:el.querySelectorAll('.q').length})));
+ ok(quizMounts.length===0,`every quiz widget mounts all its registered questions ${JSON.stringify(quizMounts.slice(0,5))}`);
+
  ok(res.bad.length===0,`all ${res.n} reference tests pass in the in-browser engine ${res.bad.slice(0,5).join(' | ')}`);
  ok(res.extraBad.length===0,`every reference solution satisfies its extra() rule ${res.extraBad.slice(0,3)}`);
  const inventory=await pg.evaluate(()=>({items:REQ['w0-vars'].map(x=>x.kind),labels:REQ['w0-vars'].map(x=>x.label)}));
