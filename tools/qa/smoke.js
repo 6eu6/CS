@@ -3,7 +3,7 @@ const {open}=require('./serve');let fails=0;const ok=(c,m)=>{console.log((c?'PAS
 (async()=>{
  for(const [name,vp] of [['desktop',{width:1280,height:800}],['phone',{width:390,height:844}]]){
   const {pg,close}=await open(vp);
-  ok(await pg.evaluate("LESSONS.length")>=55,`${name}: lessons loaded`);
+  ok(await pg.evaluate("LESSONS.length")>=95&&WEEKS.every(w=>w.built),`${name}: all ten weeks and at least 95 lessons are loaded`);
   ok((await pg.evaluate("runPython('print(sum(range(5)))',{},'').then(x=>x.out)")).trim()==='10',`${name}: python runs`);
   // real exercise flow: type the reference solution into the editor, press Check
   await pg.evaluate("show('w0-print')");await pg.waitForTimeout(300);
