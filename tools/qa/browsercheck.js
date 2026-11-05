@@ -14,6 +14,10 @@ const {open}=require('./serve');let fails=0;const ok=(c,m)=>{console.log((c?'PAS
      else good=lastLines(r.out,t.exp.split('\n').length)===t.exp;
      if(!good)bad.push(`${id} stage${si} test${ti}: ${r.ok?'wrong output':r.err}`)}}}
   return {n,bad,extraBad}});
+ const inventory=await pg.evaluate(()=>{const ids=LESSONS.map(l=>l.id);const missing=[];LESSONS.forEach(l=>{if(l.el.dataset.id!==l.id)missing.push(l.id+': data-id mismatch');l.el.querySelectorAll('[data-runner],[data-parsons],[data-blanks],[data-bug],[data-quiz],[data-predict]').forEach(w=>{const pairs=[['runner',R],['parsons',PARS],['blanks',BLANKS],['bug',BUGS],['quiz',Q],['predict',PRED]];for(const [attr,registry] of pairs){const id=w.dataset[attr];if(id&&!(id in registry))missing.push(l.id+': '+attr+' '+id)}})});return {duplicates:ids.filter((id,i)=>ids.indexOf(id)!==i),missing,empty:LESSONS.filter(l=>!l.title||!l.el.querySelector('h1')).map(l=>l.id)}});
+ ok(inventory.duplicates.length===0, `lesson IDs are unique ${inventory.duplicates}`);
+ ok(inventory.missing.length===0, `every mounted interactive widget resolves to a registry entry ${inventory.missing.slice(0,5)}`);
+ ok(inventory.empty.length===0, `every manifest lesson has a title and h1 ${inventory.empty}`);
  ok(res.bad.length===0,`all ${res.n} reference tests pass in the in-browser engine ${res.bad.slice(0,5).join(' | ')}`);
  ok(res.extraBad.length===0,`every reference solution satisfies its extra() rule ${res.extraBad.slice(0,3)}`);
  const inventory=await pg.evaluate(()=>({items:REQ['w0-vars'].map(x=>x.kind),labels:REQ['w0-vars'].map(x=>x.label)}));
