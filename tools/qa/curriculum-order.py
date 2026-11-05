@@ -53,4 +53,17 @@ if 'data-optional="true"' not in capstone or "Optional look-ahead" not in capsto
     fail("the Week 2 File I/O preview must be clearly optional")
 if "l.el.dataset.optional==='true'" not in gating:
     fail("optional preview lessons must not block prerequisite progression")
+for week, names in {
+    3: ("w3-try.html", "w3-raise.html", "w3-choose.html"),
+    4: ("w4-import.html", "w4-random.html", "w4-cli.html"),
+    5: ("w5-assert.html", "w5-pytest.html", "w5-design.html"),
+    6: ("w6-read.html", "w6-write.html", "w6-csv.html"),
+    7: ("w7-patterns.html", "w7-groups.html", "w7-validation.html"),
+    8: ("w8-classes.html", "w8-methods.html", "w8-inheritance.html"),
+    9: ("w9-sets.html", "w9-comprehensions.html", "w9-cli.html"),
+}.items():
+    for name in names:
+        page = (ROOT / "content" / f"week{week}" / name).read_text()
+        if "https://docs.python.org/3/" not in page:
+            fail(f"Week {week} {name} has no nearby official Python documentation reference")
 print("PASS Week 0 prerequisite order and official references")
