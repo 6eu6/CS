@@ -41,7 +41,7 @@ if start < 0 or end < 0:
 part_c = ledger[start:end]
 if re.search(r"\b(open|load)\s*\(|with\s+open|transactions\.csv", part_c):
     fail("Pocket Ledger Part C introduces File I/O before Week 6")
-if "in-memory transaction rows" not in project_intro or "already in memory" not in project_c:
+if "in-memory transaction rows" not in project_intro or "already held in memory" not in project_c:
     fail("Pocket Ledger roadmap and Part C must describe the Week 2 in-memory data model")
 if "const txRows=TX_OCT" not in ledger or "const transactions=" not in ledger:
     fail("Pocket Ledger Part C reference data must be built from the supplied in-memory statement")
