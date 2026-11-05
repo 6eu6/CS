@@ -1,0 +1,34 @@
+name: Week 0 quality gate
+
+on:
+  push:
+    branches:
+      - claude/cs50p-site
+  pull_request:
+    branches:
+      - claude/cs50p-site
+
+permissions:
+  contents: read
+
+jobs:
+  curriculum-and-browser-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install Playwright
+        run: |
+          npm install --global playwright
+          playwright install --with-deps chromium
+      - name: Run the complete curriculum QA suite
+        run: bash tools/qa/check.sh
