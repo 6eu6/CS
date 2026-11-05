@@ -56,8 +56,8 @@ function renderNav(){
   const counted=LESSONS.filter(l=>isBuiltWeek(l.week)&&l.week!=='intro'&&l.el.dataset.optional!=='true');const d=counted.filter(l=>lessonDone(l.id)).length;
   $('#progBar').style.width=(d/counted.length*100)+'%';
   $('#progTxt').textContent=`${d}/${counted.length} lessons · ${Object.keys(prog.ex).filter(k=>R[k]).length} exercises passed`;
-  const road=$('#road');if(road)road.innerHTML=WEEKS.map(w=>{const ls=LESSONS.filter(l=>l.week===String(w.n));const dn=ls.filter(l=>lessonDone(l.id)).length;
-    return `<a href="#w${w.n}-intro"><span class="n">WEEK ${w.n}</span><b>${esc(w.t)}</b><span>${esc(w.blurb)}</span><span class="st" style="color:${w.built?'var(--ok)':'var(--muted)'}">${w.built?`Ready · ${dn}/${ls.length} done`:'Coming next'}</span></a>`}).join('');
+  const road=$('#road');if(road)road.innerHTML=WEEKS.map(w=>{const ls=LESSONS.filter(l=>l.week===String(w.n));const requiredLs=ls.filter(l=>l.el.dataset.optional!=='true');const dn=requiredLs.filter(l=>lessonDone(l.id)).length;
+    return `<a href="#w${w.n}-intro"><span class="n">WEEK ${w.n}</span><b>${esc(w.t)}</b><span>${esc(w.blurb)}</span><span class="st" style="color:${w.built?'var(--ok)':'var(--muted)'}">${w.built?`Ready · ${dn}/${requiredLs.length} done`:'Coming next'}</span></a>`}).join('');
   LESSONS.forEach(l=>{if(isBuiltWeek(l.week))drawLesson(l.id)});drawReviewCount()}
 
 /* lock page */
