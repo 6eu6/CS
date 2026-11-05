@@ -1,0 +1,10 @@
+<article class="lesson" data-id="w3-choose" data-week="3" data-title="Choosing an error strategy"><div class="eyebrow">Week 3 · Lesson 3</div><h1>Choosing an error strategy</h1><p class="lede">A robust program separates user mistakes, invalid domain values, and genuine programming defects.</p><pre><code>while True:
+    try:
+        amount = float(input("Amount: "))
+    except ValueError:
+        print("Enter a number, such as 12.50.")
+        continue
+    if amount &lt;= 0:
+        print("Amount must be positive.")
+        continue
+    break</code></pre><p>Conversion errors are handled narrowly. A valid number that violates the business rule is handled separately. The loop exits only after valid input.</p><ul><li>Catch the narrowest useful exception.</li><li>Give actionable messages.</li><li>Never silently replace invalid data with a plausible default.</li><li>Keep unexpected exceptions visible while developing.</li><li>Test valid and invalid paths.</li></ul><p class="engine">Official reference: <a href="https://docs.python.org/3/library/exceptions.html" target="_blank" rel="noopener">Exception hierarchy</a></p><div class="widget runner" data-runner="w3_choose"></div><div class="widget quiz" data-quiz="w3choose"></div></article>
