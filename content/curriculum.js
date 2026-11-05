@@ -4,7 +4,7 @@ const WEEKS=[
  {n:0,t:'Functions, Variables',built:true,blurb:'print, input, strings, numbers, def, return, scope'},
  {n:1,t:'Conditionals',built:true,blurb:'comparisons, and/or/not, truthiness, if/elif/else, guard clauses, match'},
  {n:2,t:'Loops',built:true,blurb:'while, for, range, break, lists, dicts, nested loops, loop patterns'},
- {n:3,t:'Exceptions',blurb:'try, except, else, raise, defensive input'},
+ {n:3,t:'Exceptions',built:true,blurb:'try, except, else, raise, defensive input'},
  {n:4,t:'Libraries',blurb:'import, random, statistics, sys.argv, pip, APIs'},
  {n:5,t:'Unit Tests',blurb:'assert, pytest, testing your own functions'},
  {n:6,t:'File I/O',blurb:'open, with, CSV reading/writing, images'},
