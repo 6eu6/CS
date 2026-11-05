@@ -12,5 +12,9 @@
   "w2c_top": [
     "file_methods",
     "with_open"
+  ],
+  "w2c_lengths": [
+    "file_methods",
+    "with_open"
   ]
 }
