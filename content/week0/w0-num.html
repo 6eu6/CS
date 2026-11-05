@@ -6,6 +6,7 @@
   <p class="lede">Text is for people; numbers are for calculating. The trick is knowing which kind of number you have, which operator you need, and how to show the result nicely.</p>
 
   <h2>Two kinds of numbers</h2>
+  <p class="engine">Official Python reference: <a href="https://docs.python.org/3/library/stdtypes.html#numeric-types-int-float-complex" target="_blank" rel="noopener">Numeric types: int and float</a></p>
   <dl class="def">
     <dt>int</dt><dd><b>Integer</b>: a whole number, no decimal point. <code>3</code>, <code>-12</code>, <code>2026</code>. Use for counting things: people, items, seconds, years.</dd>
     <dt>float</dt><dd><b>Floating-point</b> number: has a decimal point. <code>3.5</code>, <code>-0.25</code>, <code>2.0</code>. Use for measuring: prices, distances, temperatures.</dd>
@@ -13,6 +14,7 @@
   <p><code>type(x)</code> tells you what you have: <code>type(3)</code> is <code>&lt;class 'int'&gt;</code>, <code>type(3.0)</code> is <code>&lt;class 'float'&gt;</code>, <code>type("3")</code> is <code>&lt;class 'str'&gt;</code>.</p>
 
   <h2>The operators</h2>
+  <p class="engine">Official Python reference: <a href="https://docs.python.org/3/reference/expressions.html#operator-precedence" target="_blank" rel="noopener">Expressions and operator precedence</a></p>
   <div class="widget" id="opLab">
     <div class="widget-h"><b>Operator lab</b><span class="badge">Interactive</span></div>
     <div class="row">
@@ -25,6 +27,7 @@
   <p><b>Order of operations</b> is the same as in maths: <code>**</code> first, then <code>* / // %</code>, then <code>+ -</code>. Use brackets when in doubt: <code>(a + b) / 2</code>, not <code>a + b / 2</code>.</p>
 
   <h2>Converting: int(), float(), str()</h2>
+  <p class="engine">Official Python reference: <a href="https://docs.python.org/3/library/functions.html#int" target="_blank" rel="noopener">int(), float() and str()</a></p>
 <pre><code class="py">x = input("x: ")      # user types 2  → x is "2" (a str)
 y = input("y: ")      # user types 3  → y is "3"
 print(x + y)          # 23   ← + joined two strings!
@@ -41,6 +44,7 @@ print(x + y)            # 5</code></pre>
   <div class="note tip"><b>Nesting: int(input(...))</b><p>Python runs the innermost brackets first: <code>input</code> returns a string, then <code>int</code> converts it. Doing it in one line means the variable is a number from the start, so you can't forget to convert later.</p></div>
 
   <h2>Rounding and formatting</h2>
+  <p class="engine">Official Python reference: <a href="https://docs.python.org/3/library/string.html#format-string-syntax" target="_blank" rel="noopener">Format string syntax</a></p>
 <pre><code class="py">price = 19.98765
 round(price)          # 20        nearest whole number
 round(price, 2)       # 19.99     2 decimal places
@@ -56,6 +60,7 @@ f"£{1234.5:,.2f}"     # '£1,234.50'  both together: money</code></pre>
   </table></div>
 
   <h2>Floats are not exact</h2>
+  <p class="engine">Official Python reference: <a href="https://docs.python.org/3/tutorial/floatingpoint.html" target="_blank" rel="noopener">Floating-point arithmetic: issues and limitations</a></p>
 <pre><code class="py">print(0.1 + 0.2)      # 0.30000000000000004</code></pre>
   <p>Computers store floats in binary, and some decimals (like 0.1) can't be stored exactly, the way 1/3 can't be written exactly in decimal. It's not a bug in your code. Format your output with <code>:.2f</code> and it disappears. For real money systems, professionals use whole pennies (ints) or Python's <code>decimal</code> module.</p>
 
