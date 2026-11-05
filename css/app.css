@@ -263,3 +263,6 @@ a.wk-h:hover{background:var(--surface-2)}
 .code-pane .hintbox a{color:#9db9ff}
 .code-pane .stdin-box textarea{min-height:44px}
 @media(max-width:760px){.workbench{grid-template-columns:1fr}.output-pane{min-height:160px}.output-pane .console{min-height:120px;max-height:280px}}
+
+/* Preserve the native hidden state despite the flex layout rule. */
+.hintbox[hidden]{display:none!important}
