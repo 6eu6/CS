@@ -247,3 +247,19 @@ a.wk-h:hover{background:var(--surface-2)}
 
 .rev-ex{margin-top:28px;display:flex;flex-direction:column;gap:10px}
 .rev-ex>p{padding:0 2px}
+
+/* Side-by-side coding workbench */
+.workbench{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(260px,.85fr);gap:12px;align-items:stretch}
+.workbench>*{min-width:0}
+.code-pane,.output-pane{min-width:0;display:flex;flex-direction:column;gap:8px}
+.code-pane .ide{min-width:0}
+.output-pane{border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:10px;min-height:220px}
+.output-title{font-size:.7rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.output-pane .console{flex:1;min-height:170px;max-height:560px;border-radius:8px}
+.output-pane .filesout:empty{display:none}
+.code-pane .hintbox{padding:8px;background:var(--code-bg);border-top:1px solid #30384b}
+.code-pane .hintbox .hint{margin:0;background:#20283a;border-color:#46516d;color:#e3e7f0}
+.code-pane .hintbox .hint .engine{color:#aeb9ce}
+.code-pane .hintbox a{color:#9db9ff}
+.code-pane .stdin-box textarea{min-height:44px}
+@media(max-width:760px){.workbench{grid-template-columns:1fr}.output-pane{min-height:160px}.output-pane .console{min-height:120px;max-height:280px}}
