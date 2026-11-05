@@ -19,7 +19,8 @@ const {open}=require('./serve');let fails=0;const ok=(c,m)=>{console.log((c?'PAS
     chk('closed');const m=document.getElementById('menuBtn');if(getComputedStyle(m).display!=='none'){m.click();chk('open');m.click()}return o});
   ok(clipped.length===0,`${name}: header controls fit the screen ${clipped}`);
   // locked lesson really locks (undo the test bypass)
-  const lock=await pg.evaluate("(()=>{prog.ex={};prog.lessons={};return typeof lockOf==='function'})()");
+  const lock=await pg.evaluate("(()=>{prog.ex={};prog.lessons={};const result=lockOf('w0-str');show('w0-str');return {available:typeof lockOf==='function',blocked:!!result,hasLockPage:document.querySelector('.lockpage.on')!==null,hasReason:!!document.querySelector('.lockpage.on .lede')?.textContent}})()");
+  ok(lock.available&&lock.blocked&&lock.hasLockPage&&lock.hasReason, `${name}: prerequisite gating blocks a later lesson and shows the reason (${JSON.stringify(lock)})`);
   // layout: no page-level horizontal scroll on any lesson
   const bad=await pg.evaluate(()=>{const o=[];LESSONS.forEach(l=>{show(l.id);const d=document.documentElement;if(d.scrollWidth>d.clientWidth+1)o.push(l.id+':'+d.scrollWidth)});return o});
   ok(bad.length===0,`${name}: no horizontal overflow on any page ${bad.slice(0,5)}`);
