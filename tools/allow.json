@@ -1,1 +1,12 @@
-{"b2_caesar":["chr_ord"],"w0p_bug":["SYNTAX:unterminated string literal (detected at line 1) (<unknown>, line 1)"]}
+{
+  "b2_caesar": [
+    "chr_ord"
+  ],
+  "w0p_bug": [
+    "SYNTAX:unterminated string literal (detected at line 1) (<unknown>, line 1)"
+  ],
+  "pj_log": [
+    "file_methods",
+    "with_open"
+  ]
+}
