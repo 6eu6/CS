@@ -14,6 +14,35 @@ const {open}=require('./serve');let fails=0;const ok=(c,m)=>{console.log((c?'PAS
   await pg.reload();await pg.waitForFunction("window.appReady===true&&CMready");
   ok(await pg.evaluate(id=>!!JSON.parse(localStorage.getItem('c50-prog')).ex[id],id),`${name}: progress survives reload`);
   await pg.evaluate("prog.lessons={home:true};show('home')");await pg.evaluate(()=>document.querySelector(innerWidth<=560?'#contSide':'#contBtn').click());ok(await pg.evaluate('cur')==='method',`${name}: Continue opens the first unfinished lesson`);
+  // complete Variables lesson as a learner: solve every visible coding exercise, then pass the quiz.
+  const learner=await pg.evaluate(async()=>{
+    prog.ex={};prog.lessons={};show('w0-vars');
+    const ids=['w0v_greet','w0v_profile','w0v_story','w0v_swap','w0v_bug'];
+    const missing=[];
+    for(const id of ids){
+      const w=document.querySelector(`.lesson.on [data-runner="${id}"]`);
+      if(!w||!R[id]){missing.push(id);continue}
+      w.querySelector('.CodeMirror').CodeMirror.setValue(R[id].sol);
+      w.querySelector('[data-a=check]').click();
+      await new Promise(r=>setTimeout(r,350));
+    }
+    const quiz=document.querySelector('.lesson.on [data-quiz="w0vars"]');
+    const quizVisible=!!quiz&&quiz.getBoundingClientRect().height>0&&quiz.querySelectorAll('.q').length===4;
+    if(quizVisible){
+      for(const [qi,q] of Q.w0vars.entries()){
+        const row=quiz.querySelectorAll('.q')[qi];
+        row.querySelector(`button.opt[data-oi="${q.a}"]`)?.click();
+      }
+    }
+    const passed=Object.fromEntries([...ids.map(id=>[id,!!prog.ex[id]]),['quiz',!!prog.ex['quiz-w0vars']]]);
+    const complete=lessonDone('w0-vars');
+    const nextLock=lockOf('w0-str');
+    return {missing,passed,quizVisible,complete,nextUnlocked:!nextLock,lockReason:nextLock?.why||null,progress:document.querySelector('[data-lp="w0-vars"]')?.innerText||''};
+  });
+  ok(learner.missing.length===0, `learner: all five Variables coding exercises are mounted (${JSON.stringify(learner.missing)})`);
+  ok(Object.values(learner.passed).every(Boolean), `learner: all five coding exercises and the quiz can be passed (${JSON.stringify(learner.passed)})`);
+  ok(learner.quizVisible, `learner: Variables quiz is visible with all four questions (${learner.quizVisible})`);
+  ok(learner.complete&&learner.nextUnlocked, `learner: completing Variables unlocks Strings (${JSON.stringify({complete:learner.complete,nextUnlocked:learner.nextUnlocked,lockReason:learner.lockReason})})`);
   // header: every control fully inside the viewport, with the menu open and closed
   const clipped=await pg.evaluate(()=>{const o=[];const W=innerWidth;const chk=tag=>document.querySelectorAll('.top-in>*').forEach(e=>{const b=e.getBoundingClientRect();if(b.width&&getComputedStyle(e).display!=='none'&&(b.right>W-4||b.left<0))o.push(tag+':'+(e.id||e.className)+'@'+Math.round(b.right))});
     chk('closed');const m=document.getElementById('menuBtn');if(getComputedStyle(m).display!=='none'){m.click();chk('open');m.click()}return o});
