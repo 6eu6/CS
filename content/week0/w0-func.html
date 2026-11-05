@@ -20,6 +20,7 @@ hello()</code></pre>
     <dt>4 spaces</dt><dd>Indentation marks the <b>body</b>: the lines that belong to the function. When the indentation stops, the function ends.</dd>
     <dt>hello()</dt><dd>A <b>call</b>. Now the body actually runs. Two calls, two hellos.</dd>
   </dl>
+  <div class="widget runner" data-runner="w0f_cube"></div>
 
   <h2>Parameters: giving a function input</h2>
   <p class="engine">Official Python reference: <a href="https://docs.python.org/3/tutorial/controlflow.html#more-on-defining-functions" target="_blank" rel="noopener">More on defining functions</a></p>
@@ -39,6 +40,7 @@ hello("Omar")       # hello, Omar</code></pre>
 hello()            # hello, world   ← no argument, so the default is used
 hello("Sara")      # hello, Sara</code></pre>
   <p><code>to="world"</code> means "if no argument is given, use "world"". That's exactly how <code>print</code>'s <code>sep=" "</code> and <code>end="\n"</code> work.</p>
+  <div class="widget runner" data-runner="w0f_default"></div>
 
   <h2>return: giving a value back</h2>
   <p class="engine">Official Python reference: <a href="https://docs.python.org/3/reference/simple_stmts.html#the-return-statement" target="_blank" rel="noopener">The return statement</a></p>
@@ -48,6 +50,7 @@ hello("Sara")      # hello, Sara</code></pre>
 x = square(4)          # x is 16
 print(square(3) + 1)   # 10</code></pre>
   <p><code>return</code> does two things: it hands a value back to the caller, and it ends the function immediately. Any line after <code>return</code> in the same block never runs.</p>
+  <div class="widget runner" data-runner="w0f_convert"></div>
   <div class="split2">
     <div class="panel"><h4>print inside a function</h4><p>Shows a value to the person. The caller gets <code>None</code> back and can't use it.</p></div>
     <div class="panel"><h4>return inside a function</h4><p>Gives the value to the code that called it, so that code can store it, calculate with it, or print it.</p></div>
@@ -58,6 +61,7 @@ print(square(3) + 1)   # 10</code></pre>
 x = bad_square(4)      # ...but x is None
 print(x + 1)           # TypeError: unsupported operand type(s) for +: 'NoneType' and 'int'</code></pre>
   <div class="note tip"><b>Rule of thumb</b><p>Functions that <b>calculate</b> should <code>return</code>. Let <code>main</code> decide what to print. That way the same function works in a terminal program, a website, or a test.</p></div>
+  <div class="widget runner" data-runner="w0f_returnbug"></div>
 
   <h2>main(): organising a program</h2>
   <p class="engine">Official Python reference: <a href="https://docs.python.org/3/library/__main__.html" target="_blank" rel="noopener">__main__ — top-level code environment</a></p>
@@ -70,6 +74,7 @@ def hello(to):
 
 main()</code></pre>
   <p>CS50P uses this shape for every program. <code>main</code> holds the big picture; helper functions do the details. Notice <code>hello</code> is defined <i>below</i> <code>main</code> and it still works. That's because <code>main()</code> is only <b>called</b> on the last line, by which time Python has read every <code>def</code>.</p>
+  <div class="widget runner" data-runner="w0f_refactor"></div>
   <p>Later in the course you'll see this instead of the plain <code>main()</code>:</p>
 <pre><code class="py">if __name__ == "__main__":
     main()</code></pre>
@@ -87,14 +92,15 @@ def hello():
 
 main()</code></pre>
   <p><code>name</code> belongs to <code>main</code>. <code>hello</code> can't see it. The fix is to <b>pass it in</b> as an argument: <code>hello(name)</code> and <code>def hello(to)</code>. Passing values in and returning values out is how functions talk to each other.</p>
+  <div class="widget runner" data-runner="w0f_scopebug"></div>
   <div class="widget stepper" data-stepper="w0scope"></div>
   <div class="note why"><b>Why does Python work this way?</b><p>If every function could see and change every variable, a change in one place could silently break another. Scope keeps each function self-contained: you can understand it by reading just that function, its parameters and its return.</p></div>
 
-  <div class="widget runner" data-runner="w0f_cube"></div>
-  <div class="widget runner" data-runner="w0f_default"></div>
-  <div class="widget runner" data-runner="w0f_convert"></div>
-  <div class="widget runner" data-runner="w0f_refactor"></div>
-  <div class="widget runner" data-runner="w0f_scopebug"></div>
-  <div class="widget runner" data-runner="w0f_returnbug"></div>
+
+
+
+
+
+
   <div class="widget quiz" data-quiz="w0func"></div>
 </article>
