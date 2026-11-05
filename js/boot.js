@@ -1,7 +1,7 @@
 /* Mount all widgets and open the first lesson */
 /* ======================================================= boot */
 $$('pre code.py').forEach(c=>c.innerHTML=hlPy(c.textContent));
-$('[data-runner]').forEach(el=>mountRunner(el));$('[data-quiz]').forEach(el=>mountQuiz(el));$$('[data-stepper]').forEach(mountStepper);$$('[data-anat]').forEach(mountAnat);$$('[data-predict]').forEach(mountPredict);$$('[data-parsons]').forEach(mountParsons);$$('[data-blanks]').forEach(mountBlanks);$$('[data-bug]').forEach(mountBug);setEdStatus();
+$$('[data-runner]').forEach(el=>mountRunner(el));$$('[data-quiz]').forEach(el=>mountQuiz(el));$$('[data-stepper]').forEach(mountStepper);$$('[data-anat]').forEach(mountAnat);$$('[data-predict]').forEach(mountPredict);$$('[data-parsons]').forEach(mountParsons);$$('[data-blanks]').forEach(mountBlanks);$$('[data-bug]').forEach(mountBug);setEdStatus();
 /* ---- personal extras: continue, theme, export/import ---- */
 (function(){
  const first=()=>{const l=LESSONS.find(l=>!prog.lessons[l.id]&&!lockOf(l.id)&&(l.week==='intro'||l.week==='tb'||isBuiltWeek(l.week)));return l?l.id:'home'};
