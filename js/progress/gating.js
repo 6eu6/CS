@@ -21,7 +21,7 @@ function lockOf(id){const L=LESSONS.find(l=>l.id===id);if(!L||L.week==='intro'||
   const wn=+L.week;const prev=WEEKS.filter(w=>w.built&&w.n<wn).map(w=>w.n);
   if(prev.length){const p=prev[prev.length-1];if(!weekDone(p)){const t=LESSONS.find(l=>l.week===String(p)&&isTest(l.id));return{why:`Week ${wn} unlocks when you finish Week ${p}, or pass the Week ${p} test (it works as a placement test).`,go:t?t.id:null,goLabel:t?`Take the Week ${p} test`:''}}}
   if(isTest(id))return null;
-  const ls=LESSONS.filter(l=>l.week===L.week);for(const l of ls){if(l.id===id)break;if(isTest(l.id))continue;if(!lessonDone(l.id))return{why:`Finish “${l.title}” first.`,go:l.id,goLabel:`Go to ${l.title}`,by:l.id}}return null}
+  const ls=LESSONS.filter(l=>l.week===L.week);for(const l of ls){if(l.id===id)break;if(isTest(l.id)||l.el.dataset.optional==='true')continue;if(!lessonDone(l.id))return{why:`Finish “${l.title}” first.`,go:l.id,goLabel:`Go to ${l.title}`,by:l.id}}return null}
 
 /* lesson progress strip + footer */
 LESSONS.forEach(l=>{l.el.querySelectorAll('.lesson-foot').forEach(f=>f.remove());
@@ -46,14 +46,14 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-read]');if
 /* sidebar with locks and partial progress */
 function renderNav(){
   const nav=$('#nav');let h='';
-  GROUPS.forEach(g=>{const ls=LESSONS.filter(l=>l.week===g.key);if(!ls.length)return;const dn=ls.filter(l=>lessonDone(l.id)).length;const built=g.built;
+  GROUPS.forEach(g=>{const ls=LESSONS.filter(l=>l.week===g.key);if(!ls.length)return;const countedLs=ls.filter(l=>l.el.dataset.optional!=='true');const dn=countedLs.filter(l=>lessonDone(l.id)).length;const built=g.built;
     if(!built){h+=`<div class="wk"><a class="wk-h soon" href="#${ls[0].id}" data-l="${ls[0].id}"><span>${esc(g.label)}</span><span>soon</span></a></div>`;return}
-    h+=`<div class="wk"><div class="wk-h ${built?'':'soon'}"><span>${esc(g.label)}</span>${g.key!=='intro'&&g.key!=='tb'?(built?`<span>${dn}/${ls.length}</span>`:'<span>soon</span>'):''}</div><ol class="toc">`;
+    h+=`<div class="wk"><div class="wk-h ${built?'':'soon'}"><span>${esc(g.label)}</span>${g.key!=='intro'&&g.key!=='tb'?(built?`<span>${dn}/${countedLs.length}</span>`:'<span>soon</span>'):''}</div><ol class="toc">`;
     let sec=null;ls.forEach(l=>{if(l.section&&l.section!==sec&&built){h+=`<li class="sec">${esc(SECTION_LABELS[l.section]||l.section)}</li>`}sec=l.section;const lk=built?lockOf(l.id):null;const d=lessonDone(l.id);const r=REQ[l.id];const part=r.length&&!d?doneCount(l.id):0;
       h+=`<li><a href="#${l.id}" data-l="${l.id}" class="${l.id===cur?'on':''} ${built?'':'soon'} ${lk?'locked':''}"><span>${esc(l.title)}${part?` <small class="engine">${part}/${r.length}</small>`:''}</span><span class="chk ${d?'done':''} ${lk?'lockd':''} ${built?'':'lock'}"></span></a></li>`});
     h+='</ol></div>'});
   nav.innerHTML=h;
-  const counted=LESSONS.filter(l=>isBuiltWeek(l.week)&&l.week!=='intro');const d=counted.filter(l=>lessonDone(l.id)).length;
+  const counted=LESSONS.filter(l=>isBuiltWeek(l.week)&&l.week!=='intro'&&l.el.dataset.optional!=='true');const d=counted.filter(l=>lessonDone(l.id)).length;
   $('#progBar').style.width=(d/counted.length*100)+'%';
   $('#progTxt').textContent=`${d}/${counted.length} lessons · ${Object.keys(prog.ex).filter(k=>R[k]).length} exercises passed`;
   const road=$('#road');if(road)road.innerHTML=WEEKS.map(w=>{const ls=LESSONS.filter(l=>l.week===String(w.n));const dn=ls.filter(l=>lessonDone(l.id)).length;
