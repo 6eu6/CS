@@ -142,7 +142,8 @@ def main():
         if kind=='r':
             r=d['R'].get(wid)
             if not r: continue
-            check('r',wid,r['code'],'starter')
+            # Debugging runners intentionally begin with broken code; audit only the corrected solution.
+            if r.get('lvl') != 'dbg': check('r',wid,r['code'],'starter')
             if r['sol']: check('r',wid,r['sol'],'solution')
             for i,s in enumerate(r['stages'] or []): check('r',wid,s,f'step {i+1} solution')
         elif kind=='p': check('p',wid,'\n'.join(d['PARS'][wid]['lines']),'arrange')
