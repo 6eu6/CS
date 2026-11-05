@@ -43,6 +43,8 @@ const {open}=require('./serve');let fails=0;const ok=(c,m)=>{console.log((c?'PAS
   ok(Object.values(learner.passed).every(Boolean), `learner: all five coding exercises and the quiz can be passed (${JSON.stringify(learner.passed)})`);
   ok(learner.quizVisible, `learner: Variables quiz is visible with all four questions (${learner.quizVisible})`);
   ok(learner.complete&&learner.nextUnlocked, `learner: completing Variables unlocks Strings (${JSON.stringify({complete:learner.complete,nextUnlocked:learner.nextUnlocked,lockReason:learner.lockReason})})`);
+  const weekGates=await pg.evaluate(()=>{const out=[];for(let n=1;n<=9;n++){prog.ex={};prog.lessons={};const locked=!!lockOf('w'+n+'-intro');const previous=LESSONS.find(l=>l.id==='w'+(n-1)+'-test');if(previous)REQ[previous.id].forEach(it=>prog.ex[it.key]=true);out.push({week:n,locked,unlocked:lockOf('w'+n+'-intro')===null})}return out});
+  ok(weekGates.every(x=>x.locked&&x.unlocked),name+': every week 1–9 locks until the previous mastery test is passed, then unlocks '+JSON.stringify(weekGates));
   // header: every control fully inside the viewport, with the menu open and closed
   const clipped=await pg.evaluate(()=>{const o=[];const W=innerWidth;const chk=tag=>document.querySelectorAll('.top-in>*').forEach(e=>{const b=e.getBoundingClientRect();if(b.width&&getComputedStyle(e).display!=='none'&&(b.right>W-4||b.left<0))o.push(tag+':'+(e.id||e.className)+'@'+Math.round(b.right))});
     chk('closed');const m=document.getElementById('menuBtn');if(getComputedStyle(m).display!=='none'){m.click();chk('open');m.click()}return o});
