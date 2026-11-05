@@ -148,10 +148,14 @@ def main():
         elif kind=='p': check('p',wid,'\n'.join(d['PARS'][wid]['lines']),'arrange')
         elif kind=='b':
             b=d['BLANKS'][wid];code=re.sub(r'⟦(\d+)⟧',lambda m:b['ans'][int(m.group(1))][0],b['code']);check('b',wid,code,'fill-in')
-        elif kind=='g': g=d['BUGS'][wid];check('g',wid,g['code'],'bug code');check('g',wid,g['fix'] if not g['fix'].startswith(' ') else 'if True:\n'+g['fix'],'bug fix')
+        elif kind=='g':
+            # A debugging exercise's starter is deliberately broken; audit only its corrected solution.
+            g=d['BUGS'][wid];check('g',wid,g['fix'] if not g['fix'].startswith(' ') else 'if True:\n'+g['fix'],'bug fix')
     report.sort(key=lambda x:(pos[x[0]],x[1]))
     for r in report: print(f"{r[0]:14} {r[1]:22} {r[2]:16} uses {r[3]:15} (taught in {r[4]})")
     print('TOTAL',len(report))
+    if report:
+        raise SystemExit(1)
     json.dump({k:sorted(v) for k,v in tags.items()},open('tags.json','w'))
 if __name__ == "__main__":
     main()
