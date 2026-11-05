@@ -23,6 +23,11 @@ const {open}=require('./serve');let fails=0;const ok=(c,m)=>{console.log((c?'PAS
   ok(lock.available&&lock.blocked&&lock.hasLockPage&&lock.hasReason, `${name}: prerequisite gating blocks a later lesson and shows the reason (${JSON.stringify(lock)})`);
   const optional=await pg.evaluate(()=>{prog.ex={};prog.lessons={};LESSONS.filter(l=>l.week==='1'||(l.week==='2'&&l.id!=='w2-capstone')).forEach(l=>{if(REQ[l.id].length)REQ[l.id].forEach(it=>prog.ex[it.key]=true);else prog.lessons[l.id]=true});return {isOptional:LESSONS.find(l=>l.id==='w2-capstone').el.dataset.optional==='true',lock:lockOf('w2-lab')}}); 
   ok(optional.isOptional&&optional.lock===null, `${name}: optional Week 6 preview does not block Week 2 progression (${JSON.stringify(optional)})`);
+  await pg.evaluate(()=>{prog.ex.ledger_a=true;prog.ex.ledger_b=true;prog.lessons['pj-intro']=true;prog.stage.ledger_c=0;LS.set('c50-stage-ledger_c',0);show('pj-c')});
+  await pg.waitForSelector('.lesson.on [data-runner="ledger_c"] .stages [data-s="1"]');
+  const stageGate=await pg.evaluate(()=>{const el=document.querySelector('.lesson.on [data-runner="ledger_c"]');const first=el.querySelector('[data-s="0"]'),second=el.querySelector('[data-s="1"]');return {visible:!!el,firstActive:first?.classList.contains('on'),secondDisabled:second?.disabled,task:el.querySelector('.task')?.textContent||''}});
+  ok(stageGate.visible&&stageGate.firstActive&&stageGate.secondDisabled&&stageGate.task.includes('transactions()'), `${name}: Pocket Ledger Part C starts at Step 1 and locks Step 2 until Step 1 passes (${JSON.stringify(stageGate)})`);
+
 
   // layout: no page-level horizontal scroll on any lesson
   const bad=await pg.evaluate(()=>{const o=[];LESSONS.forEach(l=>{show(l.id);const d=document.documentElement;if(d.scrollWidth>d.clientWidth+1)o.push(l.id+':'+d.scrollWidth)});return o});
