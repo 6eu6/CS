@@ -17,6 +17,7 @@ print(name)           # "  sara  "  still messy!
 name = name.strip()   # store the copy back
 print(name)           # "sara"</code></pre>
   <p>Strings are <b>immutable</b>: once made, they can't be edited, only replaced. This is the #1 string bug for beginners.</p></div>
+  <div class="widget runner" data-runner="w0s_name"></div>
 
   <h2>The methods you'll use most</h2>
   <p class="engine">Official Python reference: <a href="https://docs.python.org/3/library/stdtypes.html#string-methods" target="_blank" rel="noopener">String methods</a></p>
@@ -45,6 +46,7 @@ print(name)           # "sara"</code></pre>
 <pre><code class="py">name = input("Name: ").strip().title()</code></pre>
   <p>Read it left to right: <code>input(...)</code> returns a string → <code>.strip()</code> is called on that and returns a new string → <code>.title()</code> is called on <i>that</i>. Each dot works on the result of everything to its left.</p>
   <div class="note tip"><b>Order matters</b><p><code>"  sara".capitalize().strip()</code> gives <code>"sara"</code> (capitalize hit the space). <code>"  sara".strip().capitalize()</code> gives <code>"Sara"</code>. Strip first, then change case.</p></div>
+  <div class="widget runner" data-runner="w0s_slug"></div>
 
   <h2>split() and unpacking</h2>
   <p class="engine">Official Python reference: <a href="https://docs.python.org/3/library/stdtypes.html#str.split" target="_blank" rel="noopener">str.split()</a></p>
@@ -52,6 +54,7 @@ print(name)           # "sara"</code></pre>
 first, last = full.split(" ")     # first = "Ada", last = "Lovelace"
 print(f"hello, {first}")</code></pre>
   <p><code>split(" ")</code> returns a list of pieces. Writing two names on the left with a comma <b>unpacks</b> the two pieces into two variables. If the text has three pieces, you'd get <code>ValueError: too many values to unpack</code>, so this only works when you know how many pieces there are.</p>
+  <div class="widget runner" data-runner="w0s_initials"></div>
 
   <h2>Joining and repeating</h2>
   <p class="engine">Official Python reference: <a href="https://docs.python.org/3/library/stdtypes.html#common-sequence-operations" target="_blank" rel="noopener">Common sequence operations</a></p>
@@ -59,6 +62,7 @@ print(f"hello, {first}")</code></pre>
 "ha" * 3              # "hahaha"     * repeats
 "-" * 20              # "--------------------"  handy for dividers
 "Age: " + 30          # TypeError: can only concatenate str (not "int") to str</code></pre>
+  <div class="widget runner" data-runner="w0s_hide"></div>
 
   <h2>Picking characters: indexing and slicing</h2>
 <pre><code class="py">word = "python"
@@ -68,14 +72,16 @@ word[0:3]    # "pyt"    from 0 up to (not including) 3
 word[:2]     # "py"     from the start
 word[2:]     # "thon"   to the end</code></pre>
   <p>Positions start at <b>0</b>. Slices include the start and exclude the end. You'll use this for initials, codes and file extensions.</p>
+  <div class="widget runner" data-runner="w0s_ext"></div>
 
   <div class="note real"><b>Scenario: a sign-up form</b><p>A user types their email as <code>"  Sara.Ali@Example.COM "</code>. Before saving it you'd do <code>email = email.strip().lower()</code>, because emails are case-insensitive and stray spaces cause "user not found" bugs later. Websites you use every day do exactly this.</p></div>
-
-  <div class="widget runner" data-runner="w0s_name"></div>
-  <div class="widget runner" data-runner="w0s_slug"></div>
-  <div class="widget runner" data-runner="w0s_initials"></div>
-  <div class="widget runner" data-runner="w0s_hide"></div>
-  <div class="widget runner" data-runner="w0s_ext"></div>
   <div class="widget runner" data-runner="w0s_bug"></div>
+
+
+
+
+
+
+
   <div class="widget quiz" data-quiz="w0str"></div>
 </article>
