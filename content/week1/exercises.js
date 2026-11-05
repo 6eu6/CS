@@ -406,16 +406,16 @@ ledger_b:{title:'Pocket Ledger · Part B',lvl:'proj',carry:'ledger_a',stdin:'Tes
   sol:'@LB'}]},
 ledger_c:{title:'Pocket Ledger · Part C',lvl:'proj',carry:'ledger_b',stdin:'',stages:[
  {title:'transactions()',task:'Your Part B code is loaded. Add <code>transactions()</code> that returns the supplied statement as a list of <code>(date, description, amount)</code> tuples, with amount as a float. This data is already in memory. Do not use file handling yet; Week 6 teaches that.',
-  tests:[{inp:'Tesco\n-1\n10',after:'tx = transactions()\nprint(len(tx))\nprint(tx[0])\nprint(tx[-1][2] + 1)',exp:"13\n('2026-10-01', 'Salary', 2300.0)\n-11.0",label:'load the in-memory statement'},{inp:'Tesco\n-1\n10',after:'print(len(transactions()))',exp:'5',label:'load another file'}],
+  tests:[{inp:'Tesco\n-1\n10',after:'tx = transactions()\nprint(len(tx))\nprint(tx[0])\nprint(tx[-1][2] + 1)',exp:"13\n('2026-10-01', 'Salary', 2300.0)\n-11.0",label:'load the in-memory statement'}],
   sol:'@LC1'},
  {title:'Totals by category',task:'Add <code>totals_by_category(transactions)</code> returning a dict of category → total <b>spent</b> as a positive number. Only negative amounts count (income is ignored). Use your <code>category()</code>.',
   tests:[{inp:'Tesco\n-1\n10',after:'t = totals_by_category(transactions())\nfor k in sorted(t):\n    print(k, round(t[k], 2))',exp:'groceries 175.5\nother 47.0\nrent 950.0\nsubscriptions 22.98\ntransport 69.7',label:'October totals'}],
   sol:'@LC2'},
  {title:'The report',task:'Add <code>report(transactions)</code> that <b>prints</b> the report below: income, spent, saved; then each category by spend, biggest first, as <code>f"  {cat:&lt;14}{money(total):&gt;10}"</code>; then the biggest single purchase (most negative amount).',spec:"Income: £2,300.00\nSpent: £1,265.18\nSaved: £1,034.82\nBy category:\n  rent             £950.00\n  groceries        £175.50\n  transport         £69.70\n  other             £47.00\n  subscriptions     £22.98\nBiggest purchase: Rent (£950.00)",
-  tests:[{inp:'Tesco\n-1\n10',after:'report(transactions())',exp:"Income: £2,300.00\nSpent: £1,265.18\nSaved: £1,034.82\nBy category:\n  rent             £950.00\n  groceries        £175.50\n  transport         £69.70\n  other             £47.00\n  subscriptions     £22.98\nBiggest purchase: Rent (£950.00)",label:'October report'},{inp:'Tesco\n-1\n10',after:'report(transactions())',exp:"Income: £1,850.00\nSpent: £420.00\nSaved: £1,430.00\nBy category:\n  groceries        £280.00\n  transport        £140.00\nBiggest purchase: Tesco (£160.00)",label:'November report'}],
+  tests:[{inp:'Tesco\n-1\n10',after:'report(transactions())',exp:"Income: £2,300.00\nSpent: £1,265.18\nSaved: £1,034.82\nBy category:\n  rent             £950.00\n  groceries        £175.50\n  transport         £69.70\n  other             £47.00\n  subscriptions     £22.98\nBiggest purchase: Rent (£950.00)",label:'October report'}],
   sol:'@LC3'},
  {title:'The real program',task:'Replace <code>main()</code>: use the in-memory statement and print the report, then a line <code>Budgets:</code> and, for each budget in the dict below (in this order), <code>  CATEGORY: STATUS</code> using your <code>budget_status()</code> (0 spent if the category is missing). Add this dict at the top of your file: <code>BUDGETS = {"groceries": 250, "transport": 120, "subscriptions": 25, "other": 200}</code>.',
-  tests:[T('','Budgets:\n  groceries: OK\n  transport: OK\n  subscriptions: Warning\n  other: OK'),{inp:'',exp:'Budgets:\n  groceries: Over by £30.00\n  transport: Over by £20.00\n  subscriptions: OK\n  other: OK',label:'November budgets'}],
+  tests:[T('','Budgets:\n  groceries: OK\n  transport: OK\n  subscriptions: Warning\n  other: OK')],
   sol:'@LC4'}]},
 });
 
