@@ -29,6 +29,18 @@
     "content/week1/widgets.js",
     "content/week3/exercises.js",
     "content/week3/widgets.js",
+    "content/week4/exercises.js",
+    "content/week4/widgets.js",
+    "content/week5/exercises.js",
+    "content/week5/widgets.js",
+    "content/week6/exercises.js",
+    "content/week6/widgets.js",
+    "content/week7/exercises.js",
+    "content/week7/widgets.js",
+    "content/week8/exercises.js",
+    "content/week8/widgets.js",
+    "content/week9/exercises.js",
+    "content/week9/widgets.js",
     "js/progress/gating.js",
     "js/widgets/quiz.js",
     "js/widgets/predict.js",
@@ -286,6 +298,180 @@
     {
       "id": "w3-test",
       "file": "week3/w3-test.html",
+      "section": "test"
+    },
+    {
+      "id": "w4-intro",
+      "file": "week4/w4-intro.html"
+    },
+    {
+      "id": "w4-import",
+      "file": "week4/w4-import.html",
+      "section": "learn"
+    },
+    {
+      "id": "w4-random",
+      "file": "week4/w4-random.html",
+      "section": "learn"
+    },
+    {
+      "id": "w4-cli",
+      "file": "week4/w4-cli.html",
+      "section": "learn"
+    },
+    {
+      "id": "w4-lab",
+      "file": "week4/w4-lab.html",
+      "section": "practice"
+    },
+    {
+      "id": "w4-test",
+      "file": "week4/w4-test.html",
+      "section": "test"
+    },
+    {
+      "id": "w5-intro",
+      "file": "week5/w5-intro.html"
+    },
+    {
+      "id": "w5-assert",
+      "file": "week5/w5-assert.html",
+      "section": "learn"
+    },
+    {
+      "id": "w5-pytest",
+      "file": "week5/w5-pytest.html",
+      "section": "learn"
+    },
+    {
+      "id": "w5-design",
+      "file": "week5/w5-design.html",
+      "section": "learn"
+    },
+    {
+      "id": "w5-lab",
+      "file": "week5/w5-lab.html",
+      "section": "practice"
+    },
+    {
+      "id": "w5-test",
+      "file": "week5/w5-test.html",
+      "section": "test"
+    },
+    {
+      "id": "w6-intro",
+      "file": "week6/w6-intro.html"
+    },
+    {
+      "id": "w6-read",
+      "file": "week6/w6-read.html",
+      "section": "learn"
+    },
+    {
+      "id": "w6-write",
+      "file": "week6/w6-write.html",
+      "section": "learn"
+    },
+    {
+      "id": "w6-csv",
+      "file": "week6/w6-csv.html",
+      "section": "learn"
+    },
+    {
+      "id": "w6-lab",
+      "file": "week6/w6-lab.html",
+      "section": "practice"
+    },
+    {
+      "id": "w6-test",
+      "file": "week6/w6-test.html",
+      "section": "test"
+    },
+    {
+      "id": "w7-intro",
+      "file": "week7/w7-intro.html"
+    },
+    {
+      "id": "w7-patterns",
+      "file": "week7/w7-patterns.html",
+      "section": "learn"
+    },
+    {
+      "id": "w7-groups",
+      "file": "week7/w7-groups.html",
+      "section": "learn"
+    },
+    {
+      "id": "w7-validation",
+      "file": "week7/w7-validation.html",
+      "section": "learn"
+    },
+    {
+      "id": "w7-lab",
+      "file": "week7/w7-lab.html",
+      "section": "practice"
+    },
+    {
+      "id": "w7-test",
+      "file": "week7/w7-test.html",
+      "section": "test"
+    },
+    {
+      "id": "w8-intro",
+      "file": "week8/w8-intro.html"
+    },
+    {
+      "id": "w8-classes",
+      "file": "week8/w8-classes.html",
+      "section": "learn"
+    },
+    {
+      "id": "w8-methods",
+      "file": "week8/w8-methods.html",
+      "section": "learn"
+    },
+    {
+      "id": "w8-inheritance",
+      "file": "week8/w8-inheritance.html",
+      "section": "learn"
+    },
+    {
+      "id": "w8-lab",
+      "file": "week8/w8-lab.html",
+      "section": "practice"
+    },
+    {
+      "id": "w8-test",
+      "file": "week8/w8-test.html",
+      "section": "test"
+    },
+    {
+      "id": "w9-intro",
+      "file": "week9/w9-intro.html"
+    },
+    {
+      "id": "w9-sets",
+      "file": "week9/w9-sets.html",
+      "section": "learn"
+    },
+    {
+      "id": "w9-comprehensions",
+      "file": "week9/w9-comprehensions.html",
+      "section": "learn"
+    },
+    {
+      "id": "w9-cli",
+      "file": "week9/w9-cli.html",
+      "section": "learn"
+    },
+    {
+      "id": "w9-lab",
+      "file": "week9/w9-lab.html",
+      "section": "practice"
+    },
+    {
+      "id": "w9-test",
+      "file": "week9/w9-test.html",
       "section": "test"
     },
     {
