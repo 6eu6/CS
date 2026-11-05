@@ -477,7 +477,7 @@ main()
 main()
 `;
  const txRows=TX_OCT.trim().split('\n').map(line=>{const [date,description,amount]=line.split(',');return [date,description,Number(amount)]});
- const transactions='def transactions():\n    return [\n'+txRows.map(([date,description,amount])=>'        ('+JSON.stringify(date)+', '+JSON.stringify(description)+', '+amount+'),').join('\n')+'\n    ]\n\n\n';
+ const transactions='def transactions():\n    return [\n'+txRows.map(([date,description,amount])=>'        ('+JSON.stringify(date)+', '+JSON.stringify(description)+', '+Number(amount).toFixed(2)+'),').join('\n')+'\n    ]\n\n\n';
   const totals=`def totals_by_category(transactions):
     totals = {}
     for date, description, amount in transactions:
