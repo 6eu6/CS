@@ -6,6 +6,7 @@
   <p class="lede">So far you've called functions other people wrote. Now you write your own. This is the most important idea of the week, and every later week depends on it.</p>
 
   <h2>The smallest function</h2>
+  <p class="engine">Official Python reference: <a href="https://docs.python.org/3/tutorial/controlflow.html#defining-functions" target="_blank" rel="noopener">Defining functions</a></p>
 <pre><code class="py">def hello():
     print("hello")
 
@@ -21,6 +22,7 @@ hello()</code></pre>
   </dl>
 
   <h2>Parameters: giving a function input</h2>
+  <p class="engine">Official Python reference: <a href="https://docs.python.org/3/tutorial/controlflow.html#more-on-defining-functions" target="_blank" rel="noopener">More on defining functions</a></p>
 <pre><code class="py">def hello(to):
     print("hello,", to)
 
@@ -30,6 +32,7 @@ hello("Omar")       # hello, Omar</code></pre>
   <div class="note why"><b>Why "to"? Could it be anything?</b><p>Yes. <code>def hello(person)</code> or <code>def hello(x)</code> work identically, as long as the body uses the same name. Programmers pick a name that makes the body read like English: <code>print("hello,", to)</code>. Parameter names are for the human reader.</p></div>
 
   <h2>Default values</h2>
+  <p class="engine">Official Python reference: <a href="https://docs.python.org/3/tutorial/controlflow.html#default-argument-values" target="_blank" rel="noopener">Default argument values</a></p>
 <pre><code class="py">def hello(to="world"):
     print("hello,", to)
 
@@ -38,6 +41,7 @@ hello("Sara")      # hello, Sara</code></pre>
   <p><code>to="world"</code> means "if no argument is given, use "world"". That's exactly how <code>print</code>'s <code>sep=" "</code> and <code>end="\n"</code> work.</p>
 
   <h2>return: giving a value back</h2>
+  <p class="engine">Official Python reference: <a href="https://docs.python.org/3/reference/simple_stmts.html#the-return-statement" target="_blank" rel="noopener">The return statement</a></p>
 <pre><code class="py">def square(n):
     return n * n
 
@@ -56,6 +60,7 @@ print(x + 1)           # TypeError: unsupported operand type(s) for +: 'NoneType
   <div class="note tip"><b>Rule of thumb</b><p>Functions that <b>calculate</b> should <code>return</code>. Let <code>main</code> decide what to print. That way the same function works in a terminal program, a website, or a test.</p></div>
 
   <h2>main(): organising a program</h2>
+  <p class="engine">Official Python reference: <a href="https://docs.python.org/3/library/__main__.html" target="_blank" rel="noopener">__main__ — top-level code environment</a></p>
 <pre><code class="py">def main():
     name = input("Name: ")
     hello(name)
@@ -71,6 +76,7 @@ main()</code></pre>
   <p>It means "run main only if this file was run directly, not imported by another file". It matters in Week 5 (unit tests). For now, either works.</p>
 
   <h2>Scope: where a variable lives</h2>
+  <p class="engine">Official Python reference: <a href="https://docs.python.org/3/reference/executionmodel.html#resolution-of-names" target="_blank" rel="noopener">Naming and binding</a></p>
   <p>A variable created inside a function exists <b>only inside that function</b>, and only while it's running. That's called its <b>scope</b>.</p>
 <pre><code class="py">def main():
     name = input("Name: ")
