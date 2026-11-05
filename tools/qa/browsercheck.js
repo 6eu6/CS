@@ -16,6 +16,8 @@ const {open}=require('./serve');let fails=0;const ok=(c,m)=>{console.log((c?'PAS
   return {n,bad,extraBad}});
  ok(res.bad.length===0,`all ${res.n} reference tests pass in the in-browser engine ${res.bad.slice(0,5).join(' | ')}`);
  ok(res.extraBad.length===0,`every reference solution satisfies its extra() rule ${res.extraBad.slice(0,3)}`);
+ const inventory=await pg.evaluate(()=>({items:REQ['w0-vars'].map(x=>x.kind),labels:REQ['w0-vars'].map(x=>x.label)}));
+ ok(inventory.items.filter(x=>x==='Exercise').length===5&&inventory.items.filter(x=>x==='Quiz').length===1&&inventory.items.length===6,`Week 0 Variables inventory is explicit: 5 coding exercises + 1 quiz (${inventory.items.join(', ')})`);
  const run=(code,stdin)=>pg.evaluate(([c,s])=>runPython(c,{},s||''),[code,stdin]);
  let r=await run('print("hi")\nx = 5\nprint(y)');ok(!r.ok&&/NameError: name 'y' is not defined \(line 3\)/.test(r.err)&&r.out.trim()==='hi',`NameError reported with the user's line number and partial output kept (${r.err})`);
  r=await run('print("a")\n\ndef f(:\n    pass');ok(!r.ok&&/SyntaxError/.test(r.err)&&/\(line 3\)/.test(r.err),`SyntaxError line number is the user's (${r.err})`);
