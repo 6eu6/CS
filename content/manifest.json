@@ -1,285 +1,316 @@
 {
- "scripts": [
-  "js/core/utils.js",
-  "content/curriculum.js",
-  "js/core/registry.js",
-  "js/core/nav.js",
-  "js/engine/engine.js",
-  "js/engine/test-helpers.js",
-  "content/week0/exercises.js",
-  "content/week0/widgets.js",
-  "js/widgets/stepper.js",
-  "js/widgets/labs.js",
-  "content/week2/exercises.js",
-  "content/week2/widgets.js",
-  "content/anatomy.js",
-  "js/placeholders.js",
-  "js/runner/csv.js",
-  "js/widgets/anatomy.js",
-  "js/widgets/range-explorer.js",
-  "content/toolbox/exercises.js",
-  "content/toolbox/widgets.js",
-  "js/editor/loader.js",
-  "js/editor/intellisense.js",
-  "js/editor/editor.js",
-  "js/runner/runner.js",
-  "js/widgets/exercises.js",
-  "content/project/data.js",
-  "content/week1/exercises.js",
-  "content/week1/widgets.js",
-  "js/progress/gating.js",
-  "js/widgets/quiz.js",
-  "js/widgets/predict.js",
-  "js/progress/review.js",
-  "js/features/timer.js",
-  "js/widgets/toolbox.js",
-  "js/progress/persist.js",
-  "js/features/plan.js",
-  "js/widgets/truth-lab.js",
-  "content/hints.js",
-  "content/lectures.js",
-  "js/features/lectures.js",
-  "js/features/hints.js",
-  "js/boot.js"
- ],
- "styles": [
-  "css/app.css",
-  "css/codemirror.css",
-  "css/editor.css"
- ],
- "texts": "content/texts.html",
- "lessons": [
-  {
-   "id": "home",
-   "file": "intro/home.html"
-  },
-  {
-   "id": "method",
-   "file": "intro/method.html"
-  },
-  {
-   "id": "plan",
-   "file": "intro/plan.html"
-  },
-  {
-   "id": "review",
-   "file": "intro/review.html"
-  },
-  {
-   "id": "w0-intro",
-   "file": "week0/w0-intro.html"
-  },
-  {
-   "id": "w0-print",
-   "file": "week0/w0-print.html",
-   "section": "learn"
-  },
-  {
-   "id": "w0-vars",
-   "file": "week0/w0-vars.html",
-   "section": "learn"
-  },
-  {
-   "id": "w0-str",
-   "file": "week0/w0-str.html",
-   "section": "learn"
-  },
-  {
-   "id": "w0-num",
-   "file": "week0/w0-num.html",
-   "section": "learn"
-  },
-  {
-   "id": "w0-func",
-   "file": "week0/w0-func.html",
-   "section": "learn"
-  },
-  {
-   "id": "w0-choose",
-   "file": "week0/w0-choose.html",
-   "section": "learn"
-  },
-  {
-   "id": "w0-lab",
-   "file": "week0/w0-lab.html",
-   "section": "practice"
-  },
-  {
-   "id": "w0-test",
-   "file": "week0/w0-test.html",
-   "section": "test"
-  },
-  {
-   "id": "w1-intro",
-   "file": "week1/w1-intro.html"
-  },
-  {
-   "id": "w1-if",
-   "file": "week1/w1-if.html",
-   "section": "learn"
-  },
-  {
-   "id": "w1-logic",
-   "file": "week1/w1-logic.html",
-   "section": "learn"
-  },
-  {
-   "id": "w1-func",
-   "file": "week1/w1-func.html",
-   "section": "learn"
-  },
-  {
-   "id": "w1-choose",
-   "file": "week1/w1-choose.html",
-   "section": "learn"
-  },
-  {
-   "id": "w1-lab",
-   "file": "week1/w1-lab.html",
-   "section": "practice"
-  },
-  {
-   "id": "w1-test",
-   "file": "week1/w1-test.html",
-   "section": "test"
-  },
-  {
-   "id": "w2-intro",
-   "file": "week2/w2-intro.html"
-  },
-  {
-   "id": "w2-while",
-   "file": "week2/w2-while.html",
-   "section": "learn"
-  },
-  {
-   "id": "w2-for",
-   "file": "week2/w2-for.html",
-   "section": "learn"
-  },
-  {
-   "id": "w2-valid",
-   "file": "week2/w2-valid.html",
-   "section": "learn"
-  },
-  {
-   "id": "w2-lists",
-   "file": "week2/w2-lists.html",
-   "section": "learn"
-  },
-  {
-   "id": "w2-dicts",
-   "file": "week2/w2-dicts.html",
-   "section": "learn"
-  },
-  {
-   "id": "w2-nested",
-   "file": "week2/w2-nested.html",
-   "section": "learn"
-  },
-  {
-   "id": "w2-patterns",
-   "file": "week2/w2-patterns.html",
-   "section": "learn"
-  },
-  {
-   "id": "w2-choose",
-   "file": "week2/w2-choose.html",
-   "section": "learn"
-  },
-  {
-   "id": "tb-join",
-   "file": "week2/tb-join.html",
-   "section": "tools"
-  },
-  {
-   "id": "tb-repr",
-   "file": "week2/tb-repr.html",
-   "section": "tools"
-  },
-  {
-   "id": "tb-enum",
-   "file": "week2/tb-enum.html",
-   "section": "tools"
-  },
-  {
-   "id": "tb-sorted",
-   "file": "week2/tb-sorted.html",
-   "section": "tools"
-  },
-  {
-   "id": "tb-minmax",
-   "file": "week2/tb-minmax.html",
-   "section": "tools"
-  },
-  {
-   "id": "tb-zip",
-   "file": "week2/tb-zip.html",
-   "section": "tools"
-  },
-  {
-   "id": "tb-anyall",
-   "file": "week2/tb-anyall.html",
-   "section": "tools"
-  },
-  {
-   "id": "tb-dict",
-   "file": "week2/tb-dict.html",
-   "section": "tools"
-  },
-  {
-   "id": "tb-format",
-   "file": "week2/tb-format.html",
-   "section": "tools"
-  },
-  {
-   "id": "w2-capstone",
-   "file": "week2/w2-capstone.html",
-   "section": "practice"
-  },
-  {
-   "id": "w2-lab",
-   "file": "week2/w2-lab.html",
-   "section": "practice"
-  },
-  {
-   "id": "w2-boss",
-   "file": "week2/w2-boss.html",
-   "section": "practice"
-  },
-  {
-   "id": "w2-projects",
-   "file": "week2/w2-projects.html",
-   "section": "practice"
-  },
-  {
-   "id": "w2-test",
-   "file": "week2/w2-test.html",
-   "section": "test"
-  },
-  {
-   "id": "pj-intro",
-   "file": "project/pj-intro.html"
-  },
-  {
-   "id": "pj-a",
-   "file": "project/pj-a.html",
-   "section": "build"
-  },
-  {
-   "id": "pj-b",
-   "file": "project/pj-b.html",
-   "section": "build"
-  },
-  {
-   "id": "pj-c",
-   "file": "project/pj-c.html",
-   "section": "build"
-  },
-  {
-   "id": "tb-index",
-   "file": "intro/tb-index.html",
-   "week": "tb"
-  }
- ]
+  "scripts": [
+    "js/core/utils.js",
+    "content/curriculum.js",
+    "js/core/registry.js",
+    "js/core/nav.js",
+    "js/engine/engine.js",
+    "js/engine/test-helpers.js",
+    "content/week0/exercises.js",
+    "content/week0/widgets.js",
+    "js/widgets/stepper.js",
+    "js/widgets/labs.js",
+    "content/week2/exercises.js",
+    "content/week2/widgets.js",
+    "content/anatomy.js",
+    "js/placeholders.js",
+    "js/runner/csv.js",
+    "js/widgets/anatomy.js",
+    "js/widgets/range-explorer.js",
+    "content/toolbox/exercises.js",
+    "content/toolbox/widgets.js",
+    "js/editor/loader.js",
+    "js/editor/intellisense.js",
+    "js/editor/editor.js",
+    "js/runner/runner.js",
+    "js/widgets/exercises.js",
+    "content/project/data.js",
+    "content/week1/exercises.js",
+    "content/week1/widgets.js",
+    "content/week3/exercises.js",
+    "content/week3/widgets.js",
+    "js/progress/gating.js",
+    "js/widgets/quiz.js",
+    "js/widgets/predict.js",
+    "js/progress/review.js",
+    "js/features/timer.js",
+    "js/widgets/toolbox.js",
+    "js/progress/persist.js",
+    "js/features/plan.js",
+    "js/widgets/truth-lab.js",
+    "content/hints.js",
+    "content/lectures.js",
+    "js/features/lectures.js",
+    "js/features/hints.js",
+    "js/boot.js"
+  ],
+  "styles": [
+    "css/app.css",
+    "css/codemirror.css",
+    "css/editor.css"
+  ],
+  "texts": "content/texts.html",
+  "lessons": [
+    {
+      "id": "home",
+      "file": "intro/home.html"
+    },
+    {
+      "id": "method",
+      "file": "intro/method.html"
+    },
+    {
+      "id": "plan",
+      "file": "intro/plan.html"
+    },
+    {
+      "id": "review",
+      "file": "intro/review.html"
+    },
+    {
+      "id": "w0-intro",
+      "file": "week0/w0-intro.html"
+    },
+    {
+      "id": "w0-print",
+      "file": "week0/w0-print.html",
+      "section": "learn"
+    },
+    {
+      "id": "w0-vars",
+      "file": "week0/w0-vars.html",
+      "section": "learn"
+    },
+    {
+      "id": "w0-str",
+      "file": "week0/w0-str.html",
+      "section": "learn"
+    },
+    {
+      "id": "w0-num",
+      "file": "week0/w0-num.html",
+      "section": "learn"
+    },
+    {
+      "id": "w0-func",
+      "file": "week0/w0-func.html",
+      "section": "learn"
+    },
+    {
+      "id": "w0-choose",
+      "file": "week0/w0-choose.html",
+      "section": "learn"
+    },
+    {
+      "id": "w0-lab",
+      "file": "week0/w0-lab.html",
+      "section": "practice"
+    },
+    {
+      "id": "w0-test",
+      "file": "week0/w0-test.html",
+      "section": "test"
+    },
+    {
+      "id": "w1-intro",
+      "file": "week1/w1-intro.html"
+    },
+    {
+      "id": "w1-if",
+      "file": "week1/w1-if.html",
+      "section": "learn"
+    },
+    {
+      "id": "w1-logic",
+      "file": "week1/w1-logic.html",
+      "section": "learn"
+    },
+    {
+      "id": "w1-func",
+      "file": "week1/w1-func.html",
+      "section": "learn"
+    },
+    {
+      "id": "w1-choose",
+      "file": "week1/w1-choose.html",
+      "section": "learn"
+    },
+    {
+      "id": "w1-lab",
+      "file": "week1/w1-lab.html",
+      "section": "practice"
+    },
+    {
+      "id": "w1-test",
+      "file": "week1/w1-test.html",
+      "section": "test"
+    },
+    {
+      "id": "w2-intro",
+      "file": "week2/w2-intro.html"
+    },
+    {
+      "id": "w2-while",
+      "file": "week2/w2-while.html",
+      "section": "learn"
+    },
+    {
+      "id": "w2-for",
+      "file": "week2/w2-for.html",
+      "section": "learn"
+    },
+    {
+      "id": "w2-valid",
+      "file": "week2/w2-valid.html",
+      "section": "learn"
+    },
+    {
+      "id": "w2-lists",
+      "file": "week2/w2-lists.html",
+      "section": "learn"
+    },
+    {
+      "id": "w2-dicts",
+      "file": "week2/w2-dicts.html",
+      "section": "learn"
+    },
+    {
+      "id": "w2-nested",
+      "file": "week2/w2-nested.html",
+      "section": "learn"
+    },
+    {
+      "id": "w2-patterns",
+      "file": "week2/w2-patterns.html",
+      "section": "learn"
+    },
+    {
+      "id": "w2-choose",
+      "file": "week2/w2-choose.html",
+      "section": "learn"
+    },
+    {
+      "id": "tb-join",
+      "file": "week2/tb-join.html",
+      "section": "tools"
+    },
+    {
+      "id": "tb-repr",
+      "file": "week2/tb-repr.html",
+      "section": "tools"
+    },
+    {
+      "id": "tb-enum",
+      "file": "week2/tb-enum.html",
+      "section": "tools"
+    },
+    {
+      "id": "tb-sorted",
+      "file": "week2/tb-sorted.html",
+      "section": "tools"
+    },
+    {
+      "id": "tb-minmax",
+      "file": "week2/tb-minmax.html",
+      "section": "tools"
+    },
+    {
+      "id": "tb-zip",
+      "file": "week2/tb-zip.html",
+      "section": "tools"
+    },
+    {
+      "id": "tb-anyall",
+      "file": "week2/tb-anyall.html",
+      "section": "tools"
+    },
+    {
+      "id": "tb-dict",
+      "file": "week2/tb-dict.html",
+      "section": "tools"
+    },
+    {
+      "id": "tb-format",
+      "file": "week2/tb-format.html",
+      "section": "tools"
+    },
+    {
+      "id": "w2-capstone",
+      "file": "week2/w2-capstone.html",
+      "section": "practice"
+    },
+    {
+      "id": "w2-lab",
+      "file": "week2/w2-lab.html",
+      "section": "practice"
+    },
+    {
+      "id": "w2-boss",
+      "file": "week2/w2-boss.html",
+      "section": "practice"
+    },
+    {
+      "id": "w2-projects",
+      "file": "week2/w2-projects.html",
+      "section": "practice"
+    },
+    {
+      "id": "w2-test",
+      "file": "week2/w2-test.html",
+      "section": "test"
+    },
+    {
+      "id": "w3-intro",
+      "file": "week3/w3-intro.html"
+    },
+    {
+      "id": "w3-try",
+      "file": "week3/w3-try.html",
+      "section": "learn"
+    },
+    {
+      "id": "w3-raise",
+      "file": "week3/w3-raise.html",
+      "section": "learn"
+    },
+    {
+      "id": "w3-choose",
+      "file": "week3/w3-choose.html",
+      "section": "learn"
+    },
+    {
+      "id": "w3-lab",
+      "file": "week3/w3-lab.html",
+      "section": "practice"
+    },
+    {
+      "id": "w3-test",
+      "file": "week3/w3-test.html",
+      "section": "test"
+    },
+    {
+      "id": "pj-intro",
+      "file": "project/pj-intro.html"
+    },
+    {
+      "id": "pj-a",
+      "file": "project/pj-a.html",
+      "section": "build"
+    },
+    {
+      "id": "pj-b",
+      "file": "project/pj-b.html",
+      "section": "build"
+    },
+    {
+      "id": "pj-c",
+      "file": "project/pj-c.html",
+      "section": "build"
+    },
+    {
+      "id": "tb-index",
+      "file": "intro/tb-index.html",
+      "week": "tb"
+    }
+  ]
 }
