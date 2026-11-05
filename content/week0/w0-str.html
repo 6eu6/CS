@@ -6,6 +6,7 @@
   <p class="lede">Users type messy things: extra spaces, random capitals, the wrong separator. String methods are the tools for tidying that up before you use it.</p>
 
   <h2>What a method is</h2>
+  <p class="engine">Official Python reference: <a href="https://docs.python.org/3/library/stdtypes.html#text-sequence-type-str" target="_blank" rel="noopener">Text sequence type: str</a></p>
 <pre><code class="py">name = "  sARA  "
 name.strip()</code></pre>
   <p>A <b>method</b> is a function that belongs to a value. You call it with a <b>dot</b>: <code>value.method()</code>. The dot means "use the <code>strip</code> ability that belongs to this string". Strings come with dozens of methods.</p>
@@ -18,6 +19,7 @@ print(name)           # "sara"</code></pre>
   <p>Strings are <b>immutable</b>: once made, they can't be edited, only replaced. This is the #1 string bug for beginners.</p></div>
 
   <h2>The methods you'll use most</h2>
+  <p class="engine">Official Python reference: <a href="https://docs.python.org/3/library/stdtypes.html#string-methods" target="_blank" rel="noopener">String methods</a></p>
   <div class="tbl"><table class="mtable">
     <tr><th>Method</th><th>"  hello WORLD  " becomes</th><th>Use it when</th></tr>
     <tr><td>.strip()</td><td><code>"hello WORLD"</code></td><td>Always, on user input: removes spaces/new lines at both ends</td></tr>
@@ -45,12 +47,14 @@ print(name)           # "sara"</code></pre>
   <div class="note tip"><b>Order matters</b><p><code>"  sara".capitalize().strip()</code> gives <code>"sara"</code> (capitalize hit the space). <code>"  sara".strip().capitalize()</code> gives <code>"Sara"</code>. Strip first, then change case.</p></div>
 
   <h2>split() and unpacking</h2>
+  <p class="engine">Official Python reference: <a href="https://docs.python.org/3/library/stdtypes.html#str.split" target="_blank" rel="noopener">str.split()</a></p>
 <pre><code class="py">full = "Ada Lovelace"
 first, last = full.split(" ")     # first = "Ada", last = "Lovelace"
 print(f"hello, {first}")</code></pre>
   <p><code>split(" ")</code> returns a list of pieces. Writing two names on the left with a comma <b>unpacks</b> the two pieces into two variables. If the text has three pieces, you'd get <code>ValueError: too many values to unpack</code>, so this only works when you know how many pieces there are.</p>
 
   <h2>Joining and repeating</h2>
+  <p class="engine">Official Python reference: <a href="https://docs.python.org/3/library/stdtypes.html#common-sequence-operations" target="_blank" rel="noopener">Common sequence operations</a></p>
 <pre><code class="py">"tea" + "pot"         # "teapot"     + joins strings
 "ha" * 3              # "hahaha"     * repeats
 "-" * 20              # "--------------------"  handy for dividers
